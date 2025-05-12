@@ -1,48 +1,53 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 
 export default function Hero() {
+  const spotlightRef = useRef(null);
+
   return (
-    <section className="relative min-h-[100dvh] bg-background text-foreground px-6 flex items-center justify-center overflow-hidden">
-      {/* 🔴 Background Gradient Wash */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-red-900/10 via-transparent to-background" />
-
-      {/* 🔴 Blurred Red Accent Glow */}
-      <div className="absolute -bottom-24 -left-20 w-[600px] h-[300px] bg-red-600/20 blur-3xl rounded-full -z-10" />
-
-      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
-        {/* 🧠 Left: Text */}
-        <div className="space-y-10 text-center md:text-left">
-          {/* Red line */}
+    <section
+      className="relative min-h-[100dvh] px-6 md:px-12 flex items-center justify-center overflow-hidden
+        bg-background text-foreground before:content-[''] before:absolute before:inset-0
+        before:pointer-events-none before:bg-[radial-gradient(circle_at_var(--x)_var(--y),rgba(239,68,68,0.1)_0%,transparent_80%)]"
+    >
+      <div className="max-w-5xl mx-auto w-full flex flex-col-reverse md:flex-row items-center justify-between text-center md:text-left gap-12 z-10">
+        {/* 🧠 Text LEFT */}
+        <div className="space-y-6">
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="origin-left h-[2px] w-32 bg-primary mx-auto md:mx-0"
+            transition={{ duration: 0.6 }}
+            className="origin-left h-[2px] w-20 bg-red-600 mx-auto md:mx-0"
           />
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight"
+            className="text-5xl md:text-6xl font-extrabold leading-tight"
           >
             CJ Thomas
-            <br />
-            <span className="text-muted-foreground italic text-2xl block mt-2">
-              CS × Finance × Visual Design
-            </span>
           </motion.h1>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-xl font-medium italic text-red-600"
+          >
+            CS × Finance × Visual Design
+          </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg text-muted-foreground"
+            className="text-base text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0"
           >
             Building data-backed tools and design-first experiences for the
             modern era.
@@ -52,47 +57,43 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex justify-center md:justify-start gap-4"
+            className="flex gap-4 justify-center md:justify-start pt-2"
           >
             <Link
               href="/resume"
-              className="group relative inline-flex items-center justify-center overflow-hidden px-6 py-2 rounded font-medium bg-primary text-primary-foreground hover:scale-105 transition"
+              className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition font-medium"
             >
-              <span className="relative z-10">View Resume</span>
-              <span className="absolute inset-0 bg-primary/50 opacity-0 group-hover:opacity-100 transition-all blur-md z-0" />
+              View Resume
             </Link>
-
             <Link
               href="/projects"
-              className="group relative inline-flex items-center justify-center overflow-hidden px-6 py-2 rounded font-medium border border-foreground hover:text-background text-foreground hover:scale-105 transition"
+              className="border border-white text-white px-6 py-2 rounded hover:bg-white hover:text-black transition font-medium"
             >
-              <span className="relative z-10">See Projects</span>
-              <span className="absolute inset-0 bg-foreground opacity-0 group-hover:opacity-100 transition-all blur-md z-0" />
+              See Projects
             </Link>
           </motion.div>
         </div>
 
-        {/* 🖼️ Right: Floating Image */}
+        {/* 🖼️ Image RIGHT */}
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
-          whileHover={{ scale: 1.02 }}
-          className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl border border-border bg-muted"
+          transition={{ duration: 1, delay: 0.2 }}
+          className="w-[300px] md:w-[360px] aspect-square overflow-hidden rounded-2xl border border-zinc-800 shadow-2xl"
         >
           <Image
             src="/cj.jpeg"
             alt="CJ Thomas"
-            width={700}
-            height={875}
+            width={360}
+            height={360}
             className="object-cover w-full h-full rounded-2xl"
             priority
           />
         </motion.div>
       </div>
 
-      {/* 🔽 Scroll Cue */}
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-60">
+      {/* Scroll Cue */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-40 animate-bounce">
         <ChevronDown size={28} />
       </div>
     </section>
