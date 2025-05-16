@@ -91,11 +91,6 @@ export default function Hero() {
           />
         </motion.div>
       </div>
-
-      {/* Scroll Cue */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-40 animate-bounce">
-        <ChevronDown size={28} />
-      </div>
     </section>
   );
 }
