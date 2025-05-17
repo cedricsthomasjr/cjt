@@ -1,122 +1,125 @@
 "use client";
-import { useParams } from "next/navigation";
+
+import { useParams, notFound } from "next/navigation";
 import projects from "@/data/projects";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { motion } from "framer-motion";
+import { Github, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
 export default function ProjectDetail() {
-  const { slug } = useParams(); // ⬅️ FIXED: unwrap params using the hook
+  const { slug } = useParams();
   const project = projects.find((p) => p.slug === slug);
-
   if (!project) return notFound();
 
   const paragraphs = project.content.trim().split("\n").filter(Boolean);
 
   return (
-    <div className="bg-black text-white min-h-screen">
+    <div className="bg-[#0d0d0d] text-zinc-200 min-h-screen font-sans antialiased">
       <Navbar />
-      <main className="px-6 md:px-16 py-24 max-w-4xl mx-auto space-y-20">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="space-y-6"
+      <section className="pt-10 py-40 px-6">
+        <Link
+          href="/projects"
+          className="text-sm text-white border border-white rounded-full px-4 py-2  hover:text-red-400 transition"
         >
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-br from-red-500 to-red-700 text-transparent bg-clip-text">
+          ← Back to Projects
+        </Link>
+      </section>
+
+      <main className="px-6 md:px-20 pt-32 pb-24 max-w-4xl mx-auto space-y-16">
+        {/* TITLE */}
+        <header className="space-y-4">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
             {project.title}
           </h1>
-          <p className="text-zinc-400 text-lg">{project.description}</p>
-          <div className="flex flex-wrap gap-2">
+          <p className="text-zinc-400 text-base md:text-lg leading-relaxed">
+            {project.description}
+          </p>
+
+          {/* TAGS */}
+          <div className="flex flex-wrap gap-2 pt-1">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="bg-zinc-800 px-3 py-1 text-sm rounded-full border border-zinc-700"
+                className="uppercase tracking-wider text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-full"
               >
                 {tag}
               </span>
             ))}
           </div>
-        </motion.div>
+        </header>
 
-        {/* Hero Image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="relative w-full h-72 md:h-96 rounded-2xl overflow-hidden border border-zinc-700"
-        >
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover"
-          />
-        </motion.div>
-
-        {/* Overview Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="space-y-12"
-        >
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-red-400 border-b border-zinc-700 pb-2">
-              Overview
-            </h2>
-            <div className="space-y-4 text-zinc-300 text-lg leading-relaxed">
-              {paragraphs.map((line, i) => (
-                <p key={i}>{line.trim()}</p>
-              ))}
-            </div>
+        {/* HERO IMAGE */}
+        <div className="space-y-2">
+          <div className="relative w-full h-80 md:h-[28rem] overflow-hidden rounded-xl border border-zinc-800">
+            <Image
+              src={project.image}
+              alt={`Image preview of ${project.title}`}
+              fill
+              className="object-cover"
+            />
           </div>
+          {project.caption && (
+            <figcaption className="text-sm text-zinc-500 italic pt-2">
+              {project.caption} — a visual overview of the core interface or
+              concept.
+            </figcaption>
+          )}
+        </div>
 
-          {/* Links Section */}
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-red-400 border-b border-zinc-700 pb-2">
-              Links
+        {/* OVERVIEW */}
+        <section className="space-y-6">
+          <h2 className="text-xl font-semibold text-white border-b border-zinc-800 pb-2">
+            Project Overview
+          </h2>
+
+          <div className="space-y-6">
+            {paragraphs.map((para, idx) => (
+              <p
+                key={idx}
+                className="text-base md:text-lg text-zinc-300 leading-relaxed"
+              >
+                {para}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        {/* LINKS */}
+        {(project.live || project.github) && (
+          <section className="space-y-4">
+            <h2 className="text-xl font-semibold text-white border-b border-zinc-800 pb-2">
+              Related Links
             </h2>
-            <div className="flex gap-4 flex-wrap">
+
+            <ul className="space-y-2 text-sm text-zinc-400">
               {project.live && (
-                <Link
-                  href={project.live}
-                  target="_blank"
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition"
-                >
-                  Visit Live Site
-                </Link>
+                <li className="flex items-center gap-2">
+                  <ExternalLink size={16} className="text-red-500" />
+                  <Link
+                    href={project.live}
+                    target="_blank"
+                    className="hover:text-white underline underline-offset-4"
+                  >
+                    Live Site
+                  </Link>
+                </li>
               )}
               {project.github && (
-                <Link
-                  href={project.github}
-                  target="_blank"
-                  className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition border border-zinc-600"
-                >
-                  View GitHub Repo
-                </Link>
+                <li className="flex items-center gap-2">
+                  <Github size={16} className="text-red-500" />
+                  <Link
+                    href={project.github}
+                    target="_blank"
+                    className="hover:text-white underline underline-offset-4"
+                  >
+                    GitHub Repository
+                  </Link>
+                </li>
               )}
-            </div>
-          </div>
-        </motion.section>
-
-        {/* Back Nav */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="pt-10"
-        >
-          <Link
-            href="/projects"
-            className="text-sm text-zinc-500 hover:text-white transition"
-          >
-            ← Back to Projects
-          </Link>
-        </motion.div>
+            </ul>
+          </section>
+        )}
       </main>
     </div>
   );

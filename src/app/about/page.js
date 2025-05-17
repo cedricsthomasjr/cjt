@@ -10,7 +10,11 @@ export default function AboutPage() {
   const controls = useAnimation();
 
   useEffect(() => {
+    let isMounted = false;
+
     const handleScroll = () => {
+      if (!isMounted) return;
+
       if (window.scrollY >= 100) {
         controls.start({
           opacity: 0,
@@ -25,8 +29,14 @@ export default function AboutPage() {
         });
       }
     };
+
+    isMounted = true;
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [controls]);
 
   return (
