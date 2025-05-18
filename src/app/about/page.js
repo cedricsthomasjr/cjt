@@ -74,7 +74,7 @@ export default function AboutPage() {
             </p>
             <div className="pt-2 flex flex-wrap gap-2">
               <Link
-                href="/CJ_Thomas_Resume.pdf"
+                href="/resume"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-4 py-1.5 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition duration-200"
