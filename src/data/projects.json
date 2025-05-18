@@ -1,30 +1,5 @@
 [
   {
-    "title": "Athlytics",
-    "slug": "athlytics",
-    "status": "paused",
-
-    "image": "/projects/athlytic.png",
-    "description": "AI-powered sports stat breakdowns.",
-    "tags": ["React", "Flask", "API", "AI", "Full Stack"],
-    "content": "Athlytics combines real-time NBA data, advanced metrics, and AI summaries into a seamless full-stack experience for hoop heads and stat nerds alike.Built for the ones who read the box score twice — Athlytics is a modern NBA analytics tool blending stats, visuals, and AI breakdowns for the next-gen fan.",
-    "features": [
-      "Player search with real-time stat cards",
-      "Flask backend scraping NBA_API and Basketball Reference",
-      "React frontend with Tailwind UI and Framer Motion",
-      "Advanced metrics: USG%, EFG%, NET_RATING, and more",
-      "AI blurbs generated from raw stats and award history"
-    ],
-    "lessons": [
-      "Flask REST APIs + React integration",
-      "Building persistent caches to reduce fetch time",
-      "Using Selenium for award scraping"
-    ],
-    "github": "https://github.com/cedricsthomasjr/athlytics",
-    "live": "",
-    "caption": "Athlytic homepage — data meets design"
-  },
-  {
     "title": "What CJ Sees",
     "slug": "whatcjsees",
     "status": "live",
@@ -55,6 +30,47 @@
     "caption": "Gallery showcase with motion and metadata"
   },
   {
+    "title": "Athlytics",
+    "slug": "athlytics",
+    "status": "paused",
+
+    "image": "/projects/athlytic.png",
+    "description": "AI-powered sports stat breakdowns.",
+    "tags": ["React", "Flask", "API", "AI", "Full Stack"],
+    "content": "Athlytics combines real-time NBA data, advanced metrics, and AI summaries into a seamless full-stack experience for hoop heads and stat nerds alike.Built for the ones who read the box score twice — Athlytics is a modern NBA analytics tool blending stats, visuals, and AI breakdowns for the next-gen fan.",
+    "features": [
+      "Player search with real-time stat cards",
+      "Flask backend scraping NBA_API and Basketball Reference",
+      "React frontend with Tailwind UI and Framer Motion",
+      "Advanced metrics: USG%, EFG%, NET_RATING, and more",
+      "AI blurbs generated from raw stats and award history"
+    ],
+    "lessons": [
+      "Flask REST APIs + React integration",
+      "Building persistent caches to reduce fetch time",
+      "Using Selenium for award scraping"
+    ],
+    "github": "https://github.com/cedricsthomasjr/athlytics",
+    "live": "",
+    "caption": "Athlytic homepage — data meets design"
+  },
+  {
+    "title": "BullBrief",
+    "slug": "bullbrief",
+    "status": "in progress",
+
+    "image": "/projects/bullbrief.png",
+    "description": "Investment analytics for the modern day investor.",
+    "tags": ["Next.js", "AI", "Finance"],
+    "content": "BullBrief helps beginner and advanced investors summarize their holdings, and other stocks with AI-powered insights.",
+    "features": [""],
+    "lessons": [""],
+    "github": "",
+    "live": "",
+    "caption": "Soon to launch — invest smarter"
+  },
+
+  {
     "title": "DegreeMind",
     "slug": "degreemind",
     "status": "scaffolding",
@@ -63,17 +79,8 @@
     "description": "Smarter college planning with AI.",
     "tags": ["Next.js", "AI", "Education"],
     "content": "DegreeMind helps students map out their degrees, majors, minors, and postgrad career goals with AI-guided scheduling.",
-    "features": [
-      "AI-powered major/minor selector",
-      "Smart semester builder using catalog data",
-      "Path optimization toward internships and MBA tracks",
-      "Integration with school databases (e.g., GT, OSU, LSU)"
-    ],
-    "lessons": [
-      "Open-source backend for academic program data",
-      "JSON schema to store career-aligned tracks",
-      "Drag-and-drop frontend to customize timelines"
-    ],
+    "features": [""],
+    "lessons": [""],
     "github": "",
     "live": "",
     "caption": "Soon to launch — smarter planning for students"
