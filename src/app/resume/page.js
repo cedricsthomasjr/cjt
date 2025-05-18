@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import { Card } from "@/components/ui/card";
 import { Github, Linkedin, Mail } from "lucide-react";
+import Link from "next/link";
 
 const sections = [
   {
@@ -164,16 +165,16 @@ export default function ResumePage() {
             performance and built with intention.
           </p>
           <div className="pt-4">
-            <a
+            <Link
               href="/CJ_Thomas_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block border border-red-500 px-6 py-2 rounded-lg hover:bg-red-500 hover:text-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
             >
               Download PDF
-            </a>
+            </Link>
             <div className="pt-4 flex justify-center gap-6 text-sm text-zinc-400">
-              <a
+              <Link
                 href="https://github.com/cedricsthomasjr/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -181,8 +182,8 @@ export default function ResumePage() {
               >
                 <Github className="w-4 h-4" />
                 GitHub
-              </a>
-              <a
+              </Link>
+              <Link
                 href="https://www.linkedin.com/in/cedric-thomas-jr/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -190,14 +191,14 @@ export default function ResumePage() {
               >
                 <Linkedin className="w-4 h-4" />
                 LinkedIn
-              </a>
-              <a
+              </Link>
+              <Link
                 href="mailto:cedricsthomasjr@gmail.edu"
                 className="flex items-center gap-2 hover:text-white transition"
               >
                 <Mail className="w-4 h-4" />
                 Email
-              </a>
+              </Link>
             </div>
           </div>
         </motion.div>
@@ -293,13 +294,13 @@ export default function ResumePage() {
                         </ul>
                         {item.slug && (
                           <div className="mt-6 pl-6">
-                            <a
+                            <Link
                               href={`/projects/${item.slug}`}
                               className="inline-block text-sm font-medium text-red-400 border border-red-500 px-4 py-2 rounded hover:bg-red-500 hover:text-white transition-all"
                               onClick={(e) => e.stopPropagation()}
                             >
                               View Case Study →
-                            </a>
+                            </Link>
                           </div>
                         )}
                       </>

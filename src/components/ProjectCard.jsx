@@ -35,24 +35,24 @@ export default function ProjectCard({ project }) {
           {/* External Links */}
           <div className="flex items-center justify-start gap-3 pt-3">
             {project.github && (
-              <a
+              <Link
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-zinc-400 hover:text-white transition"
               >
                 <Github size={18} />
-              </a>
+              </Link>
             )}
             {project.live && (
-              <a
+              <Link
                 href={project.live}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-zinc-400 hover:text-white transition"
               >
                 <ExternalLink size={18} />
-              </a>
+              </Link>
             )}
           </div>
 

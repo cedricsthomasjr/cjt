@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -116,18 +117,18 @@ export default function ContactPage() {
           <p>Or reach out directly:</p>
           <p>
             📧{" "}
-            <a href="mailto:cedricsthomasjr@gmail.com" className="underline">
+            <Link href="mailto:cedricsthomasjr@gmail.com" className="underline">
               cedricsthomasjr@gmail.com
-            </a>
+            </Link>
             <br />
             🔗{" "}
-            <a
+            <Link
               href="https://linkedin.com/in/cedricsthomasjr"
               className="underline"
               target="_blank"
             >
               LinkedIn
-            </a>
+            </Link>
           </p>
         </div>
 

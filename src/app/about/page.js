@@ -5,6 +5,7 @@ import { motion, useAnimation } from "framer-motion";
 import GitHubCalendar from "react-github-calendar";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
+import Link from "next/link";
 
 export default function AboutPage() {
   const controls = useAnimation();
@@ -72,20 +73,20 @@ export default function AboutPage() {
               where logic and creativity aren’t opposites — they’re teammates.
             </p>
             <div className="pt-2 flex flex-wrap gap-2">
-              <a
+              <Link
                 href="/CJ_Thomas_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-4 py-1.5 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition duration-200"
               >
                 View Résumé
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/projects"
                 className="inline-block px-4 py-1.5 rounded-full border border-white text-white font-semibold hover:bg-white hover:text-black transition duration-200"
               >
                 See My Work
-              </a>
+              </Link>
             </div>
           </div>
 
