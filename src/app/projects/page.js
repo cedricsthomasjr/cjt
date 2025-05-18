@@ -3,7 +3,7 @@
 
 import Navbar from "@/components/Navbar";
 import ProjectCard from "@/components/ProjectCard";
-import projects from "@/data/projects";
+import projects from "src/data/projects.json";
 import { motion } from "framer-motion";
 
 export default function ProjectsPage() {

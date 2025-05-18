@@ -1,7 +1,7 @@
 const projects = [
   {
-    title: "Athlytic",
-    slug: "athlytic",
+    title: "Athlytics",
+    slug: "athlytics",
     image: "/projects/athlytic.png",
     description: "AI-powered sports stat breakdowns.",
     tags: ["React", "Flask", "NBA API", "AI"],
@@ -20,8 +20,9 @@ Athlytic is a full-stack NBA analytics dashboard designed for data lovers, fanta
 - Building persistent caches to reduce fetch time
 - Using Selenium for award scraping
     `,
-    github: "https://github.com/yourrepo",
-    live: "https://athlytic.vercel.app",
+    github: "https://github.com/cedricsthomasjr/athlytics",
+    live: "",
+    status: "paused",
   },
   {
     title: "What CJ Sees",
@@ -44,8 +45,9 @@ A highly-visual, minimalist portfolio that tells a story through design, light, 
 - Building custom filters and tooltips
 - Prioritizing design principles: whitespace, contrast, and motion
     `,
-    github: "https://github.com/yourrepo",
+    github: "https://github.com/cedricsthomasjr/whatcjsees",
     live: "https://whatcjsees.vercel.app",
+    status: "live",
   },
   {
     title: "DegreeMind",
@@ -69,6 +71,7 @@ DegreeMind helps students map out their degrees, majors, minors, and postgrad ca
     `,
     github: "",
     live: "",
+    status: "scaffolding",
   },
 ];
 

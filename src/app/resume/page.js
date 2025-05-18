@@ -103,7 +103,7 @@ const sections = [
       {
         title: "Languages & Frameworks",
         bullets: [
-          "Java, Python, SQL, C, JavaScript, Data Visualization, Data Analysis, React, Flask, Tailwind",
+          "Java, Python, SQL, C, JavaScript, Data Visualization, Data Analysis, React, Flask, Tailwind, Selenium",
         ],
       },
       {
@@ -118,7 +118,7 @@ const sections = [
       {
         title: "The Vanguard Initiative (Co-Founder)",
         bullets: [
-          "Built and led mentorship programs at both Pace Academy and LSU.",
+          "Built and led mentorship programs at Pace Academy in Atlanta, GA.",
           "Hosted alumni panels and academic guidance sessions for Black student success.",
         ],
       },
@@ -220,6 +220,31 @@ export default function ResumePage() {
               return (
                 <motion.div
                   key={key}
+                  custom={itemIdx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  animate="visible"
+                  variants={{
+                    /*************  ✨ Windsurf Command ⭐  *************/
+                    /**
+                     * Animates the item to be visible. The animation is staggered across
+                     * items in the section, with each item delayed by 0.08 seconds (adjust
+                     * this value to control the speed of the stagger). The animation takes
+                     * 0.25 seconds to complete, and eases out (starts fast, ends slow).
+                     * @param {number} i - The index of the item in the section.
+                     */
+                    /*******  c0687527-cfe2-4b9d-8eb7-6ef13694e5e3  *******/
+                    visible: (i) => ({
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        delay: i * 0.08, // 🔥 Tighter stagger — adjust 0.08 to control speed
+                        duration: 0.25,
+                        ease: "easeOut",
+                      },
+                    }),
+                  }}
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 200 }}
                 >

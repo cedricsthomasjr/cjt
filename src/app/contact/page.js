@@ -21,10 +21,34 @@ export default function ContactPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const [status, setStatus] = useState("idle");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Connect to Resend, Formspree, etc.
-    console.log("Form submitted:", formData);
+    setStatus("sending");
+
+    try {
+      const res = await fetch("https://formspree.io/f/mldbzvpp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.ok || res.status === 200) {
+        setFormData({ name: "", email: "", message: "" });
+        setStatus("sent");
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+    }
   };
 
   return (
@@ -76,6 +100,16 @@ export default function ContactPage() {
           <Button type="submit" className="w-full hover:bg-red-600 transition">
             Send Message
           </Button>
+          {status === "sent" && (
+            <p className="text-green-500 text-sm text-center">
+              Thanks! I'll be in touch.
+            </p>
+          )}
+          {status === "error" && (
+            <p className="text-red-500 text-sm text-center">
+              Something went wrong. Try again later.
+            </p>
+          )}
         </form>
 
         <div className="text-center text-sm text-gray-500 space-y-2">

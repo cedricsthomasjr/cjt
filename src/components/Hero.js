@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
 
 export default function Hero() {
   const spotlightRef = useRef(null);
@@ -16,7 +15,7 @@ export default function Hero() {
         before:pointer-events-none before:bg-[radial-gradient(circle_at_var(--x)_var(--y),rgba(239,68,68,0.1)_0%,transparent_80%)]"
     >
       <div className="max-w-5xl mx-auto w-full flex flex-col-reverse md:flex-row items-center justify-between text-center md:text-left gap-12 z-10">
-        {/* 🧠 Text LEFT */}
+        {/* Text LEFT */}
         <div className="space-y-6">
           <motion.div
             initial={{ scaleX: 0 }}
@@ -40,7 +39,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-xl font-medium italic text-red-600"
           >
-            CS × Finance × Visual Design
+            Engineering the edge of software and strategy.
           </motion.h2>
 
           <motion.p
@@ -49,15 +48,15 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-base text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0"
           >
-            Building data-backed tools and design-first experiences for the
-            modern era.
+            I craft data-powered systems and intuitive digital tools—built for
+            impact, designed to endure.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex gap-4 justify-center md:justify-start pt-2"
+            className="flex flex-wrap gap-4 justify-center md:justify-start pt-2"
           >
             <Link
               href="/resume"
@@ -69,12 +68,18 @@ export default function Hero() {
               href="/projects"
               className="border border-white text-white px-6 py-2 rounded hover:bg-white hover:text-black transition font-medium"
             >
-              See Projects
+              Explore Projects
+            </Link>
+            <Link
+              href="/about"
+              className="border border-white text-white px-6 py-2 rounded hover:bg-white hover:text-black transition font-medium"
+            >
+              Meet CJ
             </Link>
           </motion.div>
         </div>
 
-        {/* 🖼️ Image RIGHT */}
+        {/* Image RIGHT */}
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}

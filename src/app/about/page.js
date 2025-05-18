@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
-
+import GitHubCalendar from "react-github-calendar";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 
@@ -10,10 +10,10 @@ export default function AboutPage() {
   const controls = useAnimation();
 
   useEffect(() => {
-    let isMounted = false;
+    const mountedRef = { current: true };
 
     const handleScroll = () => {
-      if (!isMounted) return;
+      if (!mountedRef.current) return;
 
       if (window.scrollY >= 100) {
         controls.start({
@@ -30,11 +30,11 @@ export default function AboutPage() {
       }
     };
 
-    isMounted = true;
+    // Set up
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      isMounted = false;
+      mountedRef.current = false;
       window.removeEventListener("scroll", handleScroll);
     };
   }, [controls]);
@@ -194,6 +194,28 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
+        {/* GitHub Contribution Calendar */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 shadow-md"
+        >
+          <h2 className="text-2xl font-bold text-white mb-4">
+            GitHub Activity
+          </h2>
+          <div className="overflow-x-auto">
+            <GitHubCalendar
+              username="cedricsthomasjr"
+              blockSize={14}
+              blockMargin={4}
+              colorScheme="dark"
+              theme={{
+                light: ["#161b22", "#0d1117", "#1f6feb", "#238636", "#2ea043"],
+              }}
+            />
+          </div>
+        </motion.div>
 
         {/* Spotify & Quote Card */}
         <div className="grid md:grid-cols-2 gap-8">
@@ -209,29 +231,18 @@ export default function AboutPage() {
               className="rounded-md"
             ></iframe>
           </div>
-
-          <motion.blockquote
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 text-neutral-400 italic shadow-md border-l-4 border-red-600"
-          >
-            “I’m not chasing titles — I’m chasing clarity. My goal is to build
-            clean, intentional systems that feel inevitable.”
-          </motion.blockquote>
+          <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 shadow-md text-sm text-zinc-400">
+            <h2 className="text-2xl font-bold mb-2 text-white">
+              💭 Why I Build
+            </h2>
+            <p>
+              I build tools I wish I had. Whether it’s making class planning
+              smarter or turning stat noise into signal, my goal is simple:
+              clarity. Not just for me — but for the next version of me that
+              hasn't figured it out yet.
+            </p>
+          </div>
         </div>
-
-        {/* Final CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 text-center max-w-3xl mx-auto text-zinc-400 text-base shadow-md"
-        >
-          I build things I want to use. I design from instinct and iterate with
-          intent. Whether I’m snapping a shot or writing a script, it’s always
-          about one thing: <strong className="text-white">how it feels</strong>.
-        </motion.div>
       </section>
     </main>
   );

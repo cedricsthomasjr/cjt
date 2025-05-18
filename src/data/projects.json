@@ -1,11 +1,13 @@
 [
   {
-    "title": "Athlytic",
-    "slug": "athlytic",
+    "title": "Athlytics",
+    "slug": "athlytics",
+    "status": "paused",
+
     "image": "/projects/athlytic.png",
     "description": "AI-powered sports stat breakdowns.",
-    "tags": ["React", "Flask", "NBA API", "AI"],
-    "content": "Athlytic is a full-stack NBA analytics dashboard designed for data lovers, fantasy players, and hoop heads.",
+    "tags": ["React", "Flask", "API", "AI", "Full Stack"],
+    "content": "Athlytics combines real-time NBA data, advanced metrics, and AI summaries into a seamless full-stack experience for hoop heads and stat nerds alike.Built for the ones who read the box score twice — Athlytics is a modern NBA analytics tool blending stats, visuals, and AI breakdowns for the next-gen fan.",
     "features": [
       "Player search with real-time stat cards",
       "Flask backend scraping NBA_API and Basketball Reference",
@@ -18,16 +20,24 @@
       "Building persistent caches to reduce fetch time",
       "Using Selenium for award scraping"
     ],
-    "github": "https://github.com/yourrepo",
-    "live": "https://athlytic.vercel.app",
+    "github": "https://github.com/cedricsthomasjr/athlytics",
+    "live": "",
     "caption": "Athlytic homepage — data meets design"
   },
   {
     "title": "What CJ Sees",
     "slug": "whatcjsees",
+    "status": "live",
+
     "image": "/projects/whatcjsees.png",
     "description": "Minimalist photography portfolio.",
-    "tags": ["Next.js", "Framer Motion", "Tailwind"],
+    "tags": [
+      "Next.js",
+      "Vercel",
+      "Tailwind",
+      "Framer Motion",
+      "Image Optimization"
+    ],
     "content": "A highly-visual, minimalist portfolio that tells a story through design, light, and perspective.",
     "features": [
       "Hero animation section with Framer Motion",
@@ -40,13 +50,15 @@
       "Building custom filters and tooltips",
       "Prioritizing design principles: whitespace, contrast, and motion"
     ],
-    "github": "https://github.com/yourrepo",
+    "github": "https://github.com/cedricsthomasjr/whatcjsees",
     "live": "https://whatcjsees.vercel.app",
     "caption": "Gallery showcase with motion and metadata"
   },
   {
     "title": "DegreeMind",
     "slug": "degreemind",
+    "status": "scaffolding",
+
     "image": "/projects/placeholder.png",
     "description": "Smarter college planning with AI.",
     "tags": ["Next.js", "AI", "Education"],
