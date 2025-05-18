@@ -108,12 +108,26 @@ export default function AboutPage() {
 
         {/* Scroll Cue */}
         <motion.div
-          animate={controls}
+          animate={{
+            ...controls, // 🧠 scroll fade logic
+            y: [0, 8, 0], // 👟 bounce down → up → down
+          }}
+          transition={{
+            y: {
+              duration: 1.2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            },
+            opacity: {
+              duration: 0.6,
+              ease: "easeOut",
+            },
+          }}
           initial={{ opacity: 1, y: 0 }}
           className="flex justify-center -mt-6"
         >
           <div className="text-zinc-500 text-sm flex flex-col items-center">
-            <span>Scroll down</span>
+            <span></span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
