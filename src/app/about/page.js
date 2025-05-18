@@ -57,9 +57,9 @@ export default function AboutPage() {
               <br /> CJ THOMAS?
             </h1>
             <p className="text-zinc-400 text-sm md:text-base">
-              I'm CJ — a software engineer in training with a designer’s eye and
-              a strategist’s mindset. I move between pixels and Python, always
-              hunting for clarity in complexity.
+              I&rsquo;m CJ — a software engineer in training with a
+              designer&rsquo;s eye and a strategist’s mindset. I move between
+              pixels and Python, always hunting for clarity in complexity.
             </p>
             <p className="text-zinc-400 text-sm md:text-base">
               My background blends code, finance, and storytelling — from
@@ -185,7 +185,8 @@ export default function AboutPage() {
                   <li key="1">Cleveland sports loyalty = pain + pride</li>,
                   <li key="2">A hobby of mine is photography</li>,
                   <li key="3">
-                    I'm currently playing Elden Ring and College Football 25
+                    I&rsquo;m currently playing Elden Ring and College Football
+                    25
                   </li>,
                   <li key="4">Moved 12+ times</li>,
                   <li key="5">Avid NBA fan</li>,
@@ -239,7 +240,7 @@ export default function AboutPage() {
               I build tools I wish I had. Whether it’s making class planning
               smarter or turning stat noise into signal, my goal is simple:
               clarity. Not just for me — but for the next version of me that
-              hasn't figured it out yet.
+              hasn&rsquo;t figured it out yet.
             </p>
           </div>
         </div>

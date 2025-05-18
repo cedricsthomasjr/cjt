@@ -60,10 +60,10 @@ export default function ContactPage() {
         className="max-w-3xl mx-auto space-y-12"
       >
         <div className="text-center space-y-4">
-          <h1 className="text-5xl font-extrabold">Let's Connect.</h1>
+          <h1 className="text-5xl font-extrabold">Let&rsquo;s Connect.</h1>
           <p className="text-gray-400">
-            Whether it’s an opportunity, idea, or just a hello — I’d love to
-            hear from you.
+            Whether it&rsquo;s an opportunity, idea, or just a hello — I&rsquo;d
+            love to hear from you.
           </p>
         </div>
 
@@ -102,7 +102,7 @@ export default function ContactPage() {
           </Button>
           {status === "sent" && (
             <p className="text-green-500 text-sm text-center">
-              Thanks! I'll be in touch.
+              Thanks! I&rsquo;ll be in touch.
             </p>
           )}
           {status === "error" && (
