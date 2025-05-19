@@ -44,6 +44,15 @@ const sections = [
         ],
       },
       {
+        title: "BullBrief",
+        status: "in progress",
+        slug: "bullbrief",
+        bullets: [
+          "AI-powered stock explorer for the smart investory.",
+          "Early features include AI company summary and portfolio analysis, and real-time market insights.",
+        ],
+      },
+      {
         title: "Athlytic",
         status: "paused",
         slug: "athlytic",
@@ -263,9 +272,11 @@ export default function ResumePage() {
                           <span
                             className={`text-xs font-medium uppercase tracking-wide px-2 py-1 rounded w-fit
                             ${
-                              item.status === "paused"
+                              item.status === "paused" ||
+                              item.status === "in progress"
                                 ? "bg-yellow-500/10 text-yellow-400 border border-yellow-500/30"
-                                : item.status === "paused || archived"
+                                : item.status === "paused" ||
+                                  item.status === "in progress"
                                 ? "bg-zinc-800 text-zinc-500 border border-zinc-700"
                                 : item.status === "live"
                                 ? "bg-green-500/10 text-green-400 border border-green-500/30"

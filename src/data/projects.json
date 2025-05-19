@@ -76,7 +76,7 @@
     "status": "scaffolding",
 
     "image": "/projects/placeholder.png",
-    "description": "Smarter college planning with AI.",
+  
     "tags": ["Next.js", "AI", "Education"],
     "content": "DegreeMind helps students map out their degrees, majors, minors, and postgrad career goals with AI-guided scheduling.",
     "features": [""],
