@@ -79,9 +79,12 @@ const sections = [
     title: "Education",
     items: [
       {
-        title: "Transfer Pending",
+        title: "New York University",
         time: "Class of 2027",
-        bullets: [],
+        bullets: [
+          "B.S. in Computer Science, Minor in Finance.",
+          "First semester in progress",
+        ],
       },
       {
         title: "Louisiana State University",
