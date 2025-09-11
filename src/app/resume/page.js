@@ -12,12 +12,21 @@ const sections = [
     title: "Work Experience",
     items: [
       {
+        title: "Research and Analytics Intern – Corbin Advisors",
+        time: "June 2025 – August 2025",
+        bullets: [
+          "Led an intern project to improve perception study transcription process, resulting in a 450 hour per year reduction in turnaround time and a projected $100k per year saved.",
+          "Conducted competitive intelligence and market research to support client deliverables, strengthening investor relations strategy recommendations.",
+          "Developed automated SQL workflows in Snowflake to streamline perception study data formatting and reporting, saving significant manual processing hours.",
+        ],
+      },
+      {
         title: "Data Science Intern – Corbin Advisors",
         time: "July 2024 – August 2024",
         bullets: [
-          "Built a real-time Yahoo Finance scraper using JavaScript.",
-          "Streamlined financial analysis using modern visualization tools.",
-          "Automated HR email pipelines with Microsoft Power FX.",
+          "Built a real-time stock scraper with JavaScript and Yahoo Finance within Google App Scripts, cutting research time across 200+ tickers.",
+          "Transformed 10K+ financial data rows in Excel/BI dashboards, improving report accuracy by 25% and enabling faster investor insights.",
+          "Automated repetitive HR emails with Microsoft Power Fx, reducing streamlining communication for 25+ employees.",
         ],
       },
       {
@@ -178,7 +187,7 @@ export default function ResumePage() {
           </p>
           <div className="pt-4">
             <Link
-              href="/CJ_Thomas_Resume.pdf"
+              href="/CJRESUMENYU2025.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block border border-red-500 px-6 py-2 rounded-lg hover:bg-red-500 hover:text-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"

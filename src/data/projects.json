@@ -57,9 +57,9 @@
   {
     "title": "BullBrief",
     "slug": "bullbrief",
-    "status": "in progress",
+    "status": "live",
 
-    "image": "/projects/bullbrief.png",
+    "image": "/projects/bull.png",
     "description": "Investment analytics for the modern day investor.",
     "tags": ["Next.js", "AI", "Finance"],
     "content": "BullBrief helps beginner and advanced investors summarize their holdings, and other stocks with AI-powered insights.",
@@ -71,18 +71,18 @@
   },
 
   {
-    "title": "DegreeMind",
+    "title": "CampusPass",
     "slug": "degreemind",
     "status": "scaffolding",
 
-    "image": "/projects/placeholder.png",
-  
-    "tags": ["Next.js", "AI", "Education"],
-    "content": "DegreeMind helps students map out their degrees, majors, minors, and postgrad career goals with AI-guided scheduling.",
+    "image": "",
+
+    "tags": ["Next.js", "Transactions", "E-commerce"],
+    "content": "CampusPass simplifies third party ticket transactions from student to student in college campuses. Verify with a .edu email and buy, sell, and trade your tickets to other students.",
     "features": [""],
     "lessons": [""],
     "github": "",
     "live": "",
-    "caption": "Soon to launch — smarter planning for students"
+    "caption": "Soon to launch — smarter ticketing for students"
   }
 ]
