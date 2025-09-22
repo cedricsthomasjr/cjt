@@ -29,31 +29,7 @@
     "live": "https://whatcjsees.vercel.app",
     "caption": "Gallery showcase with motion and metadata"
   },
-  {
-    "title": "Athlytics",
-    "slug": "athlytics",
-    "status": "paused",
 
-    "image": "/projects/athlytic.png",
-    "description": "AI-powered sports stat breakdowns.",
-    "tags": ["React", "Flask", "API", "AI", "Full Stack"],
-    "content": "Athlytics combines real-time NBA data, advanced metrics, and AI summaries into a seamless full-stack experience for hoop heads and stat nerds alike.Built for the ones who read the box score twice — Athlytics is a modern NBA analytics tool blending stats, visuals, and AI breakdowns for the next-gen fan.",
-    "features": [
-      "Player search with real-time stat cards",
-      "Flask backend scraping NBA_API and Basketball Reference",
-      "React frontend with Tailwind UI and Framer Motion",
-      "Advanced metrics: USG%, EFG%, NET_RATING, and more",
-      "AI blurbs generated from raw stats and award history"
-    ],
-    "lessons": [
-      "Flask REST APIs + React integration",
-      "Building persistent caches to reduce fetch time",
-      "Using Selenium for award scraping"
-    ],
-    "github": "https://github.com/cedricsthomasjr/athlytics",
-    "live": "",
-    "caption": "Athlytic homepage — data meets design"
-  },
   {
     "title": "BullBrief",
     "slug": "bullbrief",
@@ -63,10 +39,15 @@
     "description": "Investment analytics for the modern day investor.",
     "tags": ["Next.js", "AI", "Finance"],
     "content": "BullBrief helps beginner and advanced investors summarize their holdings, and other stocks with AI-powered insights.",
-    "features": [""],
+    "features": [
+      "AI company summary",
+      "Portfolio analysis",
+      "Deep compare between stocks",
+      "Live graphs"
+    ],
     "lessons": [""],
     "github": "",
-    "live": "",
+    "live": "https://bullbrief.pro",
     "caption": "Soon to launch — invest smarter"
   },
 
@@ -79,7 +60,11 @@
 
     "tags": ["Next.js", "Transactions", "E-commerce"],
     "content": "CampusPass simplifies third party ticket transactions from student to student in college campuses. Verify with a .edu email and buy, sell, and trade your tickets to other students.",
-    "features": [""],
+    "features": [
+      "Buy, sell, and trade tickets",
+      "Verify with .edu email",
+      "Transactions between students"
+    ],
     "lessons": [""],
     "github": "",
     "live": "",

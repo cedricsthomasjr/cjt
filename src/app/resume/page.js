@@ -62,17 +62,6 @@ const sections = [
         ],
       },
       {
-        title: "Athlytic",
-        status: "paused",
-        slug: "athlytic",
-        bullets: [
-          "Stat-driven web app that breaks down athlete performance using dynamic APIs and AI-generated insights.",
-          "Integrated NBA data via `nba_api`; features smart search, player timelines, and usage breakdowns.",
-          "Building toward AI blurbs, shot charts, and real-time leaderboard comparisons.",
-        ],
-      },
-
-      {
         title: "DegreeMind",
         status: "scaffolding",
         slug: "degreemind",
