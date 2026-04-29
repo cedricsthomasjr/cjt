@@ -4,10 +4,7 @@ import { useParams, notFound } from "next/navigation";
 import projects from "src/data/projects.json";
 import Image from "next/image";
 import Link from "next/link";
-import { Github, ExternalLink, Brain, Stars } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function ProjectDetail() {
@@ -16,142 +13,115 @@ export default function ProjectDetail() {
   if (!project) return notFound();
 
   return (
-    <div className="bg-black text-white min-h-screen font-sans antialiased">
-      <Navbar />
-
-      <main className="pt-24 px-6 md:px-20 max-w-5xl mx-auto space-y-16">
-        {/* Back Link */}
-        <div>
+    <main className="min-h-screen bg-[#080806] pt-16 text-[#f4f1ea]">
+      <section className="site-shell grid gap-8 py-12 md:py-16 lg:grid-cols-[0.95fr_1.05fr]">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65 }}
+          className="self-end"
+        >
           <Link
             href="/projects"
-            className="text-sm border border-white rounded-full px-4 py-2 hover:text-red-400 transition"
+            className="mb-7 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#d7d1c3] hover:text-white"
           >
-            ← Back to Projects
+            <ArrowLeft size={16} /> Projects
           </Link>
-        </div>
-
-        {/* Hero */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <h1 className="text-5xl font-extrabold tracking-tight leading-tight">
+          <p className="eyebrow">{project.status}</p>
+          <h1 className="mt-4 text-[clamp(3rem,8vw,6.8rem)] font-black uppercase leading-[0.86]">
             {project.title}
           </h1>
-          <p className="text-zinc-400 text-lg leading-relaxed">
+          <p className="mt-5 max-w-2xl text-base leading-7 text-[#d7d1c3] md:text-lg">
             {project.description}
           </p>
-
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <Badge
-                key={tag}
-                className="bg-zinc-900 border border-zinc-800 text-xs uppercase tracking-wider text-zinc-400"
+          <div className="mt-6 flex flex-wrap gap-3">
+            {project.live && (
+              <Link
+                href={project.live}
+                target="_blank"
+                className="solid-button"
               >
-                {tag}
-              </Badge>
-            ))}
+                Live <ExternalLink size={16} />
+              </Link>
+            )}
+            {project.github && (
+              <Link
+                href={project.github}
+                target="_blank"
+                className="outline-button"
+              >
+                GitHub <Github size={16} />
+              </Link>
+            )}
           </div>
-        </motion.section>
+        </motion.div>
 
-        {/* Preview Image */}
-        <section className="space-y-4">
-          <div className="relative w-full h-80 md:h-[30rem] overflow-hidden rounded-2xl border border-zinc-800">
-            <Image
-              src={project.image}
-              alt={`Preview of ${project.title}`}
-              fill
-              className="object-cover"
-            />
-          </div>
+        <div className="relative aspect-[16/11] overflow-hidden border border-white/10 bg-[#11100d]">
+          <Image
+            src={project.image}
+            alt={`Preview of ${project.title}`}
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover"
+          />
+        </div>
+      </section>
 
-          {/* Caption */}
-          {project.caption && (
-            <div className="text-sm text-zinc-500 space-y-1">
-              <p className="italic">{project.caption}</p>
-              <p className="text-xs">
-                A visual overview of the core interface or concept.
-              </p>
-            </div>
-          )}
+      <section className="border-y border-white/10 bg-[#f4f1ea] py-3 text-[#080806]">
+        <div className="site-shell flex flex-wrap justify-center gap-x-8 gap-y-2 text-center text-[11px] font-black uppercase tracking-[0.22em]">
+          {project.tags.map((tag) => (
+            <span key={tag}>{tag}</span>
+          ))}
+        </div>
+      </section>
 
-          {/* Links */}
-          {(project.github || project.live) && (
-            <div className="flex justify-center gap-4 pt-3">
-              {project.github && (
-                <Link
-                  href={project.github}
-                  target="_blank"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-700 hover:border-red-500 rounded-lg text-sm text-zinc-300 transition"
-                >
-                  <Github size={16} /> GitHub
-                </Link>
-              )}
-              {project.live && (
-                <Link
-                  href={project.live}
-                  target="_blank"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-700 hover:border-red-500 rounded-lg text-sm text-zinc-300 transition"
-                >
-                  <ExternalLink size={16} /> Live Site
-                </Link>
-              )}
-            </div>
-          )}
-        </section>
-
-        {/* Overview Section */}
-        <section className="space-y-8">
-          <div>
-            <h2 className="text-2xl font-semibold border-b border-zinc-800 pb-2">
-              Project Overview
-            </h2>
-            <p className="text-zinc-300 text-lg leading-relaxed pt-3 whitespace-pre-line">
-              {project.content}
-            </p>
-          </div>
-
-          {/* Key Features */}
-          {project.features && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <Stars className="text-red-500" size={20} />
-                <h3 className="text-xl font-semibold">Key Features</h3>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {project.features.map((feature, i) => (
-                  <Card key={i} className="bg-zinc-900 border border-zinc-800">
-                    <CardContent className="p-4 text-sm text-zinc-300">
-                      {feature}
-                    </CardContent>
-                  </Card>
+      <section className="site-shell grid gap-8 py-12 lg:grid-cols-[0.78fr_1.22fr]">
+        <div>
+          <p className="eyebrow">Overview</p>
+          <h2 className="mt-3 text-3xl font-black uppercase md:text-5xl">
+            {project.caption}
+          </h2>
+        </div>
+        <div className="space-y-6">
+          <p className="text-base leading-7 text-[#d7d1c3] md:text-lg">
+            {project.content}
+          </p>
+          {project.features?.length > 0 && (
+            <div>
+              <p className="spec-label mb-3">Key features</p>
+              <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
+                {project.features.map((feature) => (
+                  <div
+                    key={feature}
+                    className="bg-[#11100d] p-4 text-sm leading-6 text-[#d7d1c3]"
+                  >
+                    {feature}
+                  </div>
                 ))}
               </div>
             </div>
           )}
-
-          {/* What I Learned */}
-          {project.lessons && (
-            <div className="space-y-4 pb-6">
-              <div className="flex items-center gap-3">
-                <Brain className="text-red-500" size={20} />
-                <h3 className="text-xl font-semibold">What I Learned</h3>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {project.lessons.map((lesson, i) => (
-                  <Card key={i} className="bg-zinc-900 border border-zinc-800">
-                    <CardContent className="p-4 text-sm text-zinc-300">
-                      {lesson}
-                    </CardContent>
-                  </Card>
+          {project.lessons?.filter(Boolean).length > 0 && (
+            <div>
+              <p className="spec-label mb-3">Learnings</p>
+              <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
+                {project.lessons.filter(Boolean).map((lesson) => (
+                  <div
+                    key={lesson}
+                    className="bg-[#11100d] p-4 text-sm leading-6 text-[#d7d1c3]"
+                  >
+                    {lesson}
+                  </div>
                 ))}
               </div>
             </div>
           )}
-        </section>
-      </main>
-    </div>
+          <Link href="/contact" className="outline-button">
+            Discuss work <ArrowUpRight size={16} />
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }

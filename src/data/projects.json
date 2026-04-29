@@ -1,73 +1,46 @@
 [
   {
-    "title": "What CJ Sees",
-    "slug": "whatcjsees",
-    "status": "live",
-
-    "image": "/projects/whatcjsees.png",
-    "description": "Minimalist photography portfolio.",
-    "tags": [
-      "Next.js",
-      "Vercel",
-      "Tailwind",
-      "Framer Motion",
-      "Image Optimization"
-    ],
-    "content": "A highly-visual, minimalist portfolio that tells a story through design, light, and perspective.",
-    "features": [
-      "Hero animation section with Framer Motion",
-      "Tailwind-powered gallery with JSON-driven layouts",
-      "Hover interactions for color hex codes and metadata",
-      "Next.js dynamic routes for gallery images"
-    ],
-    "lessons": [
-      "Modern image optimization with Next/Image",
-      "Building custom filters and tooltips",
-      "Prioritizing design principles: whitespace, contrast, and motion"
-    ],
-    "github": "https://github.com/cedricsthomasjr/whatcjsees",
-    "live": "https://whatcjsees.vercel.app",
-    "caption": "Gallery showcase with motion and metadata"
-  },
-
-  {
     "title": "BullBrief",
     "slug": "bullbrief",
     "status": "live",
-
     "image": "/projects/bull.png",
-    "description": "Investment analytics for the modern day investor.",
-    "tags": ["Next.js", "AI", "Finance"],
-    "content": "BullBrief helps beginner and advanced investors summarize their holdings, and other stocks with AI-powered insights.",
+    "description": "AI-powered public-company digests built from real-time market and financial data.",
+    "tags": ["Next.js", "OpenAI API", "yFinance", "Finance", "Market Data"],
+    "content": "BullBrief generates AI-powered digests of public companies using real-time market and financial data, helping investors understand business models and financial health faster.",
     "features": [
-      "AI company summary",
-      "Portfolio analysis",
-      "Deep compare between stocks",
-      "Live graphs"
+      "Automated investor-ready company summaries",
+      "OpenAI API and yFinance integration",
+      "Dynamic ticker search",
+      "Optimized data rendering for fast financial insights"
     ],
-    "lessons": [""],
+    "lessons": [
+      "Designing financial interfaces around speed and clarity",
+      "Combining live data retrieval with AI-generated summaries"
+    ],
     "github": "",
     "live": "https://bullbrief.pro",
-    "caption": "Soon to launch — invest smarter"
+    "caption": "Solo development"
   },
-
   {
-    "title": "CampusPass",
-    "slug": "degreemind",
-    "status": "scaffolding",
-
-    "image": "",
-
-    "tags": ["Next.js", "Transactions", "E-commerce"],
-    "content": "CampusPass simplifies third party ticket transactions from student to student in college campuses. Verify with a .edu email and buy, sell, and trade your tickets to other students.",
+    "title": "UniVizr",
+    "slug": "univizr",
+    "status": "resume project",
+    "image": "/projects/placeholder.png",
+    "description": "AI-powered academic planning platform for degree progress, semester planning, and career skill mapping.",
+    "tags": ["FastAPI", "PostgreSQL", "AI", "Full-Stack", "Academic Planning"],
+    "content": "UniVizr visualizes degree progress and maps coursework to career skill pathways through AI-generated semester planning and student progress dashboards.",
     "features": [
-      "Buy, sell, and trade tickets",
-      "Verify with .edu email",
-      "Transactions between students"
+      "Degree progress visualization",
+      "AI-generated semester planning",
+      "FastAPI and PostgreSQL backend services",
+      "Dashboards for course progress and industry skill mapping"
     ],
-    "lessons": [""],
+    "lessons": [
+      "Coordinating full-stack features in a collaborative build",
+      "Structuring academic data for planning and recommendation workflows"
+    ],
     "github": "",
     "live": "",
-    "caption": "Soon to launch — smarter ticketing for students"
+    "caption": "Collaborative full-stack development"
   }
 ]

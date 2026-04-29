@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "CJ Thomas — CS × Finance × Visual Design",
-  description: "Built from scratch. Built with purpose.",
+  title: "CJ Thomas | AI/ML, Data, Full-Stack",
+  description:
+    "Portfolio for CJ Thomas, an NYU computer science student working across AI/ML engineering, data science, business intelligence, and full-stack products.",
 };
 
 export default function RootLayout({ children }) {

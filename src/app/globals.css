@@ -116,8 +116,44 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#080806] text-[#f4f1ea];
+    letter-spacing: 0;
+  }
+  ::selection {
+    @apply bg-[#f05a28] text-black;
+  }
+}
+
+@layer components {
+  .site-shell {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.28em] text-[#f05a28];
+  }
+
+  .spec-label {
+    @apply text-[10px] font-semibold uppercase tracking-[0.22em] text-[#9d9a91];
+  }
+
+  .industrial-panel {
+    @apply border border-white/12 bg-[#11100d]/82 shadow-[0_18px_60px_rgba(0,0,0,0.28)] backdrop-blur;
+    border-radius: 8px;
+  }
+
+  .outline-button {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 border border-white/25 px-5 text-xs font-bold uppercase tracking-[0.18em] text-[#f4f1ea] transition hover:border-[#f05a28] hover:bg-[#f05a28] hover:text-black;
+    border-radius: 6px;
+  }
+
+  .solid-button {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 bg-[#f05a28] px-5 text-xs font-bold uppercase tracking-[0.18em] text-black transition hover:bg-[#ff7a3d];
+    border-radius: 6px;
   }
 }
 @keyframes pulse-slow {

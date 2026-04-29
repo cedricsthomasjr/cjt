@@ -1,225 +1,151 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
 import GitHubCalendar from "react-github-calendar";
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { companyBrands } from "@/data/resume";
+
+const principles = [
+  {
+    title: "Systems thinking",
+    text: "I like work that turns messy inputs into dependable workflows.",
+  },
+  {
+    title: "Visual judgment",
+    text: "Photography trained my eye for composition, hierarchy, and restraint.",
+  },
+  {
+    title: "Market fluency",
+    text: "Finance gives my technical work a sharper sense of stakes and signal.",
+  },
+];
+
+const quickFacts = [
+  "NYU Computer Science, GPA 3.55",
+  "President's List and Dean's List (2x)",
+  "Incoming AI/ML Engineer Intern at NIKE",
+  "Secretary, Business and Finance Group",
+  "SEO Career EDGE Participant",
+  "Java, Python, SQL, C, JavaScript, TypeScript",
+];
 
 export default function AboutPage() {
-  const controls = useAnimation();
-
-  useEffect(() => {
-    const mountedRef = { current: true };
-
-    const handleScroll = () => {
-      if (!mountedRef.current) return;
-
-      if (window.scrollY >= 100) {
-        controls.start({
-          opacity: 0,
-          y: 10,
-          transition: { duration: 0.6, ease: "easeOut" },
-        });
-      } else {
-        controls.start({
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.4, ease: "easeOut" },
-        });
-      }
-    };
-
-    // Set up
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      mountedRef.current = false;
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [controls]);
-
   return (
-    <main className="relative min-h-screen bg-black text-white overflow-hidden">
-      <Navbar />
+    <main className="min-h-screen bg-[#080806] pt-16 text-[#f4f1ea]">
+      <section className="site-shell grid items-end gap-8 py-12 md:py-16 lg:grid-cols-[1fr_380px]">
+        <div className="max-w-4xl">
+          <p className="eyebrow">Profile</p>
+          <h1 className="mt-4 text-[clamp(3rem,7vw,6.6rem)] font-black uppercase leading-[0.88]">
+            Built between code, capital, and camera.
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-[#d7d1c3] md:text-lg">
+            I am CJ, a computer science student at NYU working across AI/ML
+            engineering, data science, business intelligence, and finance
+            systems. My work sits where practical systems meet sharp
+            presentation: analytics pipelines, AI research tools, and product
+            dashboards.
+          </p>
+        </div>
+        <div className="relative aspect-[4/5] overflow-hidden border border-white/10 bg-[#11100d]">
+          <Image
+            src="/cj2.jpeg"
+            alt="CJ Thomas portrait"
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 380px"
+            className="object-cover object-[50%_24%]"
+          />
+        </div>
+      </section>
 
-      <section className="relative px-6 md:px-16 py-20 max-w-6xl mx-auto space-y-24">
-        {/* Hero Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="relative grid md:grid-cols-2 gap-6 bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-lg"
-        >
-          <div className="space-y-4">
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
-              WHO IS
-              <br /> CJ THOMAS?
-            </h1>
-            <p className="text-zinc-400 text-sm md:text-base">
-              I&rsquo;m CJ — a software engineer in training with a
-              designer&rsquo;s eye and a strategist’s mindset. I move between
-              pixels and Python, always hunting for clarity in complexity.
-            </p>
-            <p className="text-zinc-400 text-sm md:text-base">
-              My background blends code, finance, and storytelling — from
-              developing visual dashboards to building AI-powered tools and
-              documenting moments through my lens.
-            </p>
-            <p className="text-zinc-400 text-sm md:text-base">
-              I believe good systems feel inevitable, not forced. And good code
-              reads like a thought, not a task. I’m building toward a future
-              where logic and creativity aren’t opposites — they’re teammates.
-            </p>
-            <div className="pt-2 flex flex-wrap gap-2">
-              <Link
-                href="/resume"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-4 py-1.5 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition duration-200"
-              >
-                View Résumé
-              </Link>
-              <Link
-                href="/projects"
-                className="inline-block px-4 py-1.5 rounded-full border border-white text-white font-semibold hover:bg-white hover:text-black transition duration-200"
-              >
-                See My Work
-              </Link>
-            </div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="rounded-xl overflow-hidden shadow-md max-w-sm mx-auto"
-          >
-            <Image
-              src="/cj2.jpeg"
-              alt="CJ Thomas portrait"
-              width={420}
-              height={525}
-              className="w-full h-auto object-cover"
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll Cue */}
-        <motion.div
-          animate={{
-            ...controls, // 🧠 scroll fade logic
-            y: [0, 8, 0], // 👟 bounce down → up → down
-          }}
-          transition={{
-            y: {
-              duration: 1.2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            },
-            opacity: {
-              duration: 0.6,
-              ease: "easeOut",
-            },
-          }}
-          initial={{ opacity: 1, y: 0 }}
-          className="flex justify-center -mt-6"
-        >
-          <div className="text-zinc-500 text-sm flex flex-col items-center">
-            <span></span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.8}
-              stroke="currentColor"
-              className="w-5 h-5 mt-1"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </div>
-        </motion.div>
-
-        {/* Pillars, Stats, Facts Cards */}
-        <div id="about-content" className="grid md:grid-cols-3 gap-8">
-          {["Pillars", "Quick Stats", "Fun Facts"].map((title) => (
-            <div
-              key={title}
-              className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 shadow-md hover:shadow-red-600/20 transition duration-300"
-            >
-              <h2 className="text-2xl font-bold text-white mb-4">{title}</h2>
-              <ul className="space-y-3 text-sm text-zinc-400">
-                {title === "Pillars" && [
-                  <li key="1">
-                    <strong className="text-white">🧠 Systems Thinking:</strong>{" "}
-                    Structure isn’t boring — it’s power.
-                  </li>,
-                  <li key="2">
-                    <strong className="text-white">
-                      🎨 Visual Expression:
-                    </strong>{" "}
-                    Design is code’s louder twin.
-                  </li>,
-                  <li key="3">
-                    <strong className="text-white">🚀 Momentum:</strong> Every
-                    commit is forward motion.
-                  </li>,
-                ]}
-                {title === "Quick Stats" && [
-                  <li key="1">
-                    <span className="text-white">Graduation:</span> May 2027
-                  </li>,
-                  <li key="2">
-                    <span className="text-white">GPA:</span> 3.67
-                  </li>,
-                  <li key="3">
-                    <span className="text-white">Current Semester GPA:</span>{" "}
-                    4.03
-                  </li>,
-                  <li key="4">
-                    <span className="text-white">Projects:</span> 2 active
-                    builds
-                  </li>,
-                  <li key="5">
-                    <span className="text-white">Countries Visited:</span> 12
-                  </li>,
-                  <li key="6">
-                    <span className="text-white">Internships:</span> 2x
-                  </li>,
-                  <li key="7">
-                    <span className="text-white">Languages:</span> JavaScript,
-                    Java, Python, C, SQL
-                  </li>,
-                ]}
-                {title === "Fun Facts" && [
-                  <li key="1">Cleveland sports loyalty = pain + pride</li>,
-                  <li key="2">A hobby of mine is photography</li>,
-                  <li key="3">
-                    I&rsquo;m currently playing Elden Ring and College Football
-                    25
-                  </li>,
-                  <li key="4">Moved 12+ times</li>,
-                  <li key="5">Avid NBA fan</li>,
-                ]}
-              </ul>
+      <section className="site-shell grid gap-8 border-y border-white/10 py-10 lg:grid-cols-[0.7fr_1.3fr]">
+        <div>
+          <p className="eyebrow">Brand index</p>
+          <h2 className="mt-3 text-3xl font-black uppercase leading-none md:text-5xl">
+            Places in the story
+          </h2>
+        </div>
+        <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
+          {companyBrands.map((brand) => (
+            <div key={brand} className="bg-[#080806] p-4">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#d7d1c3]">
+                {brand}
+              </p>
             </div>
           ))}
         </div>
-        {/* GitHub Contribution Calendar */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 shadow-md"
-        >
-          <h2 className="text-2xl font-bold text-white mb-4">
-            GitHub Activity
+      </section>
+
+      <section className="site-shell grid gap-8 py-12 lg:grid-cols-[0.8fr_1.2fr]">
+        <div>
+          <p className="eyebrow">Operating system</p>
+          <h2 className="mt-3 text-3xl font-black uppercase leading-none md:text-5xl">
+            How I move
           </h2>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/resume" className="solid-button">
+              Resume <ArrowUpRight size={16} />
+            </Link>
+            <Link href="/projects" className="outline-button">
+              Projects
+            </Link>
+          </div>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {principles.map((principle) => (
+            <article key={principle.title} className="industrial-panel p-5">
+              <p className="spec-label">Principle</p>
+              <h3 className="mt-3 text-xl font-black uppercase">
+                {principle.title}
+              </h3>
+              <p className="mt-4 text-sm leading-6 text-[#d7d1c3]">
+                {principle.text}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-[#f4f1ea] py-12 text-[#080806]">
+        <div className="site-shell grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#a63d1d]">
+              Specs
+            </p>
+            <h2 className="mt-3 text-3xl font-black uppercase md:text-5xl">
+              Quick facts
+            </h2>
+          </div>
+          <div className="grid gap-px overflow-hidden border border-black/15 bg-black/15 sm:grid-cols-2">
+            {quickFacts.map((fact) => (
+              <div key={fact} className="bg-[#f4f1ea] p-5">
+                <p className="text-sm font-bold uppercase tracking-[0.1em]">
+                  {fact}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="site-shell py-12">
+        <div className="industrial-panel p-5 md:p-7">
+          <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="eyebrow">Build rhythm</p>
+              <h2 className="mt-2 text-3xl font-black uppercase">
+                GitHub activity
+              </h2>
+            </div>
+            <Link
+              href="https://github.com/cedricsthomasjr"
+              target="_blank"
+              className="outline-button"
+            >
+              GitHub <ArrowUpRight size={16} />
+            </Link>
+          </div>
           <div className="overflow-x-auto">
             <GitHubCalendar
               username="cedricsthomasjr"
@@ -227,36 +153,9 @@ export default function AboutPage() {
               blockMargin={4}
               colorScheme="dark"
               theme={{
-                light: ["#161b22", "#0d1117", "#1f6feb", "#238636", "#2ea043"],
+                dark: ["#17140f", "#6d2c1a", "#a63d1d", "#d44e24", "#f05a28"],
               }}
             />
-          </div>
-        </motion.div>
-
-        {/* Spotify & Quote Card */}
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 shadow-md">
-            <h2 className="text-2xl font-bold mb-4">Now Playing</h2>
-            <iframe
-              src="https://open.spotify.com/embed/playlist/1tRKMjosM29rWKWHBN9S9z?utm_source=generator"
-              width="100%"
-              height="80"
-              frameBorder="0"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-              className="rounded-md"
-            ></iframe>
-          </div>
-          <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 shadow-md text-sm text-zinc-400">
-            <h2 className="text-2xl font-bold mb-2 text-white">
-              💭 Why I Build
-            </h2>
-            <p>
-              I build tools I wish I had. Whether it’s making class planning
-              smarter or turning stat noise into signal, my goal is simple:
-              clarity. Not just for me — but for the next version of me that
-              hasn&rsquo;t figured it out yet.
-            </p>
           </div>
         </div>
       </section>

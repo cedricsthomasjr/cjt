@@ -1,329 +1,170 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import Navbar from "@/components/Navbar";
-import { Card } from "@/components/ui/card";
-import { Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
-
-const sections = [
-  {
-    title: "Work Experience",
-    items: [
-      {
-        title: "Research and Analytics Intern – Corbin Advisors",
-        time: "June 2025 – August 2025",
-        bullets: [
-          "Led an intern project to improve perception study transcription process, resulting in a 450 hour per year reduction in turnaround time and a projected $100k per year saved.",
-          "Conducted competitive intelligence and market research to support client deliverables, strengthening investor relations strategy recommendations.",
-          "Developed automated SQL workflows in Snowflake to streamline perception study data formatting and reporting, saving significant manual processing hours.",
-        ],
-      },
-      {
-        title: "Data Science Intern – Corbin Advisors",
-        time: "July 2024 – August 2024",
-        bullets: [
-          "Built a real-time stock scraper with JavaScript and Yahoo Finance within Google App Scripts, cutting research time across 200+ tickers.",
-          "Transformed 10K+ financial data rows in Excel/BI dashboards, improving report accuracy by 25% and enabling faster investor insights.",
-          "Automated repetitive HR emails with Microsoft Power Fx, reducing streamlining communication for 25+ employees.",
-        ],
-      },
-      {
-        title: "Winter Intern – Corbin Advisors",
-        time: "December 2024 – January 2025",
-        bullets: [
-          "Developed VBA macros to automate internal workflows.",
-          "Designed UI wireframes to improve user experience.",
-          "Built dashboards to visualize operational datasets.",
-        ],
-      },
-    ],
-  },
-  {
-    title: "Projects",
-    items: [
-      {
-        title: "WhatCJSees",
-        status: "live",
-        slug: "whatcjsees",
-        bullets: [
-          "Visual-first portfolio showcasing original photography through a full-stack site built with modern best practices.",
-          "Engineered responsive layouts, gallery transitions, and performance-optimized image rendering with hover metadata.",
-        ],
-      },
-      {
-        title: "BullBrief",
-        status: "in progress",
-        slug: "bullbrief",
-        bullets: [
-          "AI-powered stock explorer for the smart investory.",
-          "Early features include AI company summary and portfolio analysis, and real-time market insights.",
-        ],
-      },
-      {
-        title: "DegreeMind",
-        status: "scaffolding",
-        slug: "degreemind",
-        bullets: [
-          "AI-powered academic planner that builds optimal course schedules, degree maps, and post-grad pathways.",
-          "Early features include intelligent major/minor planning, transfer forecasting, and career-linked curriculum suggestions.",
-        ],
-      },
-    ],
-  },
-
-  {
-    title: "Education",
-    items: [
-      {
-        title: "New York University",
-        time: "Class of 2027",
-        bullets: [
-          "B.S. in Computer Science, Minor in Finance.",
-          "First semester in progress",
-        ],
-      },
-      {
-        title: "Louisiana State University",
-        time: "2023 – 2025",
-        bullets: [
-          "B.S. in Computer Science, Software Engineering Concentration.",
-          "GPA: 3.67 | President’s List (Spring 2025) | Dean’s List (2x).",
-          "47+ credit hours completed across advanced CS and math courses.",
-        ],
-      },
-    ],
-  },
-  {
-    title: "International Experience",
-    items: [
-      {
-        title: "Digital Ambassador – International Business Seminars",
-        time: "May 2024 – June 2024",
-        bullets: [
-          "Studied abroad across 7 countries in 21 days through immersive global business exposure.",
-          "Engaged with industry leaders and explored cross-cultural business strategy.",
-        ],
-      },
-    ],
-  },
-  {
-    title: "Skills & Tools",
-    items: [
-      {
-        title: "Languages & Frameworks",
-        bullets: [
-          "Java, Python, SQL, C, JavaScript, Data Visualization, Data Analysis, React, Flask, Tailwind, Selenium",
-        ],
-      },
-      {
-        title: "Tools",
-        bullets: ["Git, Vercel, VS Code, Figma, Power FX, VBA"],
-      },
-    ],
-  },
-  {
-    title: "Leadership & Recognition",
-    items: [
-      {
-        title: "The Vanguard Initiative (Co-Founder)",
-        bullets: [
-          "Built and led mentorship programs at Pace Academy in Atlanta, GA.",
-          "Hosted alumni panels and academic guidance sessions for Black student success.",
-        ],
-      },
-      {
-        title: "Organizations & Awards",
-        bullets: [
-          "President’s List (1x), Dean’s List (2x)",
-          "The National Society of Collegiate Scholars (NSCS)",
-          "NSBE, DeSoto Society, Web Dev Club",
-        ],
-      },
-    ],
-  },
-];
+import { motion } from "framer-motion";
+import {
+  ArrowDownToLine,
+  ArrowUpRight,
+  Globe,
+  Github,
+  Linkedin,
+  Mail,
+  Phone,
+} from "lucide-react";
+import { companyBrands, contactLinks, resumeSections } from "@/data/resume";
 
 export default function ResumePage() {
-  const [expanded, setExpanded] = useState(null);
-
-  const toggle = (key) => {
-    setExpanded(key === expanded ? null : key);
-  };
-
   return (
-    <main className="min-h-screen bg-black text-white px-6 md:px-12 pt-24 pb-32">
-      <Navbar />
-      <div className="max-w-5xl mx-auto space-y-16">
-        {/* Hero Title */}
+    <main className="min-h-screen bg-[#080806] pt-16 text-[#f4f1ea]">
+      <section className="site-shell grid gap-8 py-12 lg:grid-cols-[1fr_0.62fr] lg:py-16">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center space-y-4"
+          transition={{ duration: 0.65 }}
         >
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
-            ENGINEERED TO EXECUTE.
-            <br className="hidden sm:block" />
-            SHARPENED BY EXPERIENCE.
-            <br className="hidden sm:block" />
-            READY FOR IMPACT.
+          <p className="eyebrow">Resume / Summer 2026 profile</p>
+          <h1 className="mt-4 text-[clamp(3rem,7vw,6.6rem)] font-black uppercase leading-[0.88]">
+            Engineered to execute.
           </h1>
-          <p className="text-zinc-400 max-w-xl mx-auto text-sm md:text-base">
-            A breakdown of experience, education, and execution — backed by
-            performance and built with intention.
+          <p className="mt-5 max-w-2xl text-base leading-7 text-[#d7d1c3] md:text-lg">
+            NYU computer science student focused on AI/ML engineering, data
+            pipelines, business intelligence, market research, and full-stack
+            product development.
           </p>
-          <div className="pt-4">
+          <div className="mt-6 flex flex-wrap gap-3">
             <Link
-              href="/CJRESUMENYU2025.pdf"
+              href={contactLinks.resumePdf}
               target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block border border-red-500 px-6 py-2 rounded-lg hover:bg-red-500 hover:text-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+              className="solid-button"
             >
-              Download PDF
+              PDF <ArrowDownToLine size={16} />
             </Link>
-            <div className="pt-4 flex justify-center gap-6 text-sm text-zinc-400">
-              <Link
-                href="https://github.com/cedricsthomasjr/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-white transition"
-              >
-                <Github className="w-4 h-4" />
-                GitHub
-              </Link>
-              <Link
-                href="https://www.linkedin.com/in/cedric-thomas-jr/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-white transition"
-              >
-                <Linkedin className="w-4 h-4" />
-                LinkedIn
-              </Link>
-              <Link
-                href="mailto:cedricsthomasjr@gmail.edu"
-                className="flex items-center gap-2 hover:text-white transition"
-              >
-                <Mail className="w-4 h-4" />
-                Email
-              </Link>
-            </div>
+            <Link
+              href={`mailto:${contactLinks.email}`}
+              className="outline-button"
+            >
+              Email <Mail size={16} />
+            </Link>
           </div>
         </motion.div>
 
-        {/* Sections */}
-        {sections.map((section, idx) => (
+        <motion.aside
+          initial={{ opacity: 0, x: 18 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.65, delay: 0.12 }}
+          className="industrial-panel self-end p-5"
+        >
+          <p className="spec-label">Brand index</p>
+          <div className="mt-4 grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
+            {companyBrands.slice(0, 4).map((brand) => (
+              <div key={brand} className="bg-[#11100d] p-3">
+                <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#d7d1c3]">
+                  {brand}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 grid gap-2 border-t border-white/10 pt-4 text-sm text-[#d7d1c3]">
+            <div className="flex items-center justify-between">
+              Location <span>{contactLinks.location}</span>
+            </div>
+            <Link
+              href={`mailto:${contactLinks.email}`}
+              className="flex items-center justify-between hover:text-white"
+            >
+              Email <Mail size={16} />
+            </Link>
+            <Link
+              href="tel:+12164064458"
+              className="flex items-center justify-between hover:text-white"
+            >
+              Phone <Phone size={16} />
+            </Link>
+            <Link
+              href={contactLinks.website}
+              target="_blank"
+              className="flex items-center justify-between hover:text-white"
+            >
+              Website <Globe size={16} />
+            </Link>
+            <Link
+              href={contactLinks.github}
+              target="_blank"
+              className="flex items-center justify-between hover:text-white"
+            >
+              GitHub <Github size={16} />
+            </Link>
+            <Link
+              href={contactLinks.linkedin}
+              target="_blank"
+              className="flex items-center justify-between hover:text-white"
+            >
+              LinkedIn <Linkedin size={16} />
+            </Link>
+          </div>
+        </motion.aside>
+      </section>
+
+      <section className="border-y border-white/10 bg-[#f4f1ea] py-3 text-[#080806]">
+        <div className="site-shell grid gap-3 text-center text-[11px] font-black uppercase tracking-[0.22em] sm:grid-cols-3">
+          <span>NYU Computer Science</span>
+          <span>AI/ML Engineering</span>
+          <span>Data Science + Analytics</span>
+        </div>
+      </section>
+
+      <section className="site-shell space-y-12 py-12">
+        {resumeSections.map((section, sectionIndex) => (
           <motion.section
-            key={idx}
-            initial={{ opacity: 0, y: 30 }}
+            key={section.title}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.1 + 0.3, duration: 0.6 }}
-            viewport={{ once: true }}
-            className="space-y-6"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: sectionIndex * 0.03 }}
+            className="grid gap-5 lg:grid-cols-[0.28fr_1fr]"
           >
-            <h2 className="text-2xl font-semibold border-b border-zinc-700 pb-2">
-              {section.title}
-            </h2>
-            {section.items.map((item, itemIdx) => {
-              const key = `${idx}-${itemIdx}`;
-              return (
-                <motion.div
-                  key={key}
-                  custom={itemIdx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  animate="visible"
-                  variants={{
-                    /*************  ✨ Windsurf Command ⭐  *************/
-                    /**
-                     * Animates the item to be visible. The animation is staggered across
-                     * items in the section, with each item delayed by 0.08 seconds (adjust
-                     * this value to control the speed of the stagger). The animation takes
-                     * 0.25 seconds to complete, and eases out (starts fast, ends slow).
-                     * @param {number} i - The index of the item in the section.
-                     */
-                    /*******  c0687527-cfe2-4b9d-8eb7-6ef13694e5e3  *******/
-                    visible: (i) => ({
-                      opacity: 1,
-                      y: 0,
-                      transition: {
-                        delay: i * 0.08, // 🔥 Tighter stagger — adjust 0.08 to control speed
-                        duration: 0.25,
-                        ease: "easeOut",
-                      },
-                    }),
-                  }}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 200 }}
+            <div>
+              <p className="eyebrow">{section.kicker}</p>
+              <h2 className="mt-3 text-2xl font-black uppercase">
+                {section.title}
+              </h2>
+            </div>
+            <div className="divide-y divide-white/10 border-y border-white/10">
+              {section.items.map((item) => (
+                <article
+                  key={`${section.title}-${item.title}-${item.org}`}
+                  className="grid gap-4 py-5 md:grid-cols-[0.9fr_1.4fr]"
                 >
-                  <Card className="bg-zinc-900 border-zinc-700 p-6 rounded-xl transition-all hover:border-red-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.3)]">
-                    <div
-                      onClick={() => toggle(key)}
-                      className="cursor-pointer flex justify-between items-start flex-wrap gap-4 sm:items-center"
-                    >
-                      {/* Left: Title */}
-                      <h3 className="text-lg font-semibold">{item.title}</h3>
-
-                      {/* Right: Badge + Date + Button */}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3 text-sm text-zinc-400">
-                        {item.status && (
-                          <span
-                            className={`text-xs font-medium uppercase tracking-wide px-2 py-1 rounded w-fit
-                            ${
-                              item.status === "paused" ||
-                              item.status === "in progress"
-                                ? "bg-yellow-500/10 text-yellow-400 border border-yellow-500/30"
-                                : item.status === "paused" ||
-                                  item.status === "in progress"
-                                ? "bg-zinc-800 text-zinc-500 border border-zinc-700"
-                                : item.status === "live"
-                                ? "bg-green-500/10 text-green-400 border border-green-500/30"
-                                : item.status === "scaffolding"
-                                ? "bg-red-500/10 text-red-400 border border-red-500/30"
-                                : ""
-                            }
-                              
-
-        }`}
-                          >
-                            {item.status}
-                          </span>
-                        )}
-                        {item.time && <span>{item.time}</span>}
-                      </div>
-                    </div>
-
-                    {/* Expanded Bullet Content */}
-                    {expanded === key && (
-                      <>
-                        <ul className="list-disc pl-6 mt-4 space-y-1 text-sm text-zinc-300">
-                          {item.bullets.map((b, i) => (
-                            <li key={i}>{b}</li>
-                          ))}
-                        </ul>
-                        {item.slug && (
-                          <div className="mt-6 pl-6">
-                            <Link
-                              href={`/projects/${item.slug}`}
-                              className="inline-block text-sm font-medium text-red-400 border border-red-500 px-4 py-2 rounded hover:bg-red-500 hover:text-white transition-all"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              View Case Study →
-                            </Link>
-                          </div>
-                        )}
-                      </>
+                  <div>
+                    <p className="spec-label">{item.org}</p>
+                    <h3 className="mt-2 text-xl font-black uppercase leading-tight">
+                      {item.title}
+                    </h3>
+                    {item.time && (
+                      <p className="mt-2 text-xs font-bold uppercase tracking-[0.18em] text-[#f05a28]">
+                        {item.time}
+                      </p>
                     )}
-                  </Card>
-                </motion.div>
-              );
-            })}
+                    {item.slug && (
+                      <Link
+                        href={`/projects/${item.slug}`}
+                        className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#f05a28] hover:text-white"
+                      >
+                        Case study <ArrowUpRight size={14} />
+                      </Link>
+                    )}
+                  </div>
+                  <ul className="space-y-3 text-sm leading-6 text-[#d7d1c3]">
+                    {item.bullets.map((bullet) => (
+                      <li key={bullet}>{bullet}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
           </motion.section>
         ))}
-      </div>
+      </section>
     </main>
   );
 }

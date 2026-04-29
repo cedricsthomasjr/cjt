@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,63 +18,63 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-zinc-800">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        {/* 🔥 Logo */}
+    <nav className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-[#080806]/86 text-[#f4f1ea] backdrop-blur-xl">
+      <div className="site-shell flex h-16 items-center justify-between">
         <Link
           href="/"
-          className="text-white text-xl font-bold tracking-wide hover:text-red-500 transition"
+          className="group flex items-center gap-3 text-sm font-black uppercase tracking-[0.24em] transition hover:text-[#f05a28]"
         >
-          CJ Thomas
+          <span className="grid h-9 w-9 place-items-center border border-white/20 bg-white/8 text-xs tracking-normal">
+            CJ
+          </span>
+          <span className="hidden sm:inline">Thomas</span>
         </Link>
 
-        {/* 🧭 Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-6">
+        <div className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`relative transition font-medium ${
+              className={`px-3 py-2 text-[11px] font-bold uppercase tracking-[0.18em] transition ${
                 pathname === link.href
-                  ? "text-red-500"
-                  : "text-zinc-300 hover:text-red-500"
+                  ? "text-[#f05a28]"
+                  : "text-[#d7d1c3] hover:text-white"
               }`}
             >
               {link.label}
-              {/* 🔴 Red underline on hover */}
-              <span
-                className={`absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-red-500 transition-transform duration-300 ease-in-out ${
-                  pathname === link.href ? "scale-x-100" : "hover:scale-x-100"
-                }`}
-              />
             </Link>
           ))}
+          <Link
+            href="/resume"
+            className="ml-2 inline-flex h-9 items-center gap-2 border border-white/20 px-3 text-[11px] font-bold uppercase tracking-[0.18em] transition hover:border-[#f05a28] hover:bg-[#f05a28] hover:text-black"
+          >
+            PDF <ArrowUpRight size={14} />
+          </Link>
         </div>
 
-        {/* 🍔 Mobile Toggle */}
         <button
-          className="md:hidden text-white"
+          className="grid h-10 w-10 place-items-center border border-white/20 text-white md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
         >
-          {menuOpen ? <X size={28} /> : <Menu size={28} />}
+          {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* 📱 Mobile Menu */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ${
-          menuOpen ? "max-h-[300px] py-4 px-6" : "max-h-0"
+        className={`overflow-hidden border-white/10 bg-[#0f0e0b] transition-all duration-300 md:hidden ${
+          menuOpen ? "max-h-80 border-t" : "max-h-0"
         }`}
       >
-        <div className="flex flex-col space-y-3">
+        <div className="site-shell flex flex-col py-4">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-base font-medium transition ${
+              className={`border-b border-white/8 py-4 text-xs font-bold uppercase tracking-[0.2em] transition last:border-b-0 ${
                 pathname === link.href
-                  ? "text-red-500"
-                  : "text-zinc-300 hover:text-red-500"
+                  ? "text-[#f05a28]"
+                  : "text-[#d7d1c3] hover:text-white"
               }`}
               onClick={() => setMenuOpen(false)}
             >
