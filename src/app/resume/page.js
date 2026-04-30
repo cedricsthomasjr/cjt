@@ -15,23 +15,23 @@ import { companyBrands, contactLinks, resumeSections } from "@/data/resume";
 
 export default function ResumePage() {
   return (
-    <main className="min-h-screen bg-[#080806] pt-16 text-[#f4f1ea]">
-      <section className="site-shell grid gap-8 py-12 lg:grid-cols-[1fr_0.62fr] lg:py-16">
+    <main className="min-h-screen bg-[#080806] pt-14 text-[#f4f1ea] sm:pt-16">
+      <section className="site-shell grid gap-6 py-8 sm:gap-7 sm:py-10 lg:grid-cols-[1fr_0.62fr] lg:py-14">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
         >
           <p className="eyebrow">Resume / Summer 2026 profile</p>
-          <h1 className="mt-4 text-[clamp(3rem,7vw,6.6rem)] font-black uppercase leading-[0.88]">
+          <h1 className="display-title mt-4">
             Engineered to execute.
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-[#d7d1c3] md:text-lg">
+          <p className="body-copy mt-4 max-w-2xl">
             NYU computer science student focused on AI/ML engineering, data
             pipelines, business intelligence, market research, and full-stack
             product development.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mobile-stack-actions mt-5 sm:mt-6">
             <Link
               href={contactLinks.resumePdf}
               target="_blank"
@@ -52,52 +52,43 @@ export default function ResumePage() {
           initial={{ opacity: 0, x: 18 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.65, delay: 0.12 }}
-          className="industrial-panel self-end p-5"
+          className="industrial-panel self-end p-4 sm:p-5"
         >
-          <p className="spec-label">Brand index</p>
-          <div className="mt-4 grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
-            {companyBrands.slice(0, 4).map((brand) => (
-              <div key={brand} className="bg-[#11100d] p-3">
-                <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#d7d1c3]">
-                  {brand}
-                </p>
-              </div>
-            ))}
-          </div>
+          <p className="spec-label">Connect</p>
           <div className="mt-4 grid gap-2 border-t border-white/10 pt-4 text-sm text-[#d7d1c3]">
-            <div className="flex items-center justify-between">
-              Location <span>{contactLinks.location}</span>
+            <div className="flex items-center justify-between gap-3">
+              Location <span className="text-right">{contactLinks.location}</span>
             </div>
             <Link
               href={`mailto:${contactLinks.email}`}
-              className="flex items-center justify-between hover:text-white"
+              className="flex items-center justify-between gap-3 hover:text-white"
             >
               Email <Mail size={16} />
             </Link>
             <Link
               href="tel:+12164064458"
-              className="flex items-center justify-between hover:text-white"
+              className="flex items-center justify-between gap-3 hover:text-white"
             >
               Phone <Phone size={16} />
             </Link>
             <Link
               href={contactLinks.website}
               target="_blank"
-              className="flex items-center justify-between hover:text-white"
+              className="flex items-center justify-between gap-3 hover:text-white"
             >
               Website <Globe size={16} />
             </Link>
             <Link
               href={contactLinks.github}
               target="_blank"
-              className="flex items-center justify-between hover:text-white"
+              className="flex items-center justify-between gap-3 hover:text-white"
             >
               GitHub <Github size={16} />
             </Link>
             <Link
               href={contactLinks.linkedin}
               target="_blank"
-              className="flex items-center justify-between hover:text-white"
+              className="flex items-center justify-between gap-3 hover:text-white"
             >
               LinkedIn <Linkedin size={16} />
             </Link>
@@ -105,15 +96,15 @@ export default function ResumePage() {
         </motion.aside>
       </section>
 
-      <section className="border-y border-white/10 bg-[#f4f1ea] py-3 text-[#080806]">
-        <div className="site-shell grid gap-3 text-center text-[11px] font-black uppercase tracking-[0.22em] sm:grid-cols-3">
+      <section className="index-band">
+        <div className="index-band-grid">
           <span>NYU Computer Science</span>
           <span>AI/ML Engineering</span>
           <span>Data Science + Analytics</span>
         </div>
       </section>
 
-      <section className="site-shell space-y-12 py-12">
+      <section className="site-shell space-y-8 py-8 sm:space-y-10 sm:py-10">
         {resumeSections.map((section, sectionIndex) => (
           <motion.section
             key={section.title}
@@ -121,11 +112,11 @@ export default function ResumePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: sectionIndex * 0.03 }}
-            className="grid gap-5 lg:grid-cols-[0.28fr_1fr]"
+            className="grid gap-4 sm:gap-5 lg:grid-cols-[0.28fr_1fr]"
           >
             <div>
               <p className="eyebrow">{section.kicker}</p>
-              <h2 className="mt-3 text-2xl font-black uppercase">
+              <h2 className="mt-2.5 text-lg font-black uppercase leading-tight sm:mt-3 sm:text-xl">
                 {section.title}
               </h2>
             </div>
@@ -133,28 +124,28 @@ export default function ResumePage() {
               {section.items.map((item) => (
                 <article
                   key={`${section.title}-${item.title}-${item.org}`}
-                  className="grid gap-4 py-5 md:grid-cols-[0.9fr_1.4fr]"
+                  className="grid gap-3 py-4 md:grid-cols-[0.9fr_1.4fr] md:gap-4"
                 >
                   <div>
                     <p className="spec-label">{item.org}</p>
-                    <h3 className="mt-2 text-xl font-black uppercase leading-tight">
+                    <h3 className="mt-2 text-base font-black uppercase leading-tight break-words sm:text-lg">
                       {item.title}
                     </h3>
                     {item.time && (
-                      <p className="mt-2 text-xs font-bold uppercase tracking-[0.18em] text-[#f05a28]">
+                      <p className="mt-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[#f05a28] sm:text-xs sm:tracking-[0.18em]">
                         {item.time}
                       </p>
                     )}
                     {item.slug && (
                       <Link
                         href={`/projects/${item.slug}`}
-                        className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#f05a28] hover:text-white"
+                        className="mt-3 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[#f05a28] hover:text-white sm:mt-4 sm:text-xs sm:tracking-[0.18em]"
                       >
                         Case study <ArrowUpRight size={14} />
                       </Link>
                     )}
                   </div>
-                  <ul className="space-y-3 text-sm leading-6 text-[#d7d1c3]">
+                  <ul className="space-y-2.5 text-sm leading-6 text-[#d7d1c3]">
                     {item.bullets.map((bullet) => (
                       <li key={bullet}>{bullet}</li>
                     ))}

@@ -13,8 +13,8 @@ export default function ProjectDetail() {
   if (!project) return notFound();
 
   return (
-    <main className="min-h-screen bg-[#080806] pt-16 text-[#f4f1ea]">
-      <section className="site-shell grid gap-8 py-12 md:py-16 lg:grid-cols-[0.95fr_1.05fr]">
+    <main className="min-h-screen bg-[#080806] pt-14 text-[#f4f1ea] sm:pt-16">
+      <section className="site-shell grid gap-6 py-8 sm:gap-7 sm:py-10 md:py-14 lg:grid-cols-[0.95fr_1.05fr]">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
@@ -23,18 +23,18 @@ export default function ProjectDetail() {
         >
           <Link
             href="/projects"
-            className="mb-7 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#d7d1c3] hover:text-white"
+            className="mb-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[#d7d1c3] hover:text-white sm:mb-7 sm:text-xs sm:tracking-[0.18em]"
           >
             <ArrowLeft size={16} /> Projects
           </Link>
           <p className="eyebrow">{project.status}</p>
-          <h1 className="mt-4 text-[clamp(3rem,8vw,6.8rem)] font-black uppercase leading-[0.86]">
+          <h1 className="display-title mt-4">
             {project.title}
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-[#d7d1c3] md:text-lg">
+          <p className="body-copy mt-4 max-w-2xl">
             {project.description}
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mobile-stack-actions mt-5 sm:mt-6">
             {project.live && (
               <Link
                 href={project.live}
@@ -56,7 +56,7 @@ export default function ProjectDetail() {
           </div>
         </motion.div>
 
-        <div className="relative aspect-[16/11] overflow-hidden border border-white/10 bg-[#11100d]">
+        <div className="relative aspect-[4/3] overflow-hidden border border-white/10 bg-[#11100d] sm:aspect-[16/11]">
           <Image
             src={project.image}
             alt={`Preview of ${project.title}`}
@@ -68,33 +68,33 @@ export default function ProjectDetail() {
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-[#f4f1ea] py-3 text-[#080806]">
-        <div className="site-shell flex flex-wrap justify-center gap-x-8 gap-y-2 text-center text-[11px] font-black uppercase tracking-[0.22em]">
+      <section className="index-band">
+        <div className="site-shell flex flex-wrap justify-center gap-x-5 gap-y-2 text-center text-[10px] font-black uppercase tracking-[0.1em] sm:gap-x-7 sm:text-[11px] sm:tracking-[0.14em]">
           {project.tags.map((tag) => (
             <span key={tag}>{tag}</span>
           ))}
         </div>
       </section>
 
-      <section className="site-shell grid gap-8 py-12 lg:grid-cols-[0.78fr_1.22fr]">
+      <section className="site-shell grid gap-6 py-8 sm:gap-7 sm:py-10 lg:grid-cols-[0.78fr_1.22fr]">
         <div>
           <p className="eyebrow">Overview</p>
-          <h2 className="mt-3 text-3xl font-black uppercase md:text-5xl">
+          <h2 className="section-title mt-3">
             {project.caption}
           </h2>
         </div>
         <div className="space-y-6">
-          <p className="text-base leading-7 text-[#d7d1c3] md:text-lg">
+          <p className="body-copy">
             {project.content}
           </p>
           {project.features?.length > 0 && (
-            <div>
+          <div>
               <p className="spec-label mb-3">Key features</p>
               <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
                 {project.features.map((feature) => (
                   <div
                     key={feature}
-                    className="bg-[#11100d] p-4 text-sm leading-6 text-[#d7d1c3]"
+                    className="compact-grid-card bg-[#11100d] text-sm leading-6 text-[#d7d1c3]"
                   >
                     {feature}
                   </div>
@@ -109,7 +109,7 @@ export default function ProjectDetail() {
                 {project.lessons.filter(Boolean).map((lesson) => (
                   <div
                     key={lesson}
-                    className="bg-[#11100d] p-4 text-sm leading-6 text-[#d7d1c3]"
+                    className="compact-grid-card bg-[#11100d] text-sm leading-6 text-[#d7d1c3]"
                   >
                     {lesson}
                   </div>

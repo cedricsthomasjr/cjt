@@ -1,0 +1,31 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#080806" />
+      <stop offset="100%" stop-color="#0e1a30" />
+    </linearGradient>
+    <linearGradient id="fill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f05a28" />
+      <stop offset="100%" stop-color="#35d6f3" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="40" fill="url(#bg)" />
+  <rect x="96" y="116" width="384" height="80" rx="22" fill="#0f1520" opacity="0.85" />
+  <rect x="96" y="240" width="146" height="34" rx="16" fill="#122234" />
+  <rect x="96" y="296" width="210" height="34" rx="16" fill="#122234" />
+  <rect x="96" y="352" width="290" height="34" rx="16" fill="#122234" />
+  <path d="M96 480h128v50h-128zm182 0h128v104h-128zm182-28h128v132h-128zm182-76h128v208h-128z" fill="url(#fill)" opacity="0.95" />
+  <path d="M170 492c20-14 49-20 82-28 24-6 40-7 58 1" stroke="#f05a28" stroke-width="9" fill="none" stroke-linecap="round" />
+  <path d="M518 316l140-82 120 90 160-120" stroke="#35d6f3" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="903" cy="130" r="18" fill="#f4f1ea" />
+  <circle cx="1043" cy="200" r="18" fill="#f4f1ea" />
+  <path d="M876 140l88-56 64 42" stroke="#f4f1ea" stroke-width="10" fill="none" stroke-linecap="round" />
+  <g transform="translate(96 520)">
+    <rect x="0" y="0" width="340" height="152" rx="28" fill="#11172a" opacity="0.9" />
+    <text x="32" y="54" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="800">BullBrief</text>
+    <text x="32" y="110" fill="#a5b8d3" font-family="Inter, Arial, sans-serif" font-size="24">AI company briefs with real-time market context</text>
+  </g>
+  <rect x="780" y="520" width="280" height="200" rx="32" fill="#131a2a" opacity="0.95" />
+  <text x="810" y="580" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="700">Finance + AI</text>
+  <text x="810" y="630" fill="#b8c9e5" font-family="Inter, Arial, sans-serif" font-size="24">Research driven, fast, investor ready</text>
+</svg>

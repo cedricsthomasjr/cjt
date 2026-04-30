@@ -11,25 +11,25 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#080806] text-[#f4f1ea]">
       <Hero />
-      <section className="border-b border-white/10 bg-[#f4f1ea] py-3 text-[#080806]">
-        <div className="site-shell grid gap-3 text-center text-[11px] font-black uppercase tracking-[0.22em] sm:grid-cols-3">
+      <section className="index-band">
+        <div className="index-band-grid">
           <span>Computer Science</span>
           <span>AI/ML Engineering</span>
           <span>Finance Systems</span>
         </div>
       </section>
 
-      <section className="site-shell grid gap-8 py-12 lg:grid-cols-[0.7fr_1.3fr]">
+      <section className="site-shell grid gap-6 py-8 sm:gap-7 sm:py-10 lg:grid-cols-[0.7fr_1.3fr]">
         <div>
           <p className="eyebrow">Affiliations</p>
-          <h2 className="mt-3 text-3xl font-black uppercase leading-none md:text-5xl">
+          <h2 className="section-title mt-3">
             Company and campus index
           </h2>
         </div>
         <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
-          {companyBrands.map((brand) => (
-            <div key={brand} className="bg-[#11100d] p-5">
-              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#f4f1ea]">
+          {companyBrands.slice(0, 6).map((brand) => (
+            <div key={brand} className="compact-grid-card bg-[#11100d]">
+              <p className="text-[11px] font-black uppercase tracking-[0.1em] text-[#f4f1ea] sm:text-xs sm:tracking-[0.12em]">
                 {brand}
               </p>
             </div>
@@ -37,12 +37,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-[#12100d] py-12">
+      <section className="bg-[#12100d] py-8 sm:py-10">
         <div className="site-shell">
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+          <div className="mb-5 grid gap-4 sm:flex sm:flex-wrap sm:items-end sm:justify-between">
             <div>
               <p className="eyebrow">Explore the line</p>
-              <h2 className="mt-3 text-3xl font-black uppercase md:text-5xl">
+              <h2 className="section-title mt-3">
                 Selected builds
               </h2>
             </div>
@@ -50,7 +50,7 @@ export default function Home() {
               See all <ArrowUpRight size={16} />
             </Link>
           </div>
-          <div className="grid gap-5 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-5 lg:grid-cols-3">
             {featuredProjects.map((project) => (
               <Link
                 key={project.slug}
@@ -66,13 +66,13 @@ export default function Home() {
                     className="object-cover transition duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                  <span className="absolute left-4 top-4 bg-[#f05a28] px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-black">
+                  <span className="absolute left-3 top-3 bg-[#f05a28] px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-black sm:left-4 sm:top-4 sm:px-3 sm:tracking-[0.18em]">
                     {project.status}
                   </span>
                 </div>
-                <div className="p-5">
+                <div className="p-4">
                   <p className="spec-label">{project.caption}</p>
-                  <h3 className="mt-3 text-2xl font-black uppercase">
+                  <h3 className="mt-2.5 text-[1.35rem] font-black uppercase leading-tight break-words sm:text-xl">
                     {project.title}
                   </h3>
                   <p className="mt-3 text-sm leading-6 text-[#d7d1c3]">

@@ -9,7 +9,7 @@ export default function ProjectCard({ project, index = 0 }) {
     <article className="group grid overflow-hidden border border-white/10 bg-[#11100d] lg:grid-cols-[0.9fr_1.1fr]">
       <Link
         href={`/projects/${project.slug}`}
-        className="relative min-h-60 overflow-hidden"
+        className="relative min-h-52 overflow-hidden sm:min-h-60"
       >
         <Image
           src={project.image}
@@ -20,12 +20,12 @@ export default function ProjectCard({ project, index = 0 }) {
           priority={index < 2}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/18 to-transparent" />
-        <span className="absolute left-4 top-4 bg-[#f05a28] px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-black">
+        <span className="absolute left-3 top-3 bg-[#f05a28] px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-black sm:left-4 sm:top-4 sm:px-3 sm:tracking-[0.18em]">
           {project.status}
         </span>
       </Link>
 
-      <div className="flex min-h-60 flex-col justify-between p-5 md:p-6">
+      <div className="flex min-h-0 flex-col justify-between p-4 sm:min-h-60 sm:p-5">
         <div>
           <div className="flex items-center justify-between gap-4">
             <p className="spec-label">
@@ -54,20 +54,20 @@ export default function ProjectCard({ project, index = 0 }) {
               )}
             </div>
           </div>
-          <h3 className="mt-5 text-3xl font-black uppercase leading-none md:text-4xl">
+          <h3 className="mt-3 text-[1.45rem] font-black uppercase leading-[1.05] break-words sm:mt-4 sm:text-2xl md:text-3xl">
             {project.title}
           </h3>
-          <p className="mt-4 max-w-xl text-sm leading-6 text-[#d7d1c3]">
+          <p className="mt-3 max-w-xl text-sm leading-6 text-[#d7d1c3]">
             {project.description}
           </p>
         </div>
 
-        <div className="mt-6">
-          <div className="mb-4 flex flex-wrap gap-2">
+        <div className="mt-5">
+          <div className="mb-3 flex flex-wrap gap-2">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="border border-white/12 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#d7d1c3]"
+                className="border border-white/12 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-[#d7d1c3] sm:tracking-[0.16em]"
               >
                 {tag}
               </span>

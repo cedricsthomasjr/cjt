@@ -122,6 +122,7 @@
   body {
     @apply bg-[#080806] text-[#f4f1ea];
     letter-spacing: 0;
+    overflow-x: hidden;
   }
   ::selection {
     @apply bg-[#f05a28] text-black;
@@ -130,15 +131,35 @@
 
 @layer components {
   .site-shell {
-    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
   .eyebrow {
-    @apply text-[11px] font-semibold uppercase tracking-[0.28em] text-[#f05a28];
+    @apply text-[10px] font-semibold uppercase tracking-[0.16em] text-[#f05a28] sm:text-[11px] sm:tracking-[0.2em];
   }
 
   .spec-label {
-    @apply text-[10px] font-semibold uppercase tracking-[0.22em] text-[#9d9a91];
+    @apply text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9d9a91] sm:tracking-[0.16em];
+  }
+
+  .display-title {
+    @apply max-w-full text-[clamp(2.45rem,13vw,6rem)] font-black uppercase leading-[0.96] tracking-normal break-words sm:text-[clamp(3.25rem,7.5vw,6rem)];
+  }
+
+  .section-title {
+    @apply max-w-full text-[1.65rem] font-black uppercase leading-[1.06] tracking-normal break-words sm:text-3xl md:text-4xl;
+  }
+
+  .body-copy {
+    @apply text-[15px] leading-7 text-[#d7d1c3] sm:text-base;
+  }
+
+  .index-band {
+    @apply border-y border-white/10 bg-[#0f0e0b] py-3 text-[#d7d1c3] sm:py-3.5;
+  }
+
+  .index-band-grid {
+    @apply mx-auto grid w-full max-w-7xl gap-2 px-4 text-center text-[10px] font-black uppercase tracking-[0.1em] sm:grid-cols-3 sm:px-6 sm:text-[11px] sm:tracking-[0.14em] lg:px-8;
   }
 
   .industrial-panel {
@@ -147,13 +168,21 @@
   }
 
   .outline-button {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 border border-white/25 px-5 text-xs font-bold uppercase tracking-[0.18em] text-[#f4f1ea] transition hover:border-[#f05a28] hover:bg-[#f05a28] hover:text-black;
+    @apply inline-flex min-h-11 w-full items-center justify-center gap-2 border border-white/25 px-4 text-[11px] font-bold uppercase tracking-[0.12em] text-[#f4f1ea] transition hover:border-[#f05a28] hover:bg-[#f05a28] hover:text-black sm:w-auto sm:px-5 sm:text-xs sm:tracking-[0.18em];
     border-radius: 6px;
   }
 
   .solid-button {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 bg-[#f05a28] px-5 text-xs font-bold uppercase tracking-[0.18em] text-black transition hover:bg-[#ff7a3d];
+    @apply inline-flex min-h-11 w-full items-center justify-center gap-2 bg-[#f05a28] px-4 text-[11px] font-bold uppercase tracking-[0.12em] text-black transition hover:bg-[#ff7a3d] sm:w-auto sm:px-5 sm:text-xs sm:tracking-[0.18em];
     border-radius: 6px;
+  }
+
+  .mobile-stack-actions {
+    @apply grid gap-3 sm:flex sm:flex-wrap;
+  }
+
+  .compact-grid-card {
+    @apply p-3.5 sm:p-4;
   }
 }
 @keyframes pulse-slow {

@@ -55,76 +55,77 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#080806] pt-16 text-[#f4f1ea]">
-      <section className="site-shell grid gap-8 py-12 lg:grid-cols-[0.9fr_1.1fr] lg:py-16">
+    <main className="min-h-screen bg-[#080806] pt-14 text-[#f4f1ea] sm:pt-16">
+      <section className="site-shell grid gap-6 py-8 sm:gap-7 sm:py-10 lg:grid-cols-[0.9fr_1.1fr] lg:py-14">
         <div className="max-w-2xl">
           <p className="eyebrow">Contact</p>
-          <h1 className="mt-4 text-[clamp(3rem,7vw,6.6rem)] font-black uppercase leading-[0.88]">
+          <h1 className="display-title mt-4">
             Let&apos;s build the next run.
           </h1>
-          <p className="mt-5 text-base leading-7 text-[#d7d1c3] md:text-lg">
+          <p className="body-copy mt-4">
             I am open to conversations around AI/ML engineering, data
             platforms, business intelligence, market research, and full-stack
             product work.
           </p>
-          <div className="mt-6 grid gap-3">
+          <div className="mt-5 grid gap-3 sm:mt-6">
             <Link
               href={`mailto:${contactLinks.email}`}
-              className="industrial-panel flex items-center justify-between p-4 hover:border-[#f05a28]"
+              className="industrial-panel flex items-center justify-between gap-3 p-3.5 hover:border-[#f05a28] sm:p-4"
             >
-              <span className="flex items-center gap-3 text-sm font-bold">
-                <Mail size={18} /> {contactLinks.email}
+              <span className="flex min-w-0 items-center gap-3 text-sm font-bold">
+                <Mail className="shrink-0" size={18} />{" "}
+                <span className="min-w-0 break-all">{contactLinks.email}</span>
               </span>
-              <ArrowUpRight size={16} />
+              <ArrowUpRight className="shrink-0" size={16} />
             </Link>
             <Link
               href="tel:+12164064458"
-              className="industrial-panel flex items-center justify-between p-4 hover:border-[#f05a28]"
+              className="industrial-panel flex items-center justify-between gap-3 p-3.5 hover:border-[#f05a28] sm:p-4"
             >
-              <span className="flex items-center gap-3 text-sm font-bold">
-                <Phone size={18} /> {contactLinks.phone}
+              <span className="flex min-w-0 items-center gap-3 text-sm font-bold">
+                <Phone className="shrink-0" size={18} /> {contactLinks.phone}
               </span>
-              <ArrowUpRight size={16} />
+              <ArrowUpRight className="shrink-0" size={16} />
             </Link>
             <Link
               href={contactLinks.website}
               target="_blank"
-              className="industrial-panel flex items-center justify-between p-4 hover:border-[#f05a28]"
+              className="industrial-panel flex items-center justify-between gap-3 p-3.5 hover:border-[#f05a28] sm:p-4"
             >
-              <span className="flex items-center gap-3 text-sm font-bold">
-                <Globe size={18} /> cjst.dev
+              <span className="flex min-w-0 items-center gap-3 text-sm font-bold">
+                <Globe className="shrink-0" size={18} /> cjst.dev
               </span>
-              <ArrowUpRight size={16} />
+              <ArrowUpRight className="shrink-0" size={16} />
             </Link>
-            <div className="industrial-panel flex items-center justify-between p-4">
-              <span className="flex items-center gap-3 text-sm font-bold">
-                <MapPin size={18} /> {contactLinks.location}
+            <div className="industrial-panel flex items-center justify-between gap-3 p-3.5 sm:p-4">
+              <span className="flex min-w-0 items-center gap-3 text-sm font-bold">
+                <MapPin className="shrink-0" size={18} /> {contactLinks.location}
               </span>
             </div>
             <Link
               href={contactLinks.linkedin}
               target="_blank"
-              className="industrial-panel flex items-center justify-between p-4 hover:border-[#f05a28]"
+              className="industrial-panel flex items-center justify-between gap-3 p-3.5 hover:border-[#f05a28] sm:p-4"
             >
-              <span className="flex items-center gap-3 text-sm font-bold">
-                <Linkedin size={18} /> LinkedIn
+              <span className="flex min-w-0 items-center gap-3 text-sm font-bold">
+                <Linkedin className="shrink-0" size={18} /> LinkedIn
               </span>
-              <ArrowUpRight size={16} />
+              <ArrowUpRight className="shrink-0" size={16} />
             </Link>
             <Link
               href={contactLinks.github}
               target="_blank"
-              className="industrial-panel flex items-center justify-between p-4 hover:border-[#f05a28]"
+              className="industrial-panel flex items-center justify-between gap-3 p-3.5 hover:border-[#f05a28] sm:p-4"
             >
-              <span className="flex items-center gap-3 text-sm font-bold">
-                <Github size={18} /> GitHub
+              <span className="flex min-w-0 items-center gap-3 text-sm font-bold">
+                <Github className="shrink-0" size={18} /> GitHub
               </span>
-              <ArrowUpRight size={16} />
+              <ArrowUpRight className="shrink-0" size={16} />
             </Link>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="industrial-panel p-5 md:p-6">
+        <form onSubmit={handleSubmit} className="industrial-panel p-4 sm:p-5 md:p-6">
           <div className="grid gap-4">
             <label className="grid gap-2">
               <span className="spec-label">Name</span>

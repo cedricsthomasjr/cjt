@@ -3,44 +3,58 @@
     "title": "BullBrief",
     "slug": "bullbrief",
     "status": "live",
-    "image": "/projects/bull.png",
-    "description": "AI-powered public-company digests built from real-time market and financial data.",
+    "image": "/projects/bullbrief.svg",
+    "description": "AI-powered public-company insights with market, SEC, and earnings context for faster equity research.",
     "tags": ["Next.js", "OpenAI API", "yFinance", "Finance", "Market Data"],
-    "content": "BullBrief generates AI-powered digests of public companies using real-time market and financial data, helping investors understand business models and financial health faster.",
+    "content": "BullBrief is a full-stack web application that uses AI to generate investor-ready company digests. The platform integrates real-time market data from yFinance, SEC filings, and earnings reports, then employs OpenAI's API to create intelligent, context-aware summaries. The Next.js frontend provides a clean, responsive interface for ticker searches and brief generation, while the Python Flask backend manages data processing, API integrations, and AI prompt engineering. Built to accelerate equity research by condensing complex financial information into actionable insights.",
     "features": [
-      "Automated investor-ready company summaries",
-      "OpenAI API and yFinance integration",
-      "Dynamic ticker search",
-      "Optimized data rendering for fast financial insights"
+      "Real-time market data integration via yFinance API",
+      "OpenAI-powered content generation with custom financial prompts",
+      "Dynamic ticker search with autocomplete and validation",
+      "Responsive Next.js frontend with modern UI components",
+      "Flask backend with CORS-enabled API endpoints",
+      "Optimized data rendering for fast financial insights",
+      "TypeScript implementation for type safety"
     ],
     "lessons": [
       "Designing financial interfaces around speed and clarity",
-      "Combining live data retrieval with AI-generated summaries"
+      "Combining live data retrieval with AI-generated summaries",
+      "Managing API rate limits and error handling for financial data",
+      "Implementing secure backend-frontend communication",
+      "Optimizing AI prompts for domain-specific content generation"
     ],
-    "github": "",
+    "github": "https://github.com/cedricsthomasjr/bullbrief-frontend",
     "live": "https://bullbrief.pro",
-    "caption": "Solo development"
+    "caption": "Solo startup build"
   },
   {
     "title": "UniVizr",
     "slug": "univizr",
     "status": "resume project",
-    "image": "/projects/placeholder.png",
-    "description": "AI-powered academic planning platform for degree progress, semester planning, and career skill mapping.",
+    "image": "/projects/univizr.svg",
+    "description": "AI-assisted degree planning and career mapping platform built to help students plan coursework and track progress.",
     "tags": ["FastAPI", "PostgreSQL", "AI", "Full-Stack", "Academic Planning"],
-    "content": "UniVizr visualizes degree progress and maps coursework to career skill pathways through AI-generated semester planning and student progress dashboards.",
+    "content": "UniVizr is a comprehensive academic planning platform that combines degree progress tracking with AI-powered recommendations. The system visualizes student progress through interactive dashboards, generates personalized semester plans using AI algorithms, and maps coursework to industry career skills. Built as a collaborative project, it features a FastAPI backend for robust API development and data processing, PostgreSQL for reliable data storage and complex queries, and AI integration for intelligent planning suggestions. The platform aims to help students make informed decisions about their academic journey and future career paths.",
     "features": [
-      "Degree progress visualization",
-      "AI-generated semester planning",
-      "FastAPI and PostgreSQL backend services",
-      "Dashboards for course progress and industry skill mapping"
+      "Interactive degree progress visualization with milestone tracking",
+      "AI-generated semester planning with course recommendations",
+      "Career skill mapping linking coursework to industry competencies",
+      "Student progress dashboards with customizable views",
+      "FastAPI backend with async endpoints and data validation",
+      "PostgreSQL database with optimized queries for academic data",
+      "Collaborative development with version control and code reviews",
+      "RESTful API design for scalable frontend integration"
     ],
     "lessons": [
       "Coordinating full-stack features in a collaborative build",
-      "Structuring academic data for planning and recommendation workflows"
+      "Structuring academic data for planning and recommendation workflows",
+      "Implementing AI algorithms for educational recommendations",
+      "Managing database relationships for complex academic structures",
+      "Building scalable APIs with FastAPI and async programming",
+      "Collaborative Git workflows and code quality practices"
     ],
-    "github": "",
+    "github": "https://github.com/Drastansh7/UniPal.Ai",
     "live": "",
-    "caption": "Collaborative full-stack development"
+    "caption": "Collaborative academic product"
   }
 ]

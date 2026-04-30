@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen bg-[#080806] pt-16 text-[#f4f1ea]">
-      <section className="site-shell py-12 md:py-16">
+    <main className="min-h-screen bg-[#080806] pt-14 text-[#f4f1ea] sm:pt-16">
+      <section className="site-shell py-8 sm:py-10 md:py-14">
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -15,26 +15,26 @@ export default function ProjectsPage() {
           className="max-w-5xl"
         >
           <p className="eyebrow">Catalog</p>
-          <h1 className="mt-4 text-[clamp(3rem,7vw,6.6rem)] font-black uppercase leading-[0.88]">
+          <h1 className="display-title mt-4">
             Built. Branded. Backed by code.
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-[#d7d1c3] md:text-lg">
+          <p className="body-copy mt-4 max-w-2xl">
             A limited collection of software products, visual systems, and
             finance experiments built for clarity, speed, and taste.
           </p>
         </motion.section>
       </section>
 
-      <section className="border-y border-white/10 bg-[#f4f1ea] py-3 text-[#080806]">
-        <div className="site-shell grid gap-3 text-center text-[11px] font-black uppercase tracking-[0.22em] sm:grid-cols-3">
+      <section className="index-band">
+        <div className="index-band-grid">
           <span>AI finance</span>
           <span>Academic planning</span>
           <span>Full-stack data</span>
         </div>
       </section>
 
-      <section className="site-shell space-y-6 py-12">
-        <motion.div initial="hidden" animate="show" className="space-y-6">
+      <section className="site-shell space-y-5 py-8 sm:py-10">
+        <motion.div initial="hidden" animate="show" className="space-y-4 sm:space-y-6">
           {projects.map((project, index) => (
             <motion.div
               key={project.slug}
