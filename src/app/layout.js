@@ -1,35 +1,42 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata = {
-  title: "CJ Thomas | AI/ML, Data, Full-Stack",
+  metadataBase: new URL("https://cjst.dev"),
+  title: {
+    default: "CJ Thomas — AI/ML and data engineering",
+    template: "%s — CJ Thomas",
+  },
   description:
-    "Portfolio for CJ Thomas, an NYU computer science student working across AI/ML engineering, data science, business intelligence, and full-stack products.",
+    "CJ Thomas builds data pipelines, machine learning workflows, and AI-powered finance tools. NYU computer science, incoming AI/ML engineer intern at NIKE.",
+  openGraph: {
+    title: "CJ Thomas — AI/ML and data engineering",
+    description:
+      "Data pipelines, machine learning workflows, and AI-powered finance tools.",
+    url: "https://cjst.dev",
+    siteName: "CJ Thomas",
+    type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CJ Thomas — AI/ML and data engineering",
+    description:
+      "Data pipelines, machine learning workflows, and AI-powered finance tools.",
+    images: ["/og.png"],
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark">
-      <head>{/* Optional: include font preconnect or favicon here */}</head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-background text-foreground`}
-      >
+    <html lang="en">
+      <body>
+        <a href="#main" className="skip">
+          Skip to content
+        </a>
         <Navbar />
-
-        {children}
-
+        <div id="main">{children}</div>
         <Footer />
       </body>
     </html>

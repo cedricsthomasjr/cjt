@@ -2,59 +2,87 @@
   {
     "title": "BullBrief",
     "slug": "bullbrief",
-    "status": "live",
-    "image": "/projects/bullbrief.svg",
-    "description": "AI-powered public-company insights with market, SEC, and earnings context for faster equity research.",
-    "tags": ["Next.js", "OpenAI API", "yFinance", "Finance", "Market Data"],
-    "content": "BullBrief is a full-stack web application that uses AI to generate investor-ready company digests. The platform integrates real-time market data from yFinance, SEC filings, and earnings reports, then employs OpenAI's API to create intelligent, context-aware summaries. The Next.js frontend provides a clean, responsive interface for ticker searches and brief generation, while the Python Flask backend manages data processing, API integrations, and AI prompt engineering. Built to accelerate equity research by condensing complex financial information into actionable insights.",
+    "year": "2025",
+    "role": "Solo build",
+    "status": "Live",
+    "image": "/projects/bullbrief.webp",
+    "summary": "An equity research tool that reads market data, filings, and earnings, then writes the brief an analyst would have spent an afternoon on.",
+    "tags": ["Next.js", "OpenAI API", "yFinance", "Flask", "TypeScript"],
+    "content": [
+      "Equity research starts the same way every time: pull the filings, skim the earnings call, check the fundamentals, and write it up. BullBrief does the pulling and the first draft.",
+      "A Next.js frontend takes a ticker and returns a structured digest — business model, financial health, recent developments. Behind it, a Python service fans out to yFinance and SEC data, normalizes what comes back, and runs it through prompts tuned for financial language rather than general summarization.",
+      "The hard part was not the AI. It was making a page that stays fast and legible while it waits on four data sources that fail independently."
+    ],
     "features": [
-      "Real-time market data integration via yFinance API",
-      "OpenAI-powered content generation with custom financial prompts",
-      "Dynamic ticker search with autocomplete and validation",
-      "Responsive Next.js frontend with modern UI components",
-      "Flask backend with CORS-enabled API endpoints",
-      "Optimized data rendering for fast financial insights",
-      "TypeScript implementation for type safety"
+      "Ticker search with autocomplete and validation",
+      "Live market and fundamentals data via yFinance",
+      "Deep Compare mode for side-by-side company breakdowns",
+      "Financial-domain prompt design over a general summarizer",
+      "Rate-limit and partial-failure handling across data sources"
     ],
     "lessons": [
-      "Designing financial interfaces around speed and clarity",
-      "Combining live data retrieval with AI-generated summaries",
-      "Managing API rate limits and error handling for financial data",
-      "Implementing secure backend-frontend communication",
-      "Optimizing AI prompts for domain-specific content generation"
+      "Designing financial interfaces around speed and legibility",
+      "Prompting for a domain instead of prompting for a summary",
+      "Degrading gracefully when one of four upstream sources is down"
     ],
     "github": "https://github.com/cedricsthomasjr/bullbrief-frontend",
-    "live": "https://bullbrief.pro",
-    "caption": "Solo startup build"
+    "live": "https://bullbrief.pro"
   },
   {
     "title": "UniVizr",
     "slug": "univizr",
-    "status": "resume project",
-    "image": "/projects/univizr.svg",
-    "description": "AI-assisted degree planning and career mapping platform built to help students plan coursework and track progress.",
-    "tags": ["FastAPI", "PostgreSQL", "AI", "Full-Stack", "Academic Planning"],
-    "content": "UniVizr is a comprehensive academic planning platform that combines degree progress tracking with AI-powered recommendations. The system visualizes student progress through interactive dashboards, generates personalized semester plans using AI algorithms, and maps coursework to industry career skills. Built as a collaborative project, it features a FastAPI backend for robust API development and data processing, PostgreSQL for reliable data storage and complex queries, and AI integration for intelligent planning suggestions. The platform aims to help students make informed decisions about their academic journey and future career paths.",
+    "year": "2025",
+    "role": "Collaborative build",
+    "status": "In progress",
+    "image": null,
+    "summary": "Degree planning that treats a transcript as a graph — what you have taken, what it unlocks, and which industry skills it maps to.",
+    "tags": ["FastAPI", "PostgreSQL", "React", "Academic data"],
+    "content": [
+      "Course catalogs are graphs pretending to be lists. Prerequisites, corequisites, and substitutions form a dependency structure that no advising spreadsheet models well, which is why degree planning goes wrong.",
+      "UniVizr stores that structure properly in PostgreSQL and exposes it through a FastAPI service, so a student can see progress, generate a viable semester plan, and trace coursework to the skills it actually builds.",
+      "Built with a partner, which made API contracts and review discipline matter more than they do on a solo project."
+    ],
     "features": [
-      "Interactive degree progress visualization with milestone tracking",
-      "AI-generated semester planning with course recommendations",
-      "Career skill mapping linking coursework to industry competencies",
-      "Student progress dashboards with customizable views",
-      "FastAPI backend with async endpoints and data validation",
-      "PostgreSQL database with optimized queries for academic data",
-      "Collaborative development with version control and code reviews",
-      "RESTful API design for scalable frontend integration"
+      "Degree progress visualization with milestone tracking",
+      "Generated semester plans that respect prerequisite structure",
+      "Course-to-skill mapping against industry competencies",
+      "Async FastAPI endpoints with request validation",
+      "Relational schema built for prerequisite graphs"
     ],
     "lessons": [
-      "Coordinating full-stack features in a collaborative build",
-      "Structuring academic data for planning and recommendation workflows",
-      "Implementing AI algorithms for educational recommendations",
-      "Managing database relationships for complex academic structures",
-      "Building scalable APIs with FastAPI and async programming",
-      "Collaborative Git workflows and code quality practices"
+      "Modeling prerequisite structure as a graph, not a checklist",
+      "Holding an API contract steady across two developers",
+      "Where generated plans need a human override"
     ],
     "github": "https://github.com/Drastansh7/UniPal.Ai",
-    "live": "",
-    "caption": "Collaborative academic product"
+    "live": ""
+  },
+  {
+    "title": "Athlytics",
+    "slug": "athlytics",
+    "year": "2025",
+    "role": "Personal build",
+    "status": "Archived",
+    "image": "/projects/athlytics.webp",
+    "summary": "NBA player analytics — advanced stats and awards history served from a cached Basketball-Reference pipeline.",
+    "tags": ["Python", "JavaScript", "Data pipeline", "Caching"],
+    "content": [
+      "A basketball research tool built to answer the arguments that come up constantly and get settled badly: who actually had the better peak, how a season stacks up historically, what the award voting really looked like.",
+      "The interesting engineering is the pipeline rather than the interface. Basketball-Reference is slow and unfriendly to repeated queries, so a Python backend scrapes, normalizes, and caches per-player records to disk, keyed by the site's own player IDs. The frontend then reads from cache and stays quick.",
+      "Archived at the point where the data layer worked and the interface had not caught up. Left up because the caching approach is the part worth showing."
+    ],
+    "features": [
+      "Per-player award and advanced-stat records, cached to disk",
+      "Normalization layer over inconsistent upstream tables",
+      "Player, team, and season search",
+      "Cache keyed by Basketball-Reference player IDs"
+    ],
+    "lessons": [
+      "Caching is the whole design when the upstream source is slow",
+      "Normalize at ingest, not at read time",
+      "Knowing when to archive a side project instead of finishing it"
+    ],
+    "github": "https://github.com/cedricsthomasjr/athlytics",
+    "live": ""
   }
 ]

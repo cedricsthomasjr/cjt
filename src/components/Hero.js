@@ -1,81 +1,63 @@
-"use client";
-
-import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import HeroHighlights from "./HeroHighlights";
+import { record } from "@/data/resume";
 
+/**
+ * The hero is a brief — the thing BullBrief does to a company, pointed at CJ.
+ * Bold sans carries the claims and the figures; Palatino italic carries the
+ * voice. Those are the only two registers on the page.
+ */
 export default function Hero() {
   return (
-    <section className="border-b border-white/10 bg-[#080806] pt-10 text-[#f4f1ea] sm:pt-12">
-      <div className="site-shell grid items-end gap-6 py-6 sm:gap-7 sm:py-8 md:py-10 lg:grid-cols-[1fr_400px]">
-        <div className="max-w-4xl">
-          <div className="space-y-4">
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="eyebrow"
-            >
-              Designed in code / tested in markets
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.08 }}
-            >
-              <HeroHighlights />
-            </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.14 }}
-              className="display-title max-w-5xl"
-            >
-              CJ Thomas
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.20 }}
-              className="body-copy max-w-2xl font-medium"
-            >
-              Computer science and finance student building data systems,
-              AI-powered finance tools, and machine learning workflows with a
-              practical product edge.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.26 }}
-              className="mobile-stack-actions pt-1"
-            >
-              <Link href="/projects" className="solid-button">
-                Explore work <ArrowUpRight size={16} />
-              </Link>
-              <Link href="/resume" className="outline-button">
-                View resume
-              </Link>
-            </motion.div>
-          </div>
-        </div>
+    <section className="shell pb-16 pt-20 sm:pb-24 sm:pt-28">
+      <div className="rise" style={{ animationDelay: "0ms" }}>
+        <h1 className="t-display">cj thomas</h1>
+        <p className="t-sub-lg mt-3 max-w-2xl">
+          ai/ml and data engineering · nyu computer science, 2027 · new york and
+          atlanta
+        </p>
+      </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 18 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="relative mx-auto w-full max-w-[320px] aspect-[5/4] overflow-hidden border border-white/10 bg-[#11100d] sm:aspect-[4/5] md:max-w-none"
-        >
-          <Image
-            src="/cj.jpeg"
-            alt="CJ Thomas"
-            fill
-            sizes="(max-width: 1024px) 100vw, 420px"
-            priority
-            className="object-cover object-[50%_26%]"
-          />
-        </motion.div>
+      <p
+        className="t-sub-lg rise mt-8 max-w-xl text-bone"
+        style={{ animationDelay: "80ms" }}
+      >
+        I turn messy inputs into things people can act on — pipelines,
+        dashboards, and briefs. Most of what I build ends as a number someone
+        can defend in a meeting.
+      </p>
+
+      <div className="rise mt-12" style={{ animationDelay: "160ms" }}>
+        <div className="flex items-baseline justify-between gap-4">
+          <p className="t-label-gold">The record</p>
+          <p className="t-label">Corbin Advisors · 2024—2025</p>
+        </div>
+        <hr className="hairline-gold mt-3" />
+
+        <div className="readout mt-1">
+          {record.map((row, i) => (
+            <div
+              key={row.key}
+              className="readout-row rise"
+              style={{ animationDelay: `${220 + i * 70}ms` }}
+            >
+              <p className="readout-key t-label">{row.key}</p>
+              <p className="readout-note t-sub-sm">{row.note}</p>
+              <p className="readout-value t-figure">{row.value}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div
+        className="rise mt-10 flex flex-wrap gap-3"
+        style={{ animationDelay: "520ms" }}
+      >
+        <Link href="/projects" className="btn-solid">
+          See the work
+        </Link>
+        <Link href="/contact" className="btn">
+          Get in touch
+        </Link>
       </div>
     </section>
   );
