@@ -83,6 +83,18 @@
     font-variant-numeric: tabular-nums;
   }
 
+  /* Film grain. Flat black on a modern display reads as a dead void; a trace
+     of noise gives the page a surface without adding a single visual element. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.028;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
   ::selection {
     background: var(--color-gold);
     color: var(--color-ink);
@@ -262,6 +274,30 @@
     font-size: clamp(1.25rem, 2.6vw, 1.75rem);
   }
 
+  /* Masked figure reveal. The value slides up from behind its own baseline,
+     so it is never shown at a wrong value on the way in. */
+  .fig {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.06em;
+  }
+
+  .fig-inner {
+    display: inline-block;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fig-inner {
+      transform: translateY(115%);
+      transition: transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .fig.is-in .fig-inner {
+      transform: none;
+    }
+  }
+
   /* --- controls --------------------------------------------------------- */
 
   .btn {
@@ -337,6 +373,51 @@
     animation: rise 0.55s cubic-bezier(0.2, 0.6, 0.2, 1) both;
   }
 
+  /* Section-level scroll reveal. Applied to blocks, never to every child —
+     per-element fade-up chains were the old site's loudest generated tell. */
+  /* Reveal and transforms respect reduced-motion. Without JS, or if the
+     observer never fires, content shows immediately and fully. */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(0.75rem);
+      transition: opacity 0.6s cubic-bezier(0.2, 0.6, 0.2, 1),
+        transform 0.6s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+
+    .reveal.is-in {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Gold rules draw in from the left, like an instrument calibrating. */
+  @keyframes draw {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .hairline-gold {
+    transform-origin: left center;
+    animation: draw 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal .hairline-gold {
+      animation: none;
+      transform: scaleX(0);
+      transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s;
+    }
+
+    .reveal.is-in .hairline-gold {
+      transform: scaleX(1);
+    }
+  }
+
   .skip {
     position: absolute;
     left: -9999px;
@@ -365,11 +446,53 @@
      system, and returns their real colour on hover. */
   .shot {
     filter: grayscale(1) contrast(1.04) brightness(0.82);
-    transition: filter 0.4s ease, transform 0.4s ease;
+    transition: filter 0.5s ease, transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
   }
 
   .group:hover .shot,
   .group:focus-within .shot {
     filter: none;
+    transform: scale(1.03);
+  }
+
+  /* A gold rule wipes across the top edge of a card on hover. One gesture,
+     and it reinforces the hairline language rather than adding a new one. */
+  .wipe::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    height: 2px;
+    width: 100%;
+    background: var(--color-gold);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+    z-index: 2;
+  }
+
+  .group:hover .wipe::after,
+  .group:focus-within .wipe::after {
+    transform: scaleX(1);
+  }
+
+  /* Photography tiles: quiet at rest, lifted on hover. */
+  .tile {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-rule);
+    transition: border-color 0.3s ease, transform 0.5s cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+
+  .tile:hover {
+    border-color: rgb(200 160 70 / 0.45);
+    transform: translateY(-4px);
+  }
+
+  .tile img {
+    transition: transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+
+  .tile:hover img {
+    transform: scale(1.04);
   }
 }

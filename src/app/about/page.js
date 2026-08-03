@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import PhotoCallout from "@/components/PhotoCallout";
+import PhotoGrid from "@/components/PhotoGrid";
+import Reveal from "@/components/Reveal";
 import { affiliations } from "@/data/resume";
 
 export const metadata = {
@@ -82,9 +84,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="shell pb-8">
-        <PhotoCallout />
-      </section>
+      <Reveal>
+        <section className="shell pb-8">
+          <PhotoCallout />
+          <div className="mt-4">
+            <PhotoGrid />
+          </div>
+        </section>
+      </Reveal>
 
       <section className="shell section">
         <h2 className="t-h2">The short version</h2>

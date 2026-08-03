@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import Figure from "@/components/Figure";
 import { contactLinks, record, resumeSections } from "@/data/resume";
 import projects from "@/data/projects.json";
 
@@ -36,11 +37,18 @@ export default function ResumePage() {
         <p className="t-label-gold">Impact</p>
         <hr className="hairline-gold mt-3" />
         <div className="readout mt-1">
-          {record.map((row) => (
+          {record.map((row, i) => (
             <div key={row.key} className="readout-row">
               <p className="readout-key t-label">{row.key}</p>
               <p className="readout-note t-sub-sm">{row.note}</p>
-              <p className="readout-value t-figure">{row.value}</p>
+              <p className="readout-value t-figure">
+                <Figure
+                  prefix={row.prefix}
+                  num={row.num}
+                  suffix={row.suffix}
+                  delay={i * 90}
+                />
+              </p>
             </div>
           ))}
         </div>

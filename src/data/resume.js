@@ -18,26 +18,30 @@ export const record = [
   {
     key: "Automated",
     note: "analyst hours per year, via an AI transcription pipeline",
-    value: "450+",
-    at: "Corbin Advisors",
+    prefix: "",
+    num: 450,
+    suffix: "+",
   },
   {
     key: "Avoided",
     note: "in annual cost from that same pipeline",
-    value: "$100K",
-    at: "Corbin Advisors",
+    prefix: "$",
+    num: 100,
+    suffix: "K",
   },
   {
     key: "Modeled",
     note: "financial records behind the reporting dashboards",
-    value: "10K+",
-    at: "Corbin Advisors",
+    prefix: "",
+    num: 10,
+    suffix: "K+",
   },
   {
     key: "Delivery",
     note: "faster, after moving investor reporting onto Snowflake",
-    value: "+40%",
-    at: "Corbin Advisors",
+    prefix: "+",
+    num: 40,
+    suffix: "%",
   },
 ];
 

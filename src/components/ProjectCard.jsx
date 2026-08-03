@@ -23,7 +23,7 @@ export default function ProjectCard({ project, priority = false }) {
   return (
     <article className="group border border-rule bg-ink transition-colors hover:border-gold/40">
       <Link href={`/projects/${project.slug}`} className="block">
-        <div className="relative aspect-[16/10] overflow-hidden border-b border-rule">
+        <div className="wipe relative aspect-[16/10] overflow-hidden border-b border-rule">
           {project.image ? (
             <Image
               src={project.image}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Figure from "@/components/Figure";
 import { record } from "@/data/resume";
 
 /**
@@ -42,7 +43,14 @@ export default function Hero() {
             >
               <p className="readout-key t-label">{row.key}</p>
               <p className="readout-note t-sub-sm">{row.note}</p>
-              <p className="readout-value t-figure">{row.value}</p>
+              <p className="readout-value t-figure">
+                <Figure
+                  prefix={row.prefix}
+                  num={row.num}
+                  suffix={row.suffix}
+                  delay={i * 90}
+                />
+              </p>
             </div>
           ))}
         </div>

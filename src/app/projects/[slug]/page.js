@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import Reveal from "@/components/Reveal";
 import projects from "@/data/projects.json";
 
 export function generateStaticParams() {
@@ -107,6 +108,31 @@ export default async function ProjectDetail({ params }) {
           </ul>
         </aside>
       </div>
+
+      {project.gallery?.length > 0 && (
+        <Reveal>
+          <section className="mt-16">
+            <p className="t-label-gold">Screens</p>
+            <hr className="hairline-gold mt-3" />
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {project.gallery.map((frame) => (
+                <figure key={frame.src} className="tile aspect-[16/10]">
+                  <Image
+                    src={frame.src}
+                    alt={frame.caption}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                  <figcaption className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink to-transparent p-3 pt-10">
+                    <span className="t-label">{frame.caption}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        </Reveal>
+      )}
 
       <div className="mt-16 grid gap-12 sm:grid-cols-2">
         <section>

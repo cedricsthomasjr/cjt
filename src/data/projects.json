@@ -7,7 +7,13 @@
     "status": "Live",
     "image": "/projects/bullbrief.webp",
     "summary": "An equity research tool that reads market data, filings, and earnings, then writes the brief an analyst would have spent an afternoon on.",
-    "tags": ["Next.js", "OpenAI API", "yFinance", "Flask", "TypeScript"],
+    "tags": [
+      "Next.js",
+      "OpenAI API",
+      "yFinance",
+      "Flask",
+      "TypeScript"
+    ],
     "content": [
       "Equity research starts the same way every time: pull the filings, skim the earnings call, check the fundamentals, and write it up. BullBrief does the pulling and the first draft.",
       "A Next.js frontend takes a ticker and returns a structured digest — business model, financial health, recent developments. Behind it, a Python service fans out to yFinance and SEC data, normalizes what comes back, and runs it through prompts tuned for financial language rather than general summarization.",
@@ -26,7 +32,17 @@
       "Degrading gracefully when one of four upstream sources is down"
     ],
     "github": "https://github.com/cedricsthomasjr/bullbrief-frontend",
-    "live": "https://bullbrief.pro"
+    "live": "https://bullbrief.pro",
+    "gallery": [
+      {
+        "src": "/placeholders/screen-01.webp",
+        "caption": "Ticker search and digest"
+      },
+      {
+        "src": "/placeholders/screen-02.webp",
+        "caption": "Deep Compare, side by side"
+      }
+    ]
   },
   {
     "title": "UniVizr",
@@ -36,7 +52,12 @@
     "status": "In progress",
     "image": null,
     "summary": "Degree planning that treats a transcript as a graph — what you have taken, what it unlocks, and which industry skills it maps to.",
-    "tags": ["FastAPI", "PostgreSQL", "React", "Academic data"],
+    "tags": [
+      "FastAPI",
+      "PostgreSQL",
+      "React",
+      "Academic data"
+    ],
     "content": [
       "Course catalogs are graphs pretending to be lists. Prerequisites, corequisites, and substitutions form a dependency structure that no advising spreadsheet models well, which is why degree planning goes wrong.",
       "UniVizr stores that structure properly in PostgreSQL and exposes it through a FastAPI service, so a student can see progress, generate a viable semester plan, and trace coursework to the skills it actually builds.",
@@ -55,7 +76,17 @@
       "Where generated plans need a human override"
     ],
     "github": "https://github.com/Drastansh7/UniPal.Ai",
-    "live": ""
+    "live": "",
+    "gallery": [
+      {
+        "src": "/placeholders/screen-01.webp",
+        "caption": "Degree progress view"
+      },
+      {
+        "src": "/placeholders/screen-02.webp",
+        "caption": "Generated semester plan"
+      }
+    ]
   },
   {
     "title": "Athlytics",
@@ -65,7 +96,12 @@
     "status": "Archived",
     "image": "/projects/athlytics.webp",
     "summary": "NBA player analytics — advanced stats and awards history served from a cached Basketball-Reference pipeline.",
-    "tags": ["Python", "JavaScript", "Data pipeline", "Caching"],
+    "tags": [
+      "Python",
+      "JavaScript",
+      "Data pipeline",
+      "Caching"
+    ],
     "content": [
       "A basketball research tool built to answer the arguments that come up constantly and get settled badly: who actually had the better peak, how a season stacks up historically, what the award voting really looked like.",
       "The interesting engineering is the pipeline rather than the interface. Basketball-Reference is slow and unfriendly to repeated queries, so a Python backend scrapes, normalizes, and caches per-player records to disk, keyed by the site's own player IDs. The frontend then reads from cache and stays quick.",
@@ -83,6 +119,16 @@
       "Knowing when to archive a side project instead of finishing it"
     ],
     "github": "https://github.com/cedricsthomasjr/athlytics",
-    "live": ""
+    "live": "",
+    "gallery": [
+      {
+        "src": "/placeholders/screen-01.webp",
+        "caption": "Player advanced stats"
+      },
+      {
+        "src": "/placeholders/screen-02.webp",
+        "caption": "Awards history"
+      }
+    ]
   }
 ]
