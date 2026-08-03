@@ -3,7 +3,6 @@ import { contactLinks } from "@/data/resume";
 const external = [
   { href: contactLinks.github, label: "GitHub" },
   { href: contactLinks.linkedin, label: "LinkedIn" },
-  { href: contactLinks.photography, label: "Photography" },
 ];
 
 export default function Footer() {
@@ -11,7 +10,7 @@ export default function Footer() {
     <footer className="border-t border-rule">
       <div className="shell flex flex-col gap-8 py-12 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="t-h3">cj thomas</p>
+          <p className="t-h3">CJ Thomas</p>
           <p className="t-sub-sm mt-2 max-w-sm">
             Pipelines, models, and the interfaces that make them useful.
           </p>

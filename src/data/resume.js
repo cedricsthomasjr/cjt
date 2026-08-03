@@ -5,7 +5,6 @@ export const contactLinks = {
   location: "New York, NY / Atlanta, GA",
   github: "https://github.com/cedricsthomasjr/",
   linkedin: "https://www.linkedin.com/in/cedric-thomas-jr/",
-  photography: "https://whatcjsees.vercel.app",
   resumePdf: "/RESUMESUMMER26.pdf",
 };
 
