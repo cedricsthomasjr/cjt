@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import PhotoCallout from "@/components/PhotoCallout";
-import PhotoGrid from "@/components/PhotoGrid";
+import Connector from "@/components/Connector";
 import Reveal from "@/components/Reveal";
-import { affiliations } from "@/data/resume";
+import Stagger from "@/components/Stagger";
+import Timeline from "@/components/Timeline";
+import { affiliations, community, resumeSections } from "@/data/resume";
 
 export const metadata = {
   title: "About",
@@ -47,7 +48,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="relative aspect-[4/5] overflow-hidden border border-rule bg-raised">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)] border border-rule card">
             <Image
               src="/cj2.jpeg"
               alt="CJ Thomas"
@@ -75,22 +76,42 @@ export default function AboutPage() {
 
       <section className="shell section">
         <h2 className="t-h2">How I work</h2>
-        <div className="mt-8 grid gap-px bg-rule sm:grid-cols-3">
+        <Stagger className="mt-8 grid gap-4 sm:grid-cols-3" step={80}>
           {principles.map((principle) => (
-            <article key={principle.title} className="bg-ink p-6">
+            <article key={principle.title} className="card h-full p-6">
               <h3 className="t-h3">{principle.title}</h3>
               <p className="t-sub-sm mt-3">{principle.text}</p>
             </article>
           ))}
-        </div>
+        </Stagger>
       </section>
 
+      <Connector />
+
       <Reveal>
-        <section className="shell pb-8">
-          <PhotoCallout />
-          <div className="mt-4">
-            <PhotoGrid />
+        <section className="shell section pt-0">
+          <p className="t-label-gold">Where I have been</p>
+          <hr className="hairline-gold mt-3" />
+          <div className="mt-8">
+            <Timeline items={resumeSections[0].items} />
           </div>
+        </section>
+      </Reveal>
+
+      <Reveal>
+        <section className="shell section pt-0">
+          <p className="t-label-gold">Outside the work</p>
+          <hr className="hairline-gold mt-3" />
+          <Stagger className="mt-8 grid gap-4 sm:grid-cols-3" step={80}>
+            {community.map((entry) => (
+              <article key={entry.org} className="card h-full p-6">
+                <p className="t-label">{entry.time}</p>
+                <h3 className="t-h3 mt-3">{entry.title}</h3>
+                <p className="t-sub-sm mt-1.5 text-bone">{entry.org}</p>
+                <p className="t-sub-sm mt-3">{entry.text}</p>
+              </article>
+            ))}
+          </Stagger>
         </section>
       </Reveal>
 
