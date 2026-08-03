@@ -93,7 +93,9 @@ export default function ResumePage() {
                   >
                     {section.title === "Skills"
                       ? item.bullets
-                          .flatMap((bullet) => bullet.split(", "))
+                          .flatMap((bullet) =>
+                            bullet.split(/,\s*(?![^()]*\))/)
+                          )
                           .map((skill) => (
                             <li key={skill}>
                               <span className="pill">{skill}</span>
