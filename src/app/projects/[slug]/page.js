@@ -6,12 +6,12 @@ import Reveal from "@/components/Reveal";
 import projects from "@/data/projects.json";
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+  return projects.filter((p) => !p.linkOut).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = projects.find((p) => p.slug === slug && !p.linkOut);
   if (!project) return {};
 
   return {
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
 
 export default async function ProjectDetail({ params }) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = projects.find((p) => p.slug === slug && !p.linkOut);
   if (!project) notFound();
 
   return (
@@ -72,7 +72,7 @@ export default async function ProjectDetail({ params }) {
       {/* Full colour here. The grid normalizes screenshots so it reads as one
           system; the case study is where the product speaks for itself. */}
       {project.image && (
-        <div className="relative mt-14 aspect-[16/10] overflow-hidden border border-rule">
+        <div className="relative mt-14 aspect-[16/10] overflow-hidden rounded-[var(--radius-card)] border border-rule">
           <Image
             src={project.image}
             alt={`${project.title} interface`}
@@ -96,13 +96,10 @@ export default async function ProjectDetail({ params }) {
         <aside>
           <p className="t-label-gold">Built with</p>
           <hr className="hairline mt-3" />
-          <ul className="mt-3">
+          <ul className="mt-3 flex flex-wrap gap-2">
             {project.tags.map((tag) => (
-              <li
-                key={tag}
-                className="border-b border-rule py-2 text-[0.8125rem]"
-              >
-                {tag}
+              <li key={tag}>
+                <span className="pill">{tag}</span>
               </li>
             ))}
           </ul>

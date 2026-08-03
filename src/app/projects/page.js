@@ -1,10 +1,11 @@
-import ProjectCard from "@/components/ProjectCard";
+import ProjectRow from "@/components/ProjectRow";
+import Stagger from "@/components/Stagger";
 import projects from "@/data/projects.json";
 
 export const metadata = {
   title: "Work",
   description:
-    "Projects by CJ Thomas — AI-powered equity research, degree planning over a prerequisite graph, and an NBA analytics pipeline.",
+    "Projects by CJ Thomas — AI-powered equity research, NBA analytics over a cached pipeline, and a photography portfolio.",
 };
 
 export default function ProjectsPage() {
@@ -16,15 +17,11 @@ export default function ProjectsPage() {
         which is usually the right order and occasionally the wrong one.
       </p>
 
-      <div className="mt-14 grid gap-5 sm:grid-cols-2">
+      <Stagger className="mt-14 grid gap-6" step={90}>
         {projects.map((project, i) => (
-          <ProjectCard
-            key={project.slug}
-            project={project}
-            priority={i < 2}
-          />
+          <ProjectRow key={project.slug} project={project} priority={i === 0} />
         ))}
-      </div>
+      </Stagger>
     </main>
   );
 }
