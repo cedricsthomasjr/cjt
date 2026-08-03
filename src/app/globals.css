@@ -50,6 +50,10 @@
   --font-hn: "Helvetica Neue", "TG Heros", Helvetica, Arial, sans-serif;
   --font-pal: Palatino, "Palatino Linotype", "Book Antiqua", "TG Pagella",
     Georgia, serif;
+
+  --radius-card: 10px;
+  --glow-gold: 0 14px 40px -10px rgb(200 160 70 / 0.14);
+  --glow-gold-strong: 0 18px 50px -10px rgb(200 160 70 / 0.26);
 }
 
 @layer base {
@@ -81,6 +85,33 @@
     letter-spacing: -0.011em;
     -webkit-font-smoothing: antialiased;
     font-variant-numeric: tabular-nums;
+  }
+
+  /* Dot grid, lifted from rython.dev but masked so it only exists behind the
+     top of the page. Wallpapering it edge to edge is what makes that look read
+     as technical; letting it dissolve makes it read as paper. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(
+      circle,
+      rgb(200 160 70 / 0.07) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 110% 78% at 50% 0%,
+      #000 32%,
+      transparent 76%
+    );
+    mask-image: radial-gradient(
+      ellipse 110% 78% at 50% 0%,
+      #000 32%,
+      transparent 76%
+    );
   }
 
   /* Film grain. Flat black on a modern display reads as a dead void; a trace
@@ -439,6 +470,53 @@
   .panel {
     background: var(--color-raised);
     border: 1px solid var(--color-rule);
+  }
+
+  /* --- cards ------------------------------------------------------------ */
+
+  .card {
+    position: relative;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-rule);
+    background: linear-gradient(158deg, #0c0c10 0%, #141419 100%);
+    box-shadow: var(--glow-gold);
+    transition: border-color 0.3s ease, box-shadow 0.45s ease,
+      transform 0.45s cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+
+  .card-hover:hover,
+  .card-hover:focus-within {
+    transform: translateY(-4px);
+    border-color: rgb(200 160 70 / 0.42);
+    box-shadow: var(--glow-gold-strong);
+  }
+
+  /* --- pills ------------------------------------------------------------ */
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    border: 1px solid var(--color-rule);
+    padding: 0.3125rem 0.6875rem;
+    font-family: var(--font-hn);
+    font-weight: 700;
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    transition: border-color 0.25s ease, color 0.25s ease;
+  }
+
+  .group:hover .pill {
+    border-color: rgb(200 160 70 / 0.35);
+    color: var(--color-bone);
+  }
+
+  .pill-gold {
+    border-color: rgb(200 160 70 / 0.5);
+    color: var(--color-gold);
   }
 
   /* Project screenshots come from apps with loud, unrelated palettes (magenta,
