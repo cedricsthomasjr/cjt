@@ -684,4 +684,50 @@
     border: 1px solid var(--color-gold);
     background: var(--color-ink);
   }
+
+  /* --- index ------------------------------------------------------------ */
+
+  .index-row {
+    display: grid;
+    align-items: baseline;
+    gap: 0.25rem 1.5rem;
+    padding: 1.125rem 0;
+    border-bottom: 1px solid var(--color-rule);
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "name  arrow"
+      "note  note";
+    transition: border-color 0.25s ease;
+  }
+
+  @media (min-width: 640px) {
+    .index-row {
+      grid-template-columns: 9rem 1fr auto;
+      grid-template-areas: "name note arrow";
+      gap: 1.5rem;
+    }
+  }
+
+  .index-row:hover {
+    border-color: rgb(200 160 70 / 0.45);
+  }
+
+  .index-name {
+    grid-area: name;
+  }
+
+  .index-note {
+    grid-area: note;
+  }
+
+  .index-arrow {
+    grid-area: arrow;
+    color: var(--color-muted);
+    transition: color 0.25s ease, transform 0.35s cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+
+  .index-row:hover .index-arrow {
+    color: var(--color-gold);
+    transform: translate(3px, -3px);
+  }
 }

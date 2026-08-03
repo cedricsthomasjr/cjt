@@ -26,7 +26,7 @@ export default function Hero() {
         usually a pipeline, a dashboard, or a brief.
       </p>
 
-      <div className="rise mt-12" style={{ animationDelay: "160ms" }}>
+      <div className="card rise mt-12 p-6 sm:p-8" style={{ animationDelay: "160ms" }}>
         <div className="flex items-baseline justify-between gap-4">
           <p className="t-label-gold">The record</p>
           <p className="t-label">Corbin Advisors · 2024—2025</p>
@@ -56,7 +56,7 @@ export default function Hero() {
       </div>
 
       <div
-        className="rise mt-10 flex flex-wrap gap-3"
+        className="rise mt-8 flex flex-wrap gap-3"
         style={{ animationDelay: "520ms" }}
       >
         <Link href="/projects" className="btn-solid">
