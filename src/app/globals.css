@@ -319,12 +319,12 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .fig-inner {
+    .js .fig-inner {
       transform: translateY(115%);
       transition: transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
-    .fig.is-in .fig-inner {
+    .js .fig.is-in .fig-inner {
       transform: none;
     }
   }
