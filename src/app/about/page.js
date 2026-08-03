@@ -8,7 +8,7 @@ import { affiliations } from "@/data/resume";
 export const metadata = {
   title: "About",
   description:
-    "CJ Thomas — NYU computer science, incoming AI/ML engineer intern at NIKE, previously data science and analytics at Corbin Advisors.",
+    "CJ Thomas — NYU computer science, AI/ML engineer intern at NIKE, previously data science and analytics at Corbin Advisors.",
 };
 
 const principles = [
@@ -35,9 +35,9 @@ export default function AboutPage() {
             <h1 className="t-display">About</h1>
             <p className="t-sub-lg mt-5 max-w-xl">
               I am CJ — a Computer Science student at NYU working across machine
-              learning, data engineering, and business intelligence. This summer
-              I join the AI, Data &amp; Machine Learning Engineering team at
-              NIKE, in Beaverton.
+              learning, data engineering, and business intelligence. I am on the
+              AI, Data &amp; Machine Learning Engineering team at NIKE, in
+              Beaverton.
             </p>
             <p className="t-sub-lg mt-4 max-w-xl">
               Before that I spent two summers at Corbin Advisors, an investor

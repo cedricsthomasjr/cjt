@@ -10,7 +10,7 @@ export const metadata = {
     template: "%s — CJ Thomas",
   },
   description:
-    "CJ Thomas builds data pipelines, machine learning workflows, and AI-powered finance tools. NYU computer science, incoming AI/ML engineer intern at NIKE.",
+    "CJ Thomas builds data pipelines, machine learning workflows, and AI-powered finance tools. NYU computer science, AI/ML engineer intern at NIKE.",
   openGraph: {
     title: "CJ Thomas — AI/ML and data engineering",
     description:

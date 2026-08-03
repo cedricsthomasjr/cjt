@@ -45,50 +45,6 @@
     ]
   },
   {
-    "title": "UniVizr",
-    "slug": "univizr",
-    "year": "2025",
-    "role": "Collaborative build",
-    "status": "In progress",
-    "image": null,
-    "summary": "Degree planning that treats a transcript as a graph — what you have taken, what it unlocks, and which industry skills it maps to.",
-    "tags": [
-      "FastAPI",
-      "PostgreSQL",
-      "React",
-      "Academic data"
-    ],
-    "content": [
-      "Course catalogs are graphs pretending to be lists. Prerequisites, corequisites, and substitutions form a dependency structure that no advising spreadsheet models well, which is why degree planning goes wrong.",
-      "UniVizr stores that structure properly in PostgreSQL and exposes it through a FastAPI service, so a student can see progress, generate a viable semester plan, and trace coursework to the skills it actually builds.",
-      "Built with a partner, which made API contracts and review discipline matter more than they do on a solo project."
-    ],
-    "features": [
-      "Degree progress visualization with milestone tracking",
-      "Generated semester plans that respect prerequisite structure",
-      "Course-to-skill mapping against industry competencies",
-      "Async FastAPI endpoints with request validation",
-      "Relational schema built for prerequisite graphs"
-    ],
-    "lessons": [
-      "Modeling prerequisite structure as a graph, not a checklist",
-      "Holding an API contract steady across two developers",
-      "Where generated plans need a human override"
-    ],
-    "github": "https://github.com/Drastansh7/UniPal.Ai",
-    "live": "",
-    "gallery": [
-      {
-        "src": "/placeholders/screen-01.webp",
-        "caption": "Degree progress view"
-      },
-      {
-        "src": "/placeholders/screen-02.webp",
-        "caption": "Generated semester plan"
-      }
-    ]
-  },
-  {
     "title": "Athlytics",
     "slug": "athlytics",
     "year": "2025",
@@ -130,5 +86,21 @@
         "caption": "Awards history"
       }
     ]
+  },
+  {
+    "title": "What CJ Sees",
+    "slug": "whatcjsees",
+    "year": "2024 — 2025",
+    "role": "Solo build",
+    "status": "Live",
+    "image": null,
+    "linkOut": true,
+    "external": "https://whatcjsees.vercel.app",
+    "summary": "A photography portfolio built by hand — custom frontend, JSON-backed galleries, and no page builder anywhere in it.",
+    "tags": ["Next.js", "Tailwind CSS", "Vercel", "JSON"],
+    "content": [],
+    "features": [],
+    "lessons": [],
+    "gallery": []
   }
 ]

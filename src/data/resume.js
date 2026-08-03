@@ -24,7 +24,7 @@ export const record = [
   },
   {
     key: "Avoided",
-    note: "in annual cost from that same pipeline",
+    note: "in annual cost, approximately, from that same pipeline",
     prefix: "$",
     num: 100,
     suffix: "K",
@@ -47,14 +47,14 @@ export const record = [
 
 export const currentRole = {
   org: "NIKE, Inc.",
-  title: "AI & Machine Learning Engineer Intern",
+  title: "Artificial Intelligence & Machine Learning Engineer Intern",
   team: "AI, Data & Machine Learning Engineering",
   place: "Beaverton, OR",
   time: "Jun 2026 — Aug 2026",
   summary:
-    "Joining the team that builds the machine learning infrastructure behind Nike's global digital platforms.",
+    "On the team that builds the machine learning infrastructure behind Nike's global digital platforms.",
   bullets: [
-    "Production-scale ML infrastructure supporting global digital platforms.",
+    "Working on production-scale ML infrastructure with the AI, Data & Machine Learning Engineering team.",
     "Data pipelines and machine learning workflows, built and tuned for scale.",
     "An interdisciplinary engineering project tied to platform-wide data initiatives.",
   ],
@@ -69,17 +69,42 @@ export const affiliations = [
   "The Vanguard Initiative",
 ];
 
+/**
+ * The leadership entries, flattened for the About page. The resume keeps the
+ * full bulleted version; this is the short form.
+ */
+export const community = [
+  {
+    title: "Secretary",
+    org: "Business and Finance Group, NYU",
+    time: "Oct 2025 — Present",
+    text: "Executive communications and internal operations for a 1000+ member finance organization, across the Tandon and CAS chapters.",
+  },
+  {
+    title: "Co-Founder",
+    org: "The Vanguard Initiative",
+    time: "May 2024 — Present",
+    text: "A mentorship initiative for underrepresented students, built around the points where students actually fall off.",
+  },
+  {
+    title: "EDGE Participant",
+    org: "SEO Career",
+    time: "Oct 2025 — Present",
+    text: "Technical and professional coaching toward internship recruiting, with industry-specific training and assessments.",
+  },
+];
+
 export const resumeSections = [
   {
     title: "Experience",
     items: [
       {
-        title: "AI & Machine Learning Engineer Intern",
+        title: "Artificial Intelligence & Machine Learning Engineer Intern",
         org: "NIKE, Inc.",
         place: "Beaverton, OR",
         time: "Jun 2026 — Aug 2026",
         bullets: [
-          "Incoming to the AI, Data & Machine Learning Engineering team, working on production-scale ML infrastructure.",
+          "Working on production-scale ML infrastructure with the AI, Data & Machine Learning Engineering team.",
           "Building and optimizing data pipelines and machine learning workflows behind global digital platforms.",
           "Leading an interdisciplinary engineering project tied to large-scale, data-driven platform initiatives.",
         ],
@@ -159,22 +184,24 @@ export const resumeSections = [
     items: [
       {
         title: "Languages",
-        bullets: ["Python, SQL, Java, JavaScript, TypeScript, C"],
+        bullets: ["Java, Python, SQL, C, JavaScript, TypeScript"],
       },
       {
-        title: "Data & ML",
+        title: "Concepts",
         bullets: [
-          "Pandas, NumPy, Scikit-learn, PyMC, Snowflake, SQLAlchemy, PostgreSQL",
+          "Data Science, Business Intelligence, Market Research, Full-Stack Development, Agile",
         ],
       },
       {
-        title: "Product",
-        bullets: ["FastAPI, Flask, React, Next.js, Git, REST APIs"],
+        title: "Tools",
+        bullets: [
+          "Git, Snowflake, Microsoft Suite (Word, Excel, PowerPoint), APIs",
+        ],
       },
       {
-        title: "Practice",
+        title: "Frameworks & Libraries",
         bullets: [
-          "Business intelligence, market research, experiment design, Agile delivery",
+          "FastAPI, React, Next.js, Pandas, NumPy, Scikit-learn, PyMC, SQLAlchemy",
         ],
       },
     ],
