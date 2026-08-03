@@ -7,7 +7,7 @@ export default function PhotoCallout() {
     <div className="group grid gap-8 border border-rule sm:grid-cols-[1.1fr_1fr] sm:items-center">
       <div className="p-6 sm:p-10">
         <p className="t-label-gold">Elsewhere</p>
-        <h2 className="t-h2 mt-3">what cj sees</h2>
+        <h2 className="t-h2 mt-3">What CJ Sees</h2>
         <p className="t-sub mt-3 max-w-sm">
           I shoot when I travel. Composition and restraint are the same problem
           in a photograph and in an interface, which is most of why my work

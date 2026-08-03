@@ -45,6 +45,21 @@ export const record = [
   },
 ];
 
+export const currentRole = {
+  org: "NIKE, Inc.",
+  title: "AI & Machine Learning Engineer Intern",
+  team: "AI, Data & Machine Learning Engineering",
+  place: "Beaverton, OR",
+  time: "Jun 2026 — Aug 2026",
+  summary:
+    "Joining the team that builds the machine learning infrastructure behind Nike's global digital platforms.",
+  bullets: [
+    "Production-scale ML infrastructure supporting global digital platforms.",
+    "Data pipelines and machine learning workflows, built and tuned for scale.",
+    "An interdisciplinary engineering project tied to platform-wide data initiatives.",
+  ],
+};
+
 export const affiliations = [
   "NIKE, Inc.",
   "Corbin Advisors",

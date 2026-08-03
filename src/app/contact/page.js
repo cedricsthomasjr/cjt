@@ -21,7 +21,7 @@ export default function ContactPage() {
     <main className="shell section">
       <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
         <div>
-          <h1 className="t-display">contact</h1>
+          <h1 className="t-display">Contact</h1>
           <p className="t-sub-lg mt-4 max-w-md">
             Open to conversations about machine learning, data platforms,
             analytics, and anything where the hard part is the data.

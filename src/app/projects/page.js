@@ -10,7 +10,7 @@ export const metadata = {
 export default function ProjectsPage() {
   return (
     <main className="shell section">
-      <h1 className="t-display">work</h1>
+      <h1 className="t-display">Work</h1>
       <p className="t-sub-lg mt-4 max-w-xl">
         Everything here started as a data problem. The interface came second,
         which is usually the right order and occasionally the wrong one.

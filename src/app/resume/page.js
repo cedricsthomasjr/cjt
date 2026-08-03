@@ -13,7 +13,7 @@ export const metadata = {
 export default function ResumePage() {
   return (
     <main className="shell section">
-      <h1 className="t-display">resume</h1>
+      <h1 className="t-display">Resume</h1>
       <p className="t-sub-lg mt-4 max-w-xl">
         Machine learning, data engineering, and business intelligence, with
         enough finance to know what the numbers are for.

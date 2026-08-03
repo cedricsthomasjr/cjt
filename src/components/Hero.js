@@ -11,10 +11,9 @@ export default function Hero() {
   return (
     <section className="shell pb-16 pt-20 sm:pb-24 sm:pt-28">
       <div className="rise" style={{ animationDelay: "0ms" }}>
-        <h1 className="t-display">cj thomas</h1>
+        <h1 className="t-display">CJ Thomas</h1>
         <p className="t-sub-lg mt-3 max-w-2xl">
-          ai/ml and data engineering · nyu computer science, 2027 · new york and
-          atlanta
+          AI/ML and Data Engineering · NYU Computer Science, 2027 · New York and Atlanta
         </p>
       </div>
 
@@ -22,9 +21,9 @@ export default function Hero() {
         className="t-sub-lg rise mt-8 max-w-xl text-bone"
         style={{ animationDelay: "80ms" }}
       >
-        I turn messy inputs into things people can act on — pipelines,
-        dashboards, and briefs. Most of what I build ends as a number someone
-        can defend in a meeting.
+        Most of my work sits upstream of the dashboard — the pipelines and
+        schemas that decide whether a number can be trusted. What comes out is
+        usually a pipeline, a dashboard, or a brief.
       </p>
 
       <div className="rise mt-12" style={{ animationDelay: "160ms" }}>

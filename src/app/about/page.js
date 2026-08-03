@@ -18,11 +18,11 @@ const principles = [
   },
   {
     title: "A number you can defend",
-    text: "Analysis that cannot survive a follow-up question is decoration. I build toward figures that hold up when someone pushes on them.",
+    text: "Analysis is only finished when it survives a follow-up question. I build toward figures that hold up when someone pushes on them.",
   },
   {
     title: "Restraint is a skill",
-    text: "Photography taught me that what you leave out decides what the viewer sees. The same is true of an interface and of a dashboard.",
+    text: "Photography taught me that what you leave out decides what the viewer sees. The same holds for an interface and for a dashboard.",
   },
 ];
 
@@ -32,11 +32,12 @@ export default function AboutPage() {
       <section className="shell section">
         <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-end">
           <div>
-            <h1 className="t-display">about</h1>
+            <h1 className="t-display">About</h1>
             <p className="t-sub-lg mt-5 max-w-xl">
-              I am CJ — a computer science student at NYU working across machine
+              I am CJ — a Computer Science student at NYU working across machine
               learning, data engineering, and business intelligence. This summer
-              I join NIKE&apos;s AI, Data & Machine Learning Engineering team.
+              I join the AI, Data &amp; Machine Learning Engineering team at
+              NIKE, in Beaverton.
             </p>
             <p className="t-sub-lg mt-4 max-w-xl">
               Before that I spent two summers at Corbin Advisors, an investor

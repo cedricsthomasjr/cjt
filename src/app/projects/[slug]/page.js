@@ -43,7 +43,7 @@ export default async function ProjectDetail({ params }) {
         <p className="t-label-gold">{project.status}</p>
       </div>
 
-      <h1 className="t-display mt-3">{project.title.toLowerCase()}</h1>
+      <h1 className="t-display mt-3">{project.title}</h1>
       <p className="t-sub-lg mt-4 max-w-2xl">{project.summary}</p>
 
       <div className="mt-8 flex flex-wrap gap-3">
