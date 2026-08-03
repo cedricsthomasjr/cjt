@@ -408,26 +408,12 @@
      per-element fade-up chains were the old site's loudest generated tell. */
   /* Reveal and transforms respect reduced-motion. Without JS, or if the
      observer never fires, content shows immediately and fully. */
-  @keyframes revealFailsafe {
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
   @media (prefers-reduced-motion: no-preference) {
     .js .reveal {
       opacity: 0;
       transform: translateY(0.75rem);
       transition: opacity 0.6s cubic-bezier(0.2, 0.6, 0.2, 1),
         transform 0.6s cubic-bezier(0.2, 0.6, 0.2, 1);
-      /* Failsafe: if the JS bundle never runs (blocked, crashed, slow
-         network) no observer ever adds .is-in and content would stay
-         invisible forever. This guarantees a reveal a few seconds in
-         regardless. Harmless in the normal case — by 3s .is-in has already
-         taken the element to opacity:1/transform:none via the transition
-         above, so the implicit "from" keyframe here just holds it there. */
-      animation: revealFailsafe 0.6s cubic-bezier(0.2, 0.6, 0.2, 1) 3s forwards;
     }
 
     .js .reveal.is-in {

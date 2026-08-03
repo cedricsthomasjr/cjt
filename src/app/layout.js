@@ -37,7 +37,12 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js')",
+            __html: `
+              document.documentElement.classList.add('js');
+              window.__revealFallback = setTimeout(function () {
+                document.documentElement.classList.remove('js');
+              }, 6000);
+            `,
           }}
         />
       </head>
