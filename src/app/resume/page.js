@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import Figure from "@/components/Figure";
+import Reveal from "@/components/Reveal";
 import { contactLinks, record, resumeSections } from "@/data/resume";
 import projects from "@/data/projects.json";
 
@@ -33,88 +34,110 @@ export default function ResumePage() {
         </a>
       </div>
 
-      <section className="mt-16">
-        <p className="t-label-gold">Impact</p>
-        <hr className="hairline-gold mt-3" />
-        <div className="readout mt-1">
-          {record.map((row, i) => (
-            <div key={row.key} className="readout-row">
-              <p className="readout-key t-label">{row.key}</p>
-              <p className="readout-note t-sub-sm">{row.note}</p>
-              <p className="readout-value t-figure">
-                <Figure
-                  prefix={row.prefix}
-                  num={row.num}
-                  suffix={row.suffix}
-                  delay={i * 90}
-                />
-              </p>
+      <Reveal>
+        <section className="mt-16">
+          <p className="t-label-gold">Impact</p>
+          <hr className="hairline-gold mt-3" />
+          <div className="card mt-6 p-6 sm:p-8">
+            <div className="readout">
+              {record.map((row, i) => (
+                <div key={row.key} className="readout-row">
+                  <p className="readout-key t-label">{row.key}</p>
+                  <p className="readout-note t-sub-sm">{row.note}</p>
+                  <p className="readout-value t-figure">
+                    <Figure
+                      prefix={row.prefix}
+                      num={row.num}
+                      suffix={row.suffix}
+                      delay={i * 90}
+                    />
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
+      </Reveal>
 
       {resumeSections.map((section) => (
-        <section key={section.title} className="mt-16">
-          <h2 className="t-h2">{section.title}</h2>
-          <hr className="hairline-gold mt-3" />
+        <Reveal key={section.title}>
+          <section className="mt-16">
+            <h2 className="t-h2">{section.title}</h2>
+            <hr className="hairline-gold mt-3" />
 
+            <div>
+              {section.items.map((item) => (
+                <article
+                  key={`${section.title}-${item.title}`}
+                  className="grid gap-3 border-b border-rule py-6 lg:grid-cols-[18rem_1fr] lg:gap-10"
+                >
+                  <div>
+                    <h3 className="t-h3">{item.title}</h3>
+                    {item.org && (
+                      <p className="t-sub-sm mt-1.5">
+                        {item.org}
+                        {item.place ? ` · ${item.place}` : ""}
+                      </p>
+                    )}
+                    {item.time && (
+                      <p className="t-label-gold mt-3">{item.time}</p>
+                    )}
+                  </div>
+
+                  <ul
+                    className={
+                      section.title === "Skills"
+                        ? "flex max-w-2xl flex-wrap gap-2"
+                        : "max-w-2xl"
+                    }
+                  >
+                    {section.title === "Skills"
+                      ? item.bullets
+                          .flatMap((bullet) => bullet.split(", "))
+                          .map((skill) => (
+                            <li key={skill}>
+                              <span className="pill">{skill}</span>
+                            </li>
+                          ))
+                      : item.bullets.map((bullet) => (
+                          <li key={bullet} className="t-sub mb-2 last:mb-0">
+                            {bullet}
+                          </li>
+                        ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+        </Reveal>
+      ))}
+
+      <Reveal>
+        <section className="mt-16">
+          <h2 className="t-h2">Projects</h2>
+          <hr className="hairline-gold mt-3" />
           <div>
-            {section.items.map((item) => (
+            {projects.map((project) => (
               <article
-                key={`${section.title}-${item.title}`}
+                key={project.slug}
                 className="grid gap-3 border-b border-rule py-6 lg:grid-cols-[18rem_1fr] lg:gap-10"
               >
                 <div>
-                  <h3 className="t-h3">{item.title}</h3>
-                  {item.org && (
-                    <p className="t-sub-sm mt-1.5">
-                      {item.org}
-                      {item.place ? ` · ${item.place}` : ""}
-                    </p>
-                  )}
-                  {item.time && (
-                    <p className="t-label-gold mt-3">{item.time}</p>
-                  )}
+                  <h3 className="t-h3">{project.title}</h3>
+                  <p className="t-sub-sm mt-1.5">{project.role}</p>
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="link-rule mt-3 text-[0.8125rem] text-gold"
+                  >
+                    Case study <ArrowUpRight size={14} />
+                  </Link>
                 </div>
-
-                <ul className="max-w-2xl">
-                  {item.bullets.map((bullet) => (
-                    <li key={bullet} className="t-sub mb-2 last:mb-0">
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
+                <p className="t-sub max-w-2xl">{project.summary}</p>
               </article>
             ))}
           </div>
         </section>
-      ))}
-
-      <section className="mt-16">
-        <h2 className="t-h2">Projects</h2>
-        <hr className="hairline-gold mt-3" />
-        <div>
-          {projects.map((project) => (
-            <article
-              key={project.slug}
-              className="grid gap-3 border-b border-rule py-6 lg:grid-cols-[18rem_1fr] lg:gap-10"
-            >
-              <div>
-                <h3 className="t-h3">{project.title}</h3>
-                <p className="t-sub-sm mt-1.5">{project.role}</p>
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="link-rule mt-3 text-[0.8125rem] text-gold"
-                >
-                  Case study <ArrowUpRight size={14} />
-                </Link>
-              </div>
-              <p className="t-sub max-w-2xl">{project.summary}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      </Reveal>
     </main>
   );
 }
