@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageTransition from "@/components/PageTransition";
 
 export const metadata = {
   metadataBase: new URL("https://cjst.dev"),
@@ -34,13 +35,20 @@ export default function RootLayout({ children }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
       </head>
       <body>
         <a href="#main" className="skip">
           Skip to content
         </a>
         <Navbar />
-        <div id="main">{children}</div>
+        <div id="main">
+          <PageTransition>{children}</PageTransition>
+        </div>
         <Footer />
       </body>
     </html>

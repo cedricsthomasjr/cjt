@@ -409,14 +409,14 @@
   /* Reveal and transforms respect reduced-motion. Without JS, or if the
      observer never fires, content shows immediately and fully. */
   @media (prefers-reduced-motion: no-preference) {
-    .reveal {
+    .js .reveal {
       opacity: 0;
       transform: translateY(0.75rem);
       transition: opacity 0.6s cubic-bezier(0.2, 0.6, 0.2, 1),
         transform 0.6s cubic-bezier(0.2, 0.6, 0.2, 1);
     }
 
-    .reveal.is-in {
+    .js .reveal.is-in {
       opacity: 1;
       transform: none;
     }
@@ -438,13 +438,13 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .reveal .hairline-gold {
+    .js .reveal .hairline-gold {
       animation: none;
       transform: scaleX(0);
       transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s;
     }
 
-    .reveal.is-in .hairline-gold {
+    .js .reveal.is-in .hairline-gold {
       transform: scaleX(1);
     }
   }
@@ -572,5 +572,46 @@
 
   .tile:hover img {
     transform: scale(1.04);
+  }
+
+  /* --- motion ----------------------------------------------------------- */
+
+  .connector {
+    width: 1px;
+    margin: 0 auto;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--color-gold) 45%,
+      transparent
+    );
+    opacity: 0.55;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .js .connector {
+      transform: scaleY(0);
+      transform-origin: top center;
+      transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .js .connector.is-in {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes pageIn {
+    from {
+      opacity: 0;
+      transform: translateY(0.625rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .page-in {
+    animation: pageIn 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) both;
   }
 }
