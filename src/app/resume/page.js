@@ -36,7 +36,7 @@ export default function ResumePage() {
 
       <Reveal>
         <section className="mt-16">
-          <p className="t-label-gold">Impact</p>
+          <h2 className="t-label-gold">Impact</h2>
           <hr className="hairline-gold mt-3" />
           <div className="card mt-6 p-6 sm:p-8">
             <div className="readout">
@@ -127,12 +127,23 @@ export default function ResumePage() {
                 <div>
                   <h3 className="t-h3">{project.title}</h3>
                   <p className="t-sub-sm mt-1.5">{project.role}</p>
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="link-rule mt-3 text-[0.8125rem] text-gold"
-                  >
-                    Case study <ArrowUpRight size={14} />
-                  </Link>
+                  {project.linkOut ? (
+                    <a
+                      href={project.external}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="link-rule mt-3 text-[0.8125rem] text-gold"
+                    >
+                      Visit the site <ArrowUpRight size={14} />
+                    </a>
+                  ) : (
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="link-rule mt-3 text-[0.8125rem] text-gold"
+                    >
+                      Case study <ArrowUpRight size={14} />
+                    </Link>
+                  )}
                 </div>
                 <p className="t-sub max-w-2xl">{project.summary}</p>
               </article>

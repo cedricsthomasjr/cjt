@@ -28,7 +28,7 @@ export default function Home() {
       <Reveal>
         <section className="shell">
           <div className="flex items-baseline justify-between gap-4">
-            <p className="t-label-gold">Now</p>
+            <h2 className="t-label-gold">Now</h2>
             <p className="t-label">{currentRole.time}</p>
           </div>
           <hr className="hairline-gold mt-3" />

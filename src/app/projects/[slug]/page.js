@@ -94,7 +94,7 @@ export default async function ProjectDetail({ params }) {
         </div>
 
         <aside>
-          <p className="t-label-gold">Built with</p>
+          <h2 className="t-label-gold">Built with</h2>
           <hr className="hairline mt-3" />
           <ul className="mt-3 flex flex-wrap gap-2">
             {project.tags.map((tag) => (
@@ -109,7 +109,7 @@ export default async function ProjectDetail({ params }) {
       {project.gallery?.length > 0 && (
         <Reveal>
           <section className="mt-16">
-            <p className="t-label-gold">Screens</p>
+            <h2 className="t-label-gold">Screens</h2>
             <hr className="hairline-gold mt-3" />
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {project.gallery.map((frame) => (

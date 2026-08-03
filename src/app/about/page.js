@@ -48,7 +48,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)] border border-rule card">
+          <div className="relative aspect-[4/5] overflow-hidden card">
             <Image
               src="/cj2.jpeg"
               alt="CJ Thomas"
@@ -90,7 +90,7 @@ export default function AboutPage() {
 
       <Reveal>
         <section className="shell section pt-0">
-          <p className="t-label-gold">Where I have been</p>
+          <h2 className="t-label-gold">Where I have been</h2>
           <hr className="hairline-gold mt-3" />
           <div className="mt-8">
             <Timeline items={resumeSections[0].items} />
@@ -100,7 +100,7 @@ export default function AboutPage() {
 
       <Reveal>
         <section className="shell section pt-0">
-          <p className="t-label-gold">Outside the work</p>
+          <h2 className="t-label-gold">Outside the work</h2>
           <hr className="hairline-gold mt-3" />
           <Stagger className="mt-8 grid gap-4 sm:grid-cols-3" step={80}>
             {community.map((entry) => (

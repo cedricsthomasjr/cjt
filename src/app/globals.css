@@ -408,12 +408,26 @@
      per-element fade-up chains were the old site's loudest generated tell. */
   /* Reveal and transforms respect reduced-motion. Without JS, or if the
      observer never fires, content shows immediately and fully. */
+  @keyframes revealFailsafe {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     .js .reveal {
       opacity: 0;
       transform: translateY(0.75rem);
       transition: opacity 0.6s cubic-bezier(0.2, 0.6, 0.2, 1),
         transform 0.6s cubic-bezier(0.2, 0.6, 0.2, 1);
+      /* Failsafe: if the JS bundle never runs (blocked, crashed, slow
+         network) no observer ever adds .is-in and content would stay
+         invisible forever. This guarantees a reveal a few seconds in
+         regardless. Harmless in the normal case — by 3s .is-in has already
+         taken the element to opacity:1/transform:none via the transition
+         above, so the implicit "from" keyframe here just holds it there. */
+      animation: revealFailsafe 0.6s cubic-bezier(0.2, 0.6, 0.2, 1) 3s forwards;
     }
 
     .js .reveal.is-in {
@@ -465,13 +479,6 @@
     font-size: 0.8125rem;
   }
 
-  /* --- surfaces --------------------------------------------------------- */
-
-  .panel {
-    background: var(--color-raised);
-    border: 1px solid var(--color-rule);
-  }
-
   /* --- cards ------------------------------------------------------------ */
 
   .card {
@@ -489,6 +496,16 @@
     transform: translateY(-4px);
     border-color: rgb(200 160 70 / 0.42);
     box-shadow: var(--glow-gold-strong);
+  }
+
+  /* The one real link on a project card lives on its title; this pseudo-
+     element stretches that anchor's hit area over the whole ancestor .card
+     (which is already position:relative), so the entire surface stays
+     clickable without wrapping the card in an anchor. */
+  .card-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
   }
 
   /* --- nav -------------------------------------------------------------- */
@@ -536,8 +553,7 @@
     font-weight: 700;
     font-size: 0.6875rem;
     line-height: 1;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
     color: var(--color-muted);
     transition: border-color 0.25s ease, color 0.25s ease;
   }
@@ -566,27 +582,7 @@
     transform: scale(1.03);
   }
 
-  /* A gold rule wipes across the top edge of a card on hover. One gesture,
-     and it reinforces the hairline language rather than adding a new one. */
-  .wipe::after {
-    content: "";
-    position: absolute;
-    inset: 0 auto auto 0;
-    height: 2px;
-    width: 100%;
-    background: var(--color-gold);
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
-    z-index: 2;
-  }
-
-  .group:hover .wipe::after,
-  .group:focus-within .wipe::after {
-    transform: scaleX(1);
-  }
-
-  /* Photography tiles: quiet at rest, lifted on hover. */
+  /* Project screenshot gallery tiles: quiet at rest, lifted on hover. */
   .tile {
     position: relative;
     overflow: hidden;

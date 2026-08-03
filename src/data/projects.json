@@ -33,16 +33,7 @@
     ],
     "github": "https://github.com/cedricsthomasjr/bullbrief-frontend",
     "live": "https://bullbrief.pro",
-    "gallery": [
-      {
-        "src": "/placeholders/screen-01.webp",
-        "caption": "Ticker search and digest"
-      },
-      {
-        "src": "/placeholders/screen-02.webp",
-        "caption": "Deep Compare, side by side"
-      }
-    ]
+    "gallery": []
   },
   {
     "title": "Athlytics",
@@ -76,16 +67,7 @@
     ],
     "github": "https://github.com/cedricsthomasjr/athlytics",
     "live": "",
-    "gallery": [
-      {
-        "src": "/placeholders/screen-01.webp",
-        "caption": "Player advanced stats"
-      },
-      {
-        "src": "/placeholders/screen-02.webp",
-        "caption": "Awards history"
-      }
-    ]
+    "gallery": []
   },
   {
     "title": "What CJ Sees",

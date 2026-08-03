@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import Stagger from "@/components/Stagger";
 
 const destinations = [
-  { href: "/projects", name: "Work", note: "Three builds, and what the data layer cost in each" },
+  { href: "/projects", name: "Work", note: "Three builds, and the data problem behind each one" },
   { href: "/about", name: "About", note: "How I work, and where I have been" },
   { href: "/resume", name: "Resume", note: "Experience, education, and the full record" },
   { href: "/contact", name: "Contact", note: "Email, phone, LinkedIn, GitHub" },
@@ -17,7 +17,7 @@ export default function SiteIndex() {
   return (
     <>
       <div className="flex items-baseline justify-between gap-4">
-        <p className="t-label-gold">Index</p>
+        <h2 className="t-label-gold">Index</h2>
         <p className="t-label">Four pages</p>
       </div>
       <hr className="hairline-gold mt-3" />
