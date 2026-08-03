@@ -27,34 +27,35 @@ export default function Navbar() {
           CJ Thomas
         </Link>
 
-        <div className="hidden items-center gap-7 md:flex">
-          {links.map((link) => {
-            const active = pathname.startsWith(link.href);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={active ? "page" : undefined}
-                className={`text-[0.8125rem] tracking-[-0.01em] transition-colors ${
-                  active ? "text-gold" : "text-muted hover:text-bone"
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+        <div className="hidden items-center gap-3 md:flex">
+          <div className="navpill">
+            {links.map((link) => {
+              const active = pathname.startsWith(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? "page" : undefined}
+                  data-active={active}
+                  className="navpill-item"
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
           <a
             href={contactLinks.resumePdf}
             target="_blank"
             rel="noreferrer"
-            className="btn h-9 min-h-0 px-3 text-[0.75rem]"
+            className="btn h-9 min-h-0 rounded-full px-4 text-[0.75rem]"
           >
             Resume PDF
           </a>
         </div>
 
         <button
-          className="grid h-10 w-10 place-items-center border border-rule text-bone md:hidden"
+          className="grid h-10 w-10 place-items-center rounded-full border border-rule text-bone md:hidden"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-label={open ? "Close menu" : "Open menu"}

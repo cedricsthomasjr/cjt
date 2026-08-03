@@ -491,6 +491,39 @@
     box-shadow: var(--glow-gold-strong);
   }
 
+  /* --- nav -------------------------------------------------------------- */
+
+  .navpill {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-rule);
+    background: rgb(14 14 18 / 0.72);
+    backdrop-filter: blur(14px);
+    padding: 0.3125rem;
+  }
+
+  .navpill-item {
+    border-radius: 999px;
+    padding: 0.4375rem 0.875rem;
+    font-family: var(--font-hn);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: -0.01em;
+    color: var(--color-muted);
+    transition: color 0.22s ease, background-color 0.22s ease;
+  }
+
+  .navpill-item:hover {
+    color: var(--color-bone);
+  }
+
+  .navpill-item[data-active="true"] {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+
   /* --- pills ------------------------------------------------------------ */
 
   .pill {
