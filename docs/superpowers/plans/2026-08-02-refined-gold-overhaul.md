@@ -1440,19 +1440,19 @@ The Skills section's items are comma-joined strings in `bullets` (for example `"
                       : "max-w-2xl"
                   }
                 >
-                  {item.bullets.map((bullet) =>
-                    section.title === "Skills"
-                      ? bullet.split(", ").map((skill) => (
+                  {section.title === "Skills"
+                    ? item.bullets
+                        .flatMap((bullet) => bullet.split(", "))
+                        .map((skill) => (
                           <li key={skill}>
                             <span className="pill">{skill}</span>
                           </li>
                         ))
-                      : (
-                          <li key={bullet} className="t-sub mb-2 last:mb-0">
-                            {bullet}
-                          </li>
-                        )
-                  )}
+                    : item.bullets.map((bullet) => (
+                        <li key={bullet} className="t-sub mb-2 last:mb-0">
+                          {bullet}
+                        </li>
+                      ))}
                 </ul>
 ```
 
