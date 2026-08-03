@@ -12,7 +12,6 @@ const channels = [
   { label: "Phone", value: contactLinks.phone, href: contactLinks.phoneHref },
   { label: "LinkedIn", value: "cedric-thomas-jr", href: contactLinks.linkedin },
   { label: "GitHub", value: "cedricsthomasjr", href: contactLinks.github },
-  { label: "Photography", value: "whatcjsees", href: contactLinks.photography },
   { label: "Based in", value: contactLinks.location, href: null },
 ];
 
@@ -27,7 +26,7 @@ export default function ContactPage() {
             analytics, and anything where the hard part is the data.
           </p>
 
-          <div className="mt-10">
+          <div className="card mt-10 p-6 sm:p-8">
             <hr className="hairline-gold" />
             {channels.map((channel) => {
               const row = (

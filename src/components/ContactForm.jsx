@@ -32,10 +32,10 @@ export default function ContactForm() {
   }
 
   const field =
-    "min-h-12 w-full border border-rule bg-raised px-4 py-3 text-[0.9375rem] text-bone outline-none transition-colors placeholder:text-muted/60 focus:border-gold";
+    "min-h-12 w-full rounded-md border border-rule bg-raised px-4 py-3 text-[0.9375rem] text-bone outline-none transition-colors placeholder:text-muted/60 focus:border-gold";
 
   return (
-    <form onSubmit={handleSubmit} className="border border-rule p-6 sm:p-8">
+    <form onSubmit={handleSubmit} className="card p-6 sm:p-8">
       <div className="grid gap-5">
         <label className="grid gap-2">
           <span className="t-label">Name</span>
