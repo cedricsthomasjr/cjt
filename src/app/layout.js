@@ -2,6 +2,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
+import PointerLight from "@/components/PointerLight";
+import ScrollRail from "@/components/ScrollRail";
 
 export const metadata = {
   metadataBase: new URL("https://cjst.dev"),
@@ -50,7 +52,9 @@ export default function RootLayout({ children }) {
         <a href="#main" className="skip">
           Skip to content
         </a>
+        <PointerLight />
         <Navbar />
+        <ScrollRail />
         <div id="main">
           <PageTransition>{children}</PageTransition>
         </div>

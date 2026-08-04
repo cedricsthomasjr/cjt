@@ -84,23 +84,15 @@ export default function AboutPage() {
           </div>
           <hr className="hairline-gold mt-3" />
 
-          <div className="card mt-6 grid gap-8 p-6 sm:p-9 lg:grid-cols-2 lg:gap-14">
-            <div>
-              <p className="t-h2">{currentRole.org}</p>
-              <p className="t-h3 mt-3 text-bone">{currentRole.title}</p>
-              <p className="t-sub mt-4 max-w-md">{currentRole.summary}</p>
-              <p className="t-label mt-6 leading-[1.6]">
-                {currentRole.team} · {currentRole.place}
-              </p>
-            </div>
-
-            <Stagger className="grid content-start" step={80}>
-              {currentRole.bullets.map((bullet) => (
-                <p key={bullet} className="t-sub-sm border-t border-rule py-4">
-                  {bullet}
-                </p>
-              ))}
-            </Stagger>
+          {/* Headline only. The same role's bullets appear in the timeline
+              below, so repeating them here would say everything twice. */}
+          <div className="card mt-6 p-6 sm:p-9">
+            <p className="t-h2">{currentRole.org}</p>
+            <p className="t-h3 mt-3 text-bone">{currentRole.title}</p>
+            <p className="t-sub-lg mt-4 max-w-xl">{currentRole.summary}</p>
+            <p className="t-label mt-6 leading-[1.6]">
+              {currentRole.team} · {currentRole.place}
+            </p>
           </div>
         </section>
       </Reveal>
@@ -123,8 +115,14 @@ export default function AboutPage() {
         <section className="shell section pt-0">
           <h2 className="t-label-gold">Where I have been</h2>
           <hr className="hairline-gold mt-3" />
+          {/* Past roles only. The current one is the card above, which is what
+              "Currently" and "Where I have been" are each for. */}
           <div className="mt-8">
-            <Timeline items={resumeSections[0].items} />
+            <Timeline
+              items={resumeSections[0].items.filter(
+                (item) => item.title !== currentRole.title
+              )}
+            />
           </div>
         </section>
       </Reveal>

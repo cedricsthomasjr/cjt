@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { contactLinks } from "@/data/resume";
 
@@ -16,6 +16,38 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const listRef = useRef(null);
+  const [thumb, setThumb] = useState({ x: 0, w: 0, ready: false });
+
+  /**
+   * Measure the active item so the gold pill can travel to it. Runs on route
+   * change, and again whenever the row resizes — the webfonts land after first
+   * paint and change the label widths under us.
+   */
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+
+    const measure = () => {
+      const active = list.querySelector('[data-active="true"]');
+      if (!active) {
+        setThumb((prev) => ({ ...prev, ready: false }));
+        return;
+      }
+      const listBox = list.getBoundingClientRect();
+      const activeBox = active.getBoundingClientRect();
+      setThumb({
+        x: activeBox.left - listBox.left,
+        w: activeBox.width,
+        ready: true,
+      });
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [pathname]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-rule bg-ink/90 backdrop-blur-md">
@@ -28,7 +60,12 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden items-center gap-3 md:flex">
-          <div className="navpill">
+          <div className="navpill" ref={listRef}>
+            <span
+              aria-hidden="true"
+              className={`navpill-thumb ${thumb.ready ? "is-ready" : ""}`}
+              style={{ "--nx": `${thumb.x}px`, "--nw": `${thumb.w}px` }}
+            />
             {links.map((link) => {
               const active = pathname.startsWith(link.href);
               return (

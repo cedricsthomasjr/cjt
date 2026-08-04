@@ -46,18 +46,18 @@ export const record = [
 
 export const currentRole = {
   org: "NIKE, Inc.",
-  title: "Artificial Intelligence & Machine Learning Engineer Intern",
-  team: "AI, Data & Machine Learning Engineering",
+  title: "Artificial Intelligence, Data & Machine Learning Engineering Intern",
+  team: "SCPT — Allocations",
   place: "Beaverton, OR",
   time: "Jun 2026 — Aug 2026",
   summary:
-    "On the team that builds the machine learning infrastructure behind Nike's global digital platforms.",
-  bullets: [
-    "Working on production-scale ML infrastructure with the AI, Data & Machine Learning Engineering team.",
-    "Data pipelines and machine learning workflows, built and tuned for scale.",
-    "An interdisciplinary engineering project tied to platform-wide data initiatives.",
-  ],
+    "Building agentic tooling that lets supply chain operators ask Nike's inventory and network data questions in plain language.",
 };
+
+/* The bullets for this role live only in resumeSections below. They were
+   duplicated here once and immediately drifted apart, so there is now one copy
+   and the About page renders the headline from currentRole and the detail from
+   resumeSections. */
 
 export const affiliations = [
   "NIKE, Inc.",
@@ -98,14 +98,14 @@ export const resumeSections = [
     title: "Experience",
     items: [
       {
-        title: "Artificial Intelligence & Machine Learning Engineer Intern",
+        title: "Artificial Intelligence, Data & Machine Learning Engineering Intern",
         org: "NIKE, Inc.",
-        place: "Beaverton, OR",
+        place: "SCPT — Allocations · Beaverton, OR",
         time: "Jun 2026 — Aug 2026",
         bullets: [
-          "Working on production-scale ML infrastructure with the AI, Data & Machine Learning Engineering team.",
-          "Building and optimizing data pipelines and machine learning workflows behind global digital platforms.",
-          "Leading an interdisciplinary engineering project tied to large-scale, data-driven platform initiatives.",
+          "Built an agentic supply chain visibility system using AWS Strands SDK, Bedrock AgentCore, and Databricks — enabling natural language querying of inventory, DC, and network data across Nike's supply chain.",
+          "Designed a query routing architecture combining regex pattern matching and LLM orchestration to route high-confidence queries deterministically and ambiguous queries through agent reasoning, reducing LLM variance and latency.",
+          "Delivered production-ready tool with governed I/O (Cerberus), structured output contracts (Pydantic), and on-demand dashboard views for supply chain operators.",
         ],
       },
       {

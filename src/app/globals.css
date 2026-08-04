@@ -127,7 +127,9 @@
     content: "";
     position: fixed;
     inset: 0;
-    z-index: 1;
+    /* Above content (z-index 1) so the grain still sits over everything, now
+       that content has to be lifted above the cursor light. */
+    z-index: 3;
     pointer-events: none;
     opacity: 0.028;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -340,6 +342,9 @@
 
   .btn {
     @apply inline-flex items-center justify-center gap-2;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     font-family: var(--font-hn);
     font-weight: 700;
     font-size: 0.8125rem;
@@ -352,9 +357,30 @@
       background-color 0.18s ease;
   }
 
-  .btn:hover {
+  /* Gold fills the button from the left rather than the colour simply
+     switching. Same gesture as the hairlines that draw across the site, just
+     turned into a surface. Negative z-index inside an isolated stacking
+     context keeps it under the label. */
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--color-gold);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.36s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .btn:hover::before,
+  .btn:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  .btn:hover,
+  .btn:focus-visible {
     border-color: var(--color-gold);
-    color: var(--color-gold-lift);
+    color: var(--color-ink);
   }
 
   .btn-solid {
@@ -484,6 +510,30 @@
       transform 0.45s cubic-bezier(0.2, 0.6, 0.2, 1);
   }
 
+  /* Cards are opaque, so the lit dot grid stops at their edge. This picks the
+     same light back up on the card's own surface, using the pointer position
+     PointerLight writes in card-local coordinates — so the light reads as one
+     source crossing the page rather than a separate per-card effect. */
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      16rem circle at var(--cx, 50%) var(--cy, 50%),
+      rgb(200 160 70 / 0.09),
+      transparent 62%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
   .card-hover:hover,
   .card-hover:focus-within {
     transform: translateY(-4px);
@@ -504,6 +554,7 @@
   /* --- nav -------------------------------------------------------------- */
 
   .navpill {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.25rem;
@@ -514,7 +565,29 @@
     padding: 0.3125rem;
   }
 
+  /* One gold pill that travels between items instead of four that blink on and
+     off. The distance it slides is the only thing on the site that tells you
+     how far apart two pages are. Measured in JS (see Navbar), moved in CSS. */
+  .navpill-thumb {
+    position: absolute;
+    top: 0.3125rem;
+    bottom: 0.3125rem;
+    left: 0;
+    width: var(--nw, 0px);
+    border-radius: 999px;
+    background: var(--color-gold);
+    transform: translateX(var(--nx, 0px));
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+      width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+  }
+
+  .navpill-thumb.is-ready {
+    opacity: 1;
+  }
+
   .navpill-item {
+    position: relative;
     border-radius: 999px;
     padding: 0.4375rem 0.875rem;
     font-family: var(--font-hn);
@@ -522,7 +595,7 @@
     font-size: 0.8125rem;
     letter-spacing: -0.01em;
     color: var(--color-muted);
-    transition: color 0.22s ease, background-color 0.22s ease;
+    transition: color 0.22s ease;
   }
 
   .navpill-item:hover {
@@ -530,7 +603,6 @@
   }
 
   .navpill-item[data-active="true"] {
-    background: var(--color-gold);
     color: var(--color-ink);
   }
 
@@ -635,6 +707,68 @@
 
   .page-in {
     animation: pageIn 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+  }
+
+  /* --- the light -------------------------------------------------------- */
+
+  /* The same dot lattice as the page background, at seven times the strength,
+     revealed only inside a soft circle that follows the cursor. Because the
+     geometry matches body::before exactly, the dots do not appear — the ones
+     already there simply light up. */
+  .pointer-light {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    background-image: radial-gradient(
+      circle,
+      rgb(200 160 70 / 0.5) 1px,
+      transparent 1.3px
+    );
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(
+      11rem circle at var(--px, 50%) var(--py, 50%),
+      #000 0%,
+      transparent 70%
+    );
+    mask-image: radial-gradient(
+      11rem circle at var(--px, 50%) var(--py, 50%),
+      #000 0%,
+      transparent 70%
+    );
+  }
+
+  .pointer-light.is-live {
+    opacity: 1;
+  }
+
+  /* Content sits above the light and below the grain, so the lit dots never
+     crawl across type. */
+  #main,
+  footer {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* --- scroll rail ------------------------------------------------------ */
+
+  .rail {
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    height: 1px;
+    z-index: 60;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      var(--color-gold),
+      var(--color-gold-lift)
+    );
+    transform: scaleX(var(--sp, 0));
+    transform-origin: left center;
   }
 
   /* --- landing plate ---------------------------------------------------- */
