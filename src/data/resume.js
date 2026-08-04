@@ -59,6 +59,84 @@ export const currentRole = {
    and the About page renders the headline from currentRole and the detail from
    resumeSections. */
 
+/**
+ * The five places, in the order he first arrived at them. Coordinates are real
+ * latitude and longitude — the map projects them rather than placing dots by
+ * eye, so the shape of the route is true even though no coastline is drawn.
+ *
+ * Sourced from LinkedIn, which carries the LSU years and the Pace Academy
+ * coursework that the one-page resume leaves out. Where the two disagree the
+ * resume wins: the Business and Finance Group start date is Oct 2025 here, not
+ * LinkedIn's Sep 2025, and Corbin stays "Summer 2024 — Summer 2025" rather than
+ * being split into its three separate stints.
+ *
+ * `figures` keys into the `record` export above so the Corbin numbers have one
+ * source of truth.
+ */
+export const journey = [
+  {
+    id: "atlanta",
+    city: "Atlanta",
+    region: "GA",
+    org: "Pace Academy",
+    lat: 33.749,
+    lon: -84.388,
+    label: { anchor: "middle", dx: 0, dy: -26 },
+    time: "Through 2023",
+    kicker: "Where it started",
+    text: "First computer science coursework, including AP Computer Science Principles. Atlanta is still home.",
+  },
+  {
+    id: "baton-rouge",
+    city: "Baton Rouge",
+    region: "LA",
+    org: "Louisiana State University",
+    lat: 30.451,
+    lon: -91.187,
+    label: { anchor: "middle", dx: 0, dy: 42 },
+    time: "Aug 2023 — May 2025",
+    kicker: "Two years in",
+    text: "B.S. Computer Science with a software engineering concentration. Dean's List, the National Society of Collegiate Scholars, and the President's Honor Roll in my final semester. Gave campus tours for two of those years.",
+  },
+  {
+    id: "farmington",
+    city: "Farmington",
+    region: "CT",
+    org: "Corbin Advisors",
+    lat: 41.72,
+    lon: -72.832,
+    label: { anchor: "end", dx: -16, dy: -22 },
+    time: "Summer 2024 — Summer 2025",
+    kicker: "Three stints",
+    text: "An investor relations firm, across a first summer, a winter remote, and a full summer back. Transcription automation, BI dashboards, and Snowflake pipelines.",
+    figures: true,
+  },
+  {
+    id: "new-york",
+    city: "New York",
+    region: "NY",
+    org: "New York University",
+    lat: 40.729,
+    lon: -73.996,
+    label: { anchor: "end", dx: -16, dy: 44 },
+    time: "Aug 2025 — May 2027",
+    kicker: "The transfer",
+    text: "Transferred after two years at LSU. B.S. Computer Science, expected May 2027, GPA 3.55, President's List and Dean's List twice. Secretary of the Business and Finance Group.",
+  },
+  {
+    id: "beaverton",
+    city: "Beaverton",
+    region: "OR",
+    org: "NIKE, Inc.",
+    lat: 45.487,
+    lon: -122.804,
+    label: { anchor: "start", dx: 18, dy: -22 },
+    time: "Jun 2026 — Aug 2026",
+    kicker: "This summer",
+    text: "Artificial Intelligence, Data & Machine Learning Engineering on SCPT — Allocations. Agentic tooling that lets supply chain operators query inventory and network data in plain language.",
+  },
+];
+
 export const affiliations = [
   "NIKE, Inc.",
   "Corbin Advisors",

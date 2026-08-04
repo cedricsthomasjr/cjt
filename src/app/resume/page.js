@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import Figure from "@/components/Figure";
+import Journey from "@/components/Journey";
 import Reveal from "@/components/Reveal";
-import { contactLinks, record, resumeSections } from "@/data/resume";
+import { contactLinks, resumeSections } from "@/data/resume";
 import projects from "@/data/projects.json";
 
 export const metadata = {
@@ -36,25 +36,13 @@ export default function ResumePage() {
 
       <Reveal>
         <section className="mt-16">
-          <h2 className="t-label-gold">Impact</h2>
+          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+            <h2 className="t-label-gold">The route</h2>
+            <p className="t-label">Atlanta · Baton Rouge · Farmington · New York · Beaverton</p>
+          </div>
           <hr className="hairline-gold mt-3" />
-          <div className="card mt-6 p-6 sm:p-8">
-            <div className="readout">
-              {record.map((row, i) => (
-                <div key={row.key} className="readout-row">
-                  <p className="readout-key t-label">{row.key}</p>
-                  <p className="readout-note t-sub-sm">{row.note}</p>
-                  <p className="readout-value t-figure">
-                    <Figure
-                      prefix={row.prefix}
-                      num={row.num}
-                      suffix={row.suffix}
-                      delay={i * 90}
-                    />
-                  </p>
-                </div>
-              ))}
-            </div>
+          <div className="mt-6">
+            <Journey />
           </div>
         </section>
       </Reveal>

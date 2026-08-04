@@ -946,6 +946,187 @@
     }
   }
 
+  /* --- journey ---------------------------------------------------------- */
+
+  .journey-map {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* The projection's own lines, barely there. Enough to say the dots were
+     placed by coordinates rather than by eye. */
+  .journey-grid line {
+    stroke: var(--color-gold);
+    stroke-width: 1;
+    opacity: 0.07;
+  }
+
+  .journey-arc {
+    fill: none;
+    stroke: var(--color-gold);
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    opacity: 0.75;
+  }
+
+  .journey-node {
+    cursor: pointer;
+  }
+
+  .journey-hit {
+    fill: transparent;
+  }
+
+  .journey-halo {
+    fill: var(--color-gold);
+    opacity: 0;
+    transition: opacity 0.35s ease, r 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .journey-node:hover .journey-halo,
+  .journey-node.is-active .journey-halo {
+    opacity: 0.16;
+  }
+
+  .journey-dot {
+    fill: var(--color-ink);
+    stroke: var(--color-gold);
+    stroke-width: 2;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+  }
+
+  .journey-node.is-active .journey-dot {
+    fill: var(--color-gold);
+  }
+
+  .journey-label {
+    fill: var(--color-muted);
+    font-family: var(--font-hn);
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: fill 0.3s ease;
+  }
+
+  .journey-node:hover .journey-label,
+  .journey-node.is-active .journey-label {
+    fill: var(--color-bone);
+  }
+
+  /* Arcs draw themselves in sequence, then the nodes land. Held back until the
+     figure is on screen so the route is never already finished when you get
+     there. Without scripting the reveal class never lands, so the fallbacks
+     below leave everything drawn. */
+  .journey-arc {
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .js .journey .journey-arc {
+      stroke-dashoffset: 1400;
+    }
+
+    .js .journey.is-in .journey-arc {
+      animation: journey-draw 1.1s cubic-bezier(0.3, 0.7, 0.2, 1) both;
+    }
+
+    .js .journey .journey-node {
+      opacity: 0;
+    }
+
+    .js .journey.is-in .journey-node {
+      animation: journey-land 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+  }
+
+  @keyframes journey-draw {
+    from {
+      stroke-dashoffset: 1400;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes journey-land {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* On a phone the map is about a third of its authored width, which renders
+     the city labels at roughly 7px and the tap targets at 23px — both unusable.
+     The labels come off and the chips below carry the naming, which is what
+     they are there for; the targets grow to a real 44px so the nodes still
+     work under a thumb. */
+  @media (max-width: 640px) {
+    .journey-label {
+      display: none;
+    }
+
+    .journey-hit {
+      r: 66px;
+    }
+
+    .journey-dot {
+      r: 11px;
+      stroke-width: 4;
+    }
+
+    .journey-halo {
+      r: 26px;
+    }
+
+    .journey-arc {
+      stroke-width: 3;
+    }
+  }
+
+  .journey-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .journey-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-rule);
+    padding: 0.5rem 0.875rem;
+    font-family: var(--font-hn);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
+    transition: border-color 0.25s ease, color 0.25s ease;
+  }
+
+  .journey-chip:hover {
+    color: var(--color-bone);
+    border-color: rgb(200 160 70 / 0.4);
+  }
+
+  .journey-chip.is-active {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+  }
+
+  .journey-chip-index {
+    font-variant-numeric: tabular-nums;
+    opacity: 0.55;
+  }
+
   /* --- timeline --------------------------------------------------------- */
 
   .tl {
