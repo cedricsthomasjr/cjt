@@ -71,6 +71,13 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      /* Delays have to go too, not just durations. The landing orchestrates its
+         entrance with delays up to 1.4s, and an animation with fill-mode: both
+         holds its `from` state — opacity 0 — for the whole delay. Collapsing
+         only the duration would leave someone who asked for less motion staring
+         at an empty page instead. */
+      animation-delay: 0s !important;
+      transition-delay: 0s !important;
     }
   }
 
@@ -630,6 +637,181 @@
     animation: pageIn 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) both;
   }
 
+  /* --- landing plate ---------------------------------------------------- */
+
+  /* The whole landing spends its motion budget here, once. A gold dot screen
+     sits over the portrait and dissolves as the image sharpens, so the face
+     resolves out of the same grid that sits behind every page. On a site about
+     turning samples into a number someone can trust, that is the thesis —
+     which is why it earns the one real animation and everything else stays
+     quiet.
+
+     These are CSS animations rather than the .js-gated reveal system, so they
+     run without scripting and the global reduced-motion rule collapses them to
+     their finished state. */
+  .plate-wrap {
+    position: relative;
+  }
+
+  .plate {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-rule);
+    box-shadow: var(--glow-gold);
+  }
+
+  .plate img {
+    animation: plate-resolve 1.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s both;
+  }
+
+  @keyframes plate-resolve {
+    from {
+      opacity: 0;
+      transform: scale(1.07);
+      filter: grayscale(1) contrast(1.5) brightness(0.55) blur(14px);
+    }
+    55% {
+      opacity: 1;
+    }
+    to {
+      opacity: 1;
+      transform: none;
+      /* Not a neutral rest state. The portrait is a studio headshot on a bright
+         backdrop, which on a black page reads as a lit rectangle rather than an
+         image. Pulling saturation and brightness down settles it into the page
+         without draining the skin tones. */
+      filter: saturate(0.85) contrast(1.06) brightness(0.9) blur(0);
+    }
+  }
+
+  /* The bottom of the frame dissolves into the page, so the plate reads as a
+     portrait rather than a photo pasted onto black. */
+  .plate-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      var(--color-ink) 1%,
+      rgb(8 8 10 / 0.45) 22%,
+      transparent 56%
+    );
+  }
+
+  /* The screen the portrait comes through. Its dots start coarser than the
+     page grid and tighten until they close into the image. */
+  .plate::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background-image: radial-gradient(
+      circle,
+      var(--color-gold) 1.1px,
+      transparent 1.3px
+    );
+    animation: plate-screen 1.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s both;
+  }
+
+  @keyframes plate-screen {
+    from {
+      opacity: 0.85;
+      background-size: 10px 10px;
+    }
+    to {
+      opacity: 0;
+      background-size: 3px 3px;
+    }
+  }
+
+  /* One calibration pass, top to bottom, like an instrument settling. */
+  .plate::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 26%;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(200 160 70 / 0.24),
+      transparent
+    );
+    animation: plate-scan 2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+  }
+
+  @keyframes plate-scan {
+    from {
+      transform: translateY(-130%);
+      opacity: 0;
+    }
+    18% {
+      opacity: 1;
+    }
+    82% {
+      opacity: 1;
+    }
+    to {
+      transform: translateY(470%);
+      opacity: 0;
+    }
+  }
+
+  /* A slow gold breath behind the plate. The only thing on the site that keeps
+     moving after the page settles, and it moves barely. */
+  .plate-halo {
+    position: absolute;
+    inset: -14%;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at 50% 45%,
+      rgb(200 160 70 / 0.18),
+      transparent 68%
+    );
+    filter: blur(30px);
+    animation: halo 9s ease-in-out 1.9s infinite alternate both;
+  }
+
+  @keyframes halo {
+    from {
+      opacity: 0.5;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+  }
+
+  /* Display type arrives from behind its own baseline — the same masked reveal
+     the figures use, at headline size. */
+  .maskline {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
+  }
+
+  .maskline > span {
+    display: block;
+    animation: maskrise 1s cubic-bezier(0.16, 0.84, 0.28, 1) both;
+  }
+
+  @keyframes maskrise {
+    from {
+      transform: translateY(108%);
+    }
+    to {
+      transform: none;
+    }
+  }
+
   /* --- timeline --------------------------------------------------------- */
 
   .tl {
@@ -667,49 +849,4 @@
     background: var(--color-ink);
   }
 
-  /* --- index ------------------------------------------------------------ */
-
-  .index-row {
-    display: grid;
-    align-items: baseline;
-    gap: 0.25rem 1.5rem;
-    padding: 1.125rem 0;
-    border-bottom: 1px solid var(--color-rule);
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-      "name  arrow"
-      "note  note";
-    transition: border-color 0.25s ease;
-  }
-
-  @media (min-width: 640px) {
-    .index-row {
-      grid-template-columns: 9rem 1fr auto;
-      grid-template-areas: "name note arrow";
-      gap: 1.5rem;
-    }
-  }
-
-  .index-row:hover {
-    border-color: rgb(200 160 70 / 0.45);
-  }
-
-  .index-name {
-    grid-area: name;
-  }
-
-  .index-note {
-    grid-area: note;
-  }
-
-  .index-arrow {
-    grid-area: arrow;
-    color: var(--color-muted);
-    transition: color 0.25s ease, transform 0.35s cubic-bezier(0.2, 0.6, 0.2, 1);
-  }
-
-  .index-row:hover .index-arrow {
-    color: var(--color-gold);
-    transform: translate(3px, -3px);
-  }
 }

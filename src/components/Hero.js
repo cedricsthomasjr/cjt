@@ -1,70 +1,78 @@
 import Link from "next/link";
-import Figure from "@/components/Figure";
-import { record } from "@/data/resume";
+import Image from "next/image";
 
 /**
- * The hero is a brief — the thing BullBrief does to a company, pointed at CJ.
- * Bold sans carries the claims and the figures; Palatino italic carries the
- * voice. Those are the only two registers on the page.
+ * The landing page, and the whole of it: a face, a sentence, two ways in.
+ * Everything that used to sit under this — the figures, the affiliations, the
+ * current role — now lives on the page it belongs to, so this one only has to
+ * do the job a front door does.
+ *
+ * Bold sans carries the name, Palatino italic carries the voice. Those are
+ * still the only two registers.
  */
 export default function Hero() {
   return (
-    <section className="shell pb-16 pt-20 sm:pb-24 sm:pt-28">
-      <div className="rise" style={{ animationDelay: "0ms" }}>
-        <h1 className="t-display">CJ Thomas</h1>
-        <p className="t-sub-lg mt-3 max-w-2xl">
-          AI/ML and Data Engineering · NYU Computer Science, 2027 · New York and Atlanta
-        </p>
-      </div>
+    <section className="shell flex min-h-[calc(100svh-4rem)] items-center py-12 sm:py-16">
+      <div className="grid w-full items-center gap-8 sm:gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+        <div>
+          <p
+            className="t-label-gold rise"
+            style={{ animationDelay: "1.15s" }}
+          >
+            AI/ML and Data Engineering
+          </p>
 
-      <p
-        className="t-sub-lg rise mt-8 max-w-xl text-bone"
-        style={{ animationDelay: "80ms" }}
-      >
-        Most of my work sits upstream of the dashboard — the pipelines and
-        schemas that decide whether a number can be trusted. What comes out is
-        usually a pipeline, a dashboard, or a brief.
-      </p>
+          <h1 className="t-display mt-5">
+            <span className="maskline">
+              <span style={{ animationDelay: "0.2s" }}>CJ</span>
+            </span>
+            <span className="maskline">
+              <span style={{ animationDelay: "0.32s" }}>Thomas</span>
+            </span>
+          </h1>
 
-      <div className="card rise mt-12 p-6 sm:p-8" style={{ animationDelay: "160ms" }}>
-        <div className="flex items-baseline justify-between gap-4">
-          <p className="t-label-gold">The record</p>
-          <p className="t-label">Corbin Advisors · 2024—2025</p>
+          <hr
+            className="hairline-gold mt-6 max-w-xs"
+            style={{ animationDelay: "0.85s" }}
+          />
+
+          <p
+            className="t-sub-lg rise mt-6 max-w-md"
+            style={{ animationDelay: "1.25s" }}
+          >
+            Most of my work sits upstream of the dashboard — the pipelines and
+            schemas that decide whether a number can be trusted.
+          </p>
+
+          <div
+            className="rise mt-9 flex flex-wrap gap-3"
+            style={{ animationDelay: "1.4s" }}
+          >
+            <Link href="/projects" className="btn-solid">
+              See the work
+            </Link>
+            <Link href="/contact" className="btn">
+              Get in touch
+            </Link>
+          </div>
         </div>
-        <hr className="hairline-gold mt-3" />
 
-        <div className="readout mt-1">
-          {record.map((row, i) => (
-            <div
-              key={row.key}
-              className="readout-row rise"
-              style={{ animationDelay: `${220 + i * 70}ms` }}
-            >
-              <p className="readout-key t-label">{row.key}</p>
-              <p className="readout-note t-sub-sm">{row.note}</p>
-              <p className="readout-value t-figure">
-                <Figure
-                  prefix={row.prefix}
-                  num={row.num}
-                  suffix={row.suffix}
-                  delay={i * 90}
-                />
-              </p>
-            </div>
-          ))}
+        <div className="plate-wrap order-first lg:order-none">
+          <div className="plate-halo" aria-hidden="true" />
+          {/* Sized off the viewport height, not the column width, so the whole
+              landing stays inside the fold on a laptop. */}
+          <div className="plate relative mx-auto aspect-[4/5] w-full max-w-[min(15rem,32svh)] lg:max-w-[min(26rem,50svh)]">
+            <Image
+              src="/cj.jpeg"
+              alt="CJ Thomas"
+              fill
+              priority
+              sizes="(max-width: 1024px) 15rem, 26rem"
+              className="object-cover object-[50%_20%]"
+            />
+            <div className="plate-scrim" aria-hidden="true" />
+          </div>
         </div>
-      </div>
-
-      <div
-        className="rise mt-8 flex flex-wrap gap-3"
-        style={{ animationDelay: "520ms" }}
-      >
-        <Link href="/projects" className="btn-solid">
-          See the work
-        </Link>
-        <Link href="/contact" className="btn">
-          Get in touch
-        </Link>
       </div>
     </section>
   );

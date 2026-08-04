@@ -4,7 +4,7 @@ import Connector from "@/components/Connector";
 import Reveal from "@/components/Reveal";
 import Stagger from "@/components/Stagger";
 import Timeline from "@/components/Timeline";
-import { affiliations, community, resumeSections } from "@/data/resume";
+import { affiliations, community, currentRole, resumeSections } from "@/data/resume";
 
 export const metadata = {
   title: "About",
@@ -73,6 +73,37 @@ export default function AboutPage() {
         </div>
         <hr className="hairline" />
       </section>
+
+      <Connector />
+
+      <Reveal>
+        <section className="shell">
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className="t-label-gold">Currently</h2>
+            <p className="t-label">{currentRole.time}</p>
+          </div>
+          <hr className="hairline-gold mt-3" />
+
+          <div className="card mt-6 grid gap-8 p-6 sm:p-9 lg:grid-cols-2 lg:gap-14">
+            <div>
+              <p className="t-h2">{currentRole.org}</p>
+              <p className="t-h3 mt-3 text-bone">{currentRole.title}</p>
+              <p className="t-sub mt-4 max-w-md">{currentRole.summary}</p>
+              <p className="t-label mt-6 leading-[1.6]">
+                {currentRole.team} · {currentRole.place}
+              </p>
+            </div>
+
+            <Stagger className="grid content-start" step={80}>
+              {currentRole.bullets.map((bullet) => (
+                <p key={bullet} className="t-sub-sm border-t border-rule py-4">
+                  {bullet}
+                </p>
+              ))}
+            </Stagger>
+          </div>
+        </section>
+      </Reveal>
 
       <section className="shell section">
         <h2 className="t-h2">How I work</h2>
