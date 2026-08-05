@@ -4,12 +4,19 @@ Status: approved
 Date: 2026-08-05
 Branch: `page/projects`
 
+**Amendment (2026-08-05):** Grid view and `ProjectDrawer` have been removed. Ledger
+is now the only way to browse the minor builds — a row expands inline into a tabbed
+tray (`System Overview` / `Tech Stack & Tools` / `Impact Metrics`) instead of opening
+a drawer. Section 4 below is rewritten to match; `ProjectCard.tsx` and
+`ProjectDrawer.tsx` no longer exist. The flagship spotlight (`HeroProject.tsx`) is
+unaffected — it never used the drawer.
+
 ## Summary
 
 Replace the current `/projects` page — a title, a subhead, and a vertical stack of
 `ProjectRow` cards — with a richer, still-in-system showcase: a "currently building"
-banner, a GitHub activity readout, a flagship project spotlight, and a filterable,
-view-toggleable project grid that opens a detail drawer instead of navigating away.
+banner, a GitHub activity readout, a flagship project spotlight, and a filterable
+project ledger whose rows expand in place instead of navigating away.
 
 The original task brief described this in generic AI-dashboard language (emoji status
 badges, a GitHub-green contribution heatmap, a literal terminal-window CLI view). This
@@ -122,12 +129,12 @@ third tab component:
    that they highlight on hover via the existing `.group:hover .pill` rule).
 3. Impact Metrics → the same `impactMetrics` array as a small `readout`-style list.
 
-## 4. Filterable grid, view toggle, drawer
+## 4. Filterable ledger (amended — no grid, no drawer)
 
 New client orchestrator `src/components/projects/ProjectsExplorer.tsx`, rendered by
-`page.js` and given the full `projects` array. Owns three pieces of state: active
-category filter, view mode (`"grid" | "ledger"`), and the currently-open drawer project
-(`null` when closed).
+`page.js` and given the full `projects` array. Owns one piece of state: the active
+category filter. Which row (if any) is expanded lives inside `ProjectLedger` itself,
+not here — it's a ledger-local concern, not a page-level one.
 
 **`CategoryFilter.tsx`:** pills — `All`, `AI/ML & Agents`, `Data Engineering`,
 `Automation & Workflows`, `Full-Stack` — same `.usa-chip`/`is-active` pattern as the
@@ -135,33 +142,42 @@ hero tabs, for visual consistency across the page. Filtering `Automation & Workf
 (no current project) shows a quiet empty state in `t-sub-sm`, e.g. "Nothing filed under
 this category yet." — not an error state.
 
-**View toggle:** two-option segmented control, same pill family, `Grid` / `Ledger`.
+**Ledger (`ProjectLedger.tsx`):** monospace row list, columns `repo · branch ·
+status · tech`, one row per project. Built on the existing `.readout-row` grid (which
+already stacks label/value/note on mobile) so it doesn't clip horizontally on small
+screens — the tech tags wrap into the row's "note" area below `repo`/`status` under
+`sm:`. `branch` is derived, not stored: `"main"` for everything (this isn't pulling
+real git data, just completing the ledger's shape). A scoped monospace font stack
+(`ui-monospace, "SF Mono", ...`) applies only to the row's closed-state button via
+inline style — the one deliberate "terminal" cue, with no window chrome, no prompt
+characters, no fake cursor. It does not apply to the expanded tray, which is prose and
+should read as prose.
 
-**Grid view (`ProjectCard.tsx`):** a tighter version of `ProjectRow` — image (if any),
-`t-label` year/role, status pill, `t-h3` title, `t-sub-sm` summary, tags. Whole card is
-a `<button>` (not a `Link`) that opens the drawer — the direct case-study link moves
-inside the drawer now, so the card no longer needs the `.card-link::after` stretched-
-anchor trick; a plain button covering the card surface with the existing `.card`/
-`.card-hover` treatment and a visible `:focus-visible` ring does the job.
+**Row expansion, not a drawer:** clicking a row toggles an inline tray directly beneath
+it — no overlay, no backdrop, no `body` scroll lock, no portal. Only one row is expanded
+at a time (an internal `LedgerRow` subcomponent owns its own tab state; `ProjectLedger`
+tracks which single row is open and collapses any other on click — a plain accordion).
+The tray has its own 3-tab switcher — `System Overview` / `Tech Stack & Tools` /
+`Impact Metrics` — reusing the same `.usa-chip`/`is-active` pattern as the hero tabs and
+the category filter, so the tab idiom is the same wherever it appears on the page:
+1. Overview → `overview` field (falls back to `summary`), styled as a callout with a
+   gold left rule, same treatment as the hero's Overview tab.
+2. Tech Stack → `tags` as `.pill`s.
+3. Impact Metrics → `impactMetrics` as a small `readout`-style list, or "No published
+   metrics yet." for projects that don't have any.
 
-**Ledger view (`ProjectLedger.tsx`):** monospace row list, columns `repo · branch ·
-status · tech`, one row per project, each row a `<button>` opening the drawer. Built on
-the existing `.readout-row` grid (which already stacks label/value/note on mobile) so
-it doesn't clip horizontally on small screens — the tech tags wrap into the row's
-"note" area below `repo`/`status` under `sm:`. `branch` is derived, not stored: `"main"`
-for everything (this isn't pulling real git data, just completing the ledger's shape).
-A scoped monospace font stack (`ui-monospace, "SF Mono", ...`) applies only inside this
-component — the one deliberate "terminal" cue, with no window chrome, no prompt
-characters, no fake cursor.
+Below the tabs: a link row — "Read the full case study →" to `/projects/[slug]` (only
+when a case study exists), plus `live`/`external`/`github` links, exactly the same
+conditional logic the old drawer used, just rendered as inline `.link-rule` text links
+sized for a dense row instead of the drawer's larger buttons. The link-out entry (What
+CJ Sees, no case study) shows only "Visit the site" — no broken links, no empty section
+headers.
 
-**`ProjectDrawer.tsx`:** slides in from the right on `lg:` and up (fixed panel, dimmed
-backdrop, closes on `Escape` or backdrop click), full-height sheet from the bottom on
-mobile. Content: title, year/role/status, `content[0]`/`content[1]` from `projects.json`
-framed as "The problem" / "The approach", `lessons` as takeaways, tags, then a link row:
-"Read the full case study →" to `/projects/[slug]` (the existing page), plus GitHub/live
-links. For the link-out entry (What CJ Sees, no case study, empty `content`/`lessons`),
-the drawer shows only summary + tags + "Visit the site" — no broken links, no empty
-section headers.
+**Why this changed:** the original grid/drawer pattern worked and was verified, but
+having two different ways to reach the same detail (a card-click overlay in Grid, a
+row-click overlay in Ledger) added a control the page didn't need. Ledger-only, with
+detail expanding in place, keeps the page to one dense, scannable surface with no
+overlay anywhere — closer to what "developer log" implies than a card grid ever was.
 
 **Visual reinterpretation:** spec asked for a literal "Terminal / CLI View" styled like
 a terminal window — replaced with a monospace ledger list using the site's existing
@@ -169,13 +185,12 @@ a terminal window — replaced with a monospace ledger list using the site's exi
 
 ## Responsiveness
 
-- Grid: 1 col → 2 (`sm:`) → 3 (`lg:`), matching the `impcalc-grid` count-based
-  breakpoint approach already used on this site.
 - Ledger rows stack the same way `.readout-row` already stacks on mobile — no new
   pattern needed.
+- Expanded tray pushes subsequent rows down naturally; nothing overlaps, and the page
+  keeps its native scroll.
 - Heatmap: fixed 12 cells, no scroll container needed at any width.
-- Drawer: full-bottom-sheet under `lg:`, right-fixed panel at `lg:` and up.
-- Filter pills and view toggle: `flex-wrap`, same as existing tag rows.
+- Filter pills: `flex-wrap`, same as existing tag rows.
 
 ## Out of scope
 
@@ -188,16 +203,17 @@ a terminal window — replaced with a monospace ledger list using the site's exi
 
 No test framework configured. Manual verification via the dev server (`vercel:deploy`
 preview or `npm run dev` through the browser tool):
-1. Filter pills change the visible grid/ledger set correctly, including the empty
+1. Filter pills change the visible ledger set correctly, including the empty
    Automation & Workflows state.
-2. Grid ↔ Ledger toggle preserves the active filter.
-3. Clicking a card/row opens the drawer with correct content; Escape and backdrop click
-   close it; the case-study link goes to the right `/projects/[slug]`.
+2. Clicking a row expands its tray with correct content; clicking a second row collapses
+   the first; the case-study link goes to the right `/projects/[slug]`.
+3. No overlay anywhere: no `role="dialog"` in the DOM, `document.body.style.overflow`
+   stays unset, page scroll is never locked.
 4. GitHub panel renders instantly with fallback data, then (when not rate-limited)
    swaps in live data without visible layout shift.
-5. `next lint` passes.
+5. `next lint` and `tsc --noEmit` pass.
 6. Responsive check at 375px / 768px / 1280px — no horizontal clipping anywhere on the
-   page.
+   page, including with a tray expanded.
 
 Separately (not part of this component work): replace `public/projects/bullbrief.webp`
 with a fresh screenshot of the live BullBrief site.
