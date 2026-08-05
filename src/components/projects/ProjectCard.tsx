@@ -18,7 +18,7 @@ export default function ProjectCard({
     <button
       type="button"
       onClick={onOpen}
-      className="group card card-hover block w-full overflow-hidden text-left"
+      className="group card card-hover flex w-full flex-col overflow-hidden text-left"
     >
       {project.image && (
         <div className="relative aspect-[16/10] overflow-hidden border-b border-rule">
@@ -41,7 +41,9 @@ export default function ProjectCard({
         </div>
 
         <h3 className="t-h3 mt-3">{project.title}</h3>
-        <p className="t-sub-sm mt-2">{project.summary}</p>
+        {/* Clamped so a long summary can't make one card in the row twice the
+            height of its neighbours. The drawer carries the full text. */}
+        <p className="t-sub-sm mt-2 line-clamp-3">{project.summary}</p>
 
         <ul className="mt-4 flex flex-wrap gap-2">
           {project.tags.map((tag) => (

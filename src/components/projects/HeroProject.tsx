@@ -29,18 +29,33 @@ export default function HeroProject({ project }: { project: HeroProjectData }) {
   const metrics = project.impactMetrics ?? [];
 
   return (
-    <section className="card overflow-hidden lg:grid lg:grid-cols-[1.1fr_1fr]">
-      <div className="p-6 sm:p-8 lg:p-10">
+    <section className="card relative overflow-hidden lg:grid lg:grid-cols-[1.1fr_1fr]">
+      {/* A single gold bloom off the top-right corner. The card already picks up
+          the pointer light on hover; this gives the flagship a standing lift the
+          minor cards don't have, so it reads as the primary object at rest. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 50% at 100% 0%, rgb(200 160 70 / 0.10), transparent 70%)",
+        }}
+      />
+
+      <div className="relative z-1 p-6 sm:p-8 lg:p-10">
         <p className="t-label">
           {project.year} · {project.role} · Flagship build
         </p>
         <h2 className="t-h2 mt-3">{project.title}</h2>
         <p className="t-sub mt-4 max-w-md">{project.summary}</p>
 
+        {/* Three columns rather than a wrapping flex row: the metrics are a
+            spec sheet, and a fixed grid keeps their labels aligned no matter
+            how long the values get. */}
         {metrics.length > 0 && (
-          <ul className="mt-7 flex flex-wrap gap-x-7 gap-y-4">
+          <ul className="mt-7 grid max-w-lg grid-cols-3 gap-4">
             {metrics.map((metric) => (
-              <li key={metric.label}>
+              <li key={metric.label} className="min-w-0">
                 <p className="t-figure text-[1.375rem] text-gold">
                   {metric.value}
                 </p>
@@ -74,7 +89,7 @@ export default function HeroProject({ project }: { project: HeroProjectData }) {
         </div>
       </div>
 
-      <div className="border-t border-rule p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
+      <div className="relative z-1 border-t border-rule p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
         <div className="flex flex-wrap gap-2">
           {TABS.map((label, i) => (
             <button
@@ -90,8 +105,10 @@ export default function HeroProject({ project }: { project: HeroProjectData }) {
         </div>
 
         <div className="mt-6">
+          {/* The overview is the one long prose block on the card; a gold left
+              rule marks it as a callout rather than another paragraph. */}
           {active === 0 && (
-            <p className="t-sub">
+            <p className="t-sub border-l-2 border-gold/40 py-1 pl-4">
               {project.overview ?? project.summary}
             </p>
           )}

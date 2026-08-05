@@ -47,6 +47,9 @@ export default function ProjectsExplorer({ projects }: { projects: Project[] }) 
 
   return (
     <div>
+      <hr className="hairline mb-10" />
+      <h2 className="t-h3 mb-6">More builds</h2>
+
       <div className="flex flex-wrap items-center justify-between gap-4">
         <CategoryFilter active={activeCategory} onChange={setActiveCategory} />
 
