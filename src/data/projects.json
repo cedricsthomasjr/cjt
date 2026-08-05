@@ -8,7 +8,7 @@
     "category": "AI/ML & Agents",
     "image": "/projects/bullbrief.webp",
     "summary": "An equity research tool that reads market data, filings, and earnings, then writes the brief an analyst would have spent an afternoon on.",
-    "overview": "A Next.js frontend and a Python service split the work: one takes a ticker and renders a structured digest, the other fans out to market and filings data, normalizes it, and runs it through prompts tuned for financial language.",
+    "overview": "A Next.js frontend and a Flask API split the work: one takes a ticker and renders a structured digest, the other fans out to Yahoo Finance, FMP, and filings data, normalizes it, and runs it through prompts tuned for financial language.",
     "impactMetrics": [
       { "label": "Data sources fused", "value": "4" },
       { "label": "Report sections", "value": "6" },
@@ -16,22 +16,23 @@
     ],
     "tags": [
       "Next.js",
+      "TypeScript",
       "OpenAI API",
+      "FMP",
       "yFinance",
-      "Flask",
-      "TypeScript"
+      "Flask"
     ],
     "content": [
       "Equity research starts the same way every time: pull the filings, skim the earnings call, check the fundamentals, and write it up. BullBrief does the pulling and the first draft.",
-      "A Next.js frontend takes a ticker and returns a structured digest — business model, financial health, recent developments. Behind it, a Python service fans out to yFinance and SEC data, normalizes what comes back, and runs it through prompts tuned for financial language rather than general summarization.",
+      "A Next.js frontend takes a ticker and returns a structured digest — business model, financial health, recent developments. Behind it, a Flask API fans out to Yahoo Finance, FMP, and SEC-adjacent data, normalizes what comes back, and runs it through prompts tuned for financial language rather than general summarization.",
       "The hard part was not the AI. It was making a page that stays fast and legible while it waits on four data sources that fail independently."
     ],
     "features": [
       "Ticker search with autocomplete and validation",
-      "Live market and fundamentals data via yFinance",
-      "Deep Compare mode for side-by-side company breakdowns",
-      "Financial-domain prompt design over a general summarizer",
-      "Rate-limit and partial-failure handling across data sources"
+      "AI-generated brief covering financials, valuation, risk, SWOT, and peers",
+      "Live quotes across major tickers, cached for five minutes via FMP",
+      "Daily market movers and a peer Compare mode for side-by-side breakdowns",
+      "Rate-limit and partial-failure handling across four independent upstream sources"
     ],
     "lessons": [
       "Designing financial interfaces around speed and legibility",
