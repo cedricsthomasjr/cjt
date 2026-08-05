@@ -5,7 +5,7 @@ import ProjectsExplorer from "@/components/projects/ProjectsExplorer";
 import projects from "@/data/projects.json";
 
 export const metadata = {
-  title: "Work",
+  title: "Projects",
   description:
     "Projects by CJ Thomas — AI-powered equity research, NBA analytics over a cached pipeline, and a photography portfolio.",
 };
@@ -15,7 +15,7 @@ export default function ProjectsPage() {
 
   return (
     <main className="shell section">
-      <h1 className="t-display">Work</h1>
+      <h1 className="t-display">Projects</h1>
       <p className="t-sub-lg mt-4 max-w-xl">
         Everything here started as a data problem. The interface came second,
         which is usually the right order and occasionally the wrong one.

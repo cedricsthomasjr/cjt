@@ -26,15 +26,21 @@ const TICKS = [
   { label: "Beaverton" },
 ];
 
-type Category = {
-  key: keyof TimelineStop;
-  label: string;
-  render: "metric" | "pill" | "plain";
-};
+/**
+ * Discriminated on `render` so each branch narrows `stop[category.key]` to a
+ * concrete element type — frameworkSkills is Skill[], every other column is
+ * string[]. Keeping the key literal per branch is what lets the renderer read
+ * item.name on skills and treat the rest as plain strings without a cast.
+ */
+type Category =
+  | { key: "quantifiableData"; label: string; render: "metric" }
+  | { key: "tricksOfTheTrade" | "softSkills"; label: string; render: "plain" }
+  | { key: "affiliationsGained"; label: string; render: "pill" }
+  | { key: "frameworkSkills"; label: string; render: "skill" };
 
 const CATEGORIES: Category[] = [
   { key: "quantifiableData", label: "Quantifiable metrics", render: "metric" },
-  { key: "frameworkSkills", label: "Framework & skills", render: "pill" },
+  { key: "frameworkSkills", label: "Framework & skills", render: "skill" },
   { key: "tricksOfTheTrade", label: "Tricks of the trade", render: "plain" },
   { key: "softSkills", label: "Soft skills", render: "plain" },
   { key: "affiliationsGained", label: "Affiliations gained", render: "pill" },
@@ -51,6 +57,66 @@ function splitMetric(text: string): [string, string, string] {
   const start = match.index;
   const end = start + match[0].length;
   return [text.slice(0, start), text.slice(start, end), text.slice(end)];
+}
+
+function CategoryBody({
+  stop,
+  category,
+}: {
+  stop: TimelineStop;
+  category: Category;
+}) {
+  switch (category.render) {
+    case "skill":
+      return (
+        <div className="impcalc-pills">
+          {stop[category.key].map((item) => (
+            <span
+              key={item.name}
+              className="pill"
+              title={`Learned at ${item.learnedWhere} — ${item.learnedWhen}`}
+            >
+              {item.name}
+            </span>
+          ))}
+        </div>
+      );
+    case "pill":
+      return (
+        <div className="impcalc-pills">
+          {stop[category.key].map((item) => (
+            <span key={item} className="pill">
+              {item}
+            </span>
+          ))}
+        </div>
+      );
+    case "metric":
+      return (
+        <ul className="impcalc-list">
+          {stop[category.key].map((item) => {
+            const [before, metric, after] = splitMetric(item);
+            return (
+              <li key={item} className="t-sub-sm">
+                {before}
+                {metric && <strong className="impcalc-metric">{metric}</strong>}
+                {after}
+              </li>
+            );
+          })}
+        </ul>
+      );
+    case "plain":
+      return (
+        <ul className="impcalc-list">
+          {stop[category.key].map((item) => (
+            <li key={item} className="t-sub-sm">
+              {item}
+            </li>
+          ))}
+        </ul>
+      );
+  }
 }
 
 export default function ImpactCalculator() {
@@ -112,45 +178,16 @@ export default function ImpactCalculator() {
         <hr className="hairline-gold mt-5" />
 
         <div className="impcalc-grid mt-5">
-          {CATEGORIES.map((category) => {
-            const items = stop[category.key] as string[];
-            return (
-              <div key={category.key} className="impcalc-col">
-                <p className="t-label-gold">{category.label}</p>
-                {items.length === 0 ? (
-                  <p className="t-sub-sm mt-2 opacity-50">—</p>
-                ) : category.render === "pill" ? (
-                  <div className="impcalc-pills">
-                    {items.map((item) => (
-                      <span key={item} className="pill">
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                ) : (
-                  <ul className="impcalc-list">
-                    {items.map((item) => {
-                      if (category.render !== "metric") {
-                        return (
-                          <li key={item} className="t-sub-sm">
-                            {item}
-                          </li>
-                        );
-                      }
-                      const [before, metric, after] = splitMetric(item);
-                      return (
-                        <li key={item} className="t-sub-sm">
-                          {before}
-                          {metric && <strong className="impcalc-metric">{metric}</strong>}
-                          {after}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
-            );
-          })}
+          {CATEGORIES.map((category) => (
+            <div key={category.key} className="impcalc-col">
+              <p className="t-label-gold">{category.label}</p>
+              {stop[category.key].length === 0 ? (
+                <p className="t-sub-sm mt-2 opacity-50">—</p>
+              ) : (
+                <CategoryBody stop={stop} category={category} />
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>

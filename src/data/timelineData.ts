@@ -1,3 +1,9 @@
+export interface Skill {
+  name: string;
+  learnedWhere: string; // Where this skill/tool was picked up
+  learnedWhen: string; // Period during which it was picked up
+}
+
 export interface TimelineStop {
   id: string;
   period: string;
@@ -9,10 +15,19 @@ export interface TimelineStop {
   };
   narrativeSummary: string; // Narrative backstory for About Page
   quantifiableData: string[]; // Hard metrics ($ saved, hours automated, efficiency gains)
-  frameworkSkills: string[]; // Tech stack, languages, tools, frameworks
+  frameworkSkills: Skill[]; // Tech stack, languages, tools, frameworks — with provenance
   tricksOfTheTrade: string[]; // Methodologies & strategic workflows
   softSkills: string[]; // Leadership, communication, stakeholder management
   affiliationsGained: string[]; // Timestamped orgs, honors, academic/industry affiliations
+}
+
+/**
+ * Attaches provenance (where/when it was picked up) to a flat list of skill
+ * names, so every entry in frameworkSkills carries learnedWhere/learnedWhen
+ * without repeating those two strings on every object literal below.
+ */
+function toSkills(names: string[], learnedWhere: string, learnedWhen: string): Skill[] {
+  return names.map((name) => ({ name, learnedWhere, learnedWhen }));
 }
 
 /**
@@ -22,12 +37,12 @@ export interface TimelineStop {
  * src/data/resume.js) and LinkedIn (linkedin.com/in/cedric-thomas-jr).
  * Where the two disagree, the resume wins — see the note in resume.js.
  *
- * The resume treats Corbin Advisors as one continuous role ("Summer 2024 —
- * Summer 2025"), but its own bullet text and the LinkedIn history describe
- * three distinct stints: a first summer, a winter remote stretch, and a
- * full summer back. This file splits those three stints into ct-corbin-1/2/3
- * as requested, and assigns each stint the one resume-verified initiative
- * that best fits its season, rather than inventing new achievements.
+ * Corbin Advisors was three distinct stints, not one continuous role:
+ * ct-corbin-1 (Data Science Intern, Jul—Aug 2024), ct-corbin-2 (Analytics &
+ * Automation Intern, Dec 2024—Jan 2025, remote), and ct-corbin-3 (Research &
+ * Analytics Intern, Jun—Aug 2025). Each carries the title, dates, and
+ * initiatives specific to that stint rather than one title repeated three
+ * times.
  */
 export const TIMELINE_DATA: TimelineStop[] = [
   {
@@ -37,11 +52,35 @@ export const TIMELINE_DATA: TimelineStop[] = [
     roleTitle: "Student",
     location: { cityState: "Atlanta, GA", coordinates: [-84.388, 33.749] },
     narrativeSummary:
-      "Where it started. First computer science coursework, including AP Computer Science Principles, at Pace Academy in Atlanta. Atlanta is still home base.",
-    quantifiableData: [],
-    frameworkSkills: ["Java", "Introductory programming fundamentals"],
-    tricksOfTheTrade: [],
-    softSkills: [],
+      "Where it started. First computer science coursework, including AP Computer Science Principles, at Pace Academy in Atlanta, run alongside two varsity sports and a full course load. The habits from that period — prioritizing across competing commitments, managing time rigorously, executing under pressure — carried forward into everything after. Atlanta is still home base.",
+    quantifiableData: [
+      "State Champion — Track & Field",
+      "Varsity Basketball",
+      "Varsity Track & Field",
+      "GPA 90/100",
+    ],
+    // Foundations only. Each stop lists what it actually added, so the route
+    // reads as a progression — language fundamentals here, CS core at LSU,
+    // applied data work at Corbin, web/ML libraries at NYU, enterprise agent
+    // infrastructure at Nike — rather than every stop restating the full
+    // cumulative stack.
+    frameworkSkills: toSkills(
+      ["Python", "Java", "Introductory programming fundamentals"],
+      "Pace Academy (Atlanta, GA)",
+      "Through 2023"
+    ),
+    tricksOfTheTrade: [
+      "Dual-commitment prioritization across academics and varsity athletics",
+      "Rigorous time management",
+      "Performance under pressure",
+      "Team coordination",
+      "Operational discipline",
+    ],
+    softSkills: [
+      "Relationship building",
+      "Stakeholder engagement",
+      "Early network development",
+    ],
     affiliationsGained: ["AP Computer Science Principles"],
   },
   {
@@ -51,108 +90,146 @@ export const TIMELINE_DATA: TimelineStop[] = [
     roleTitle: "B.S. Computer Science (Software Engineering concentration)",
     location: { cityState: "Baton Rouge, LA", coordinates: [-91.187, 30.451] },
     narrativeSummary:
-      "Two years at LSU pursuing a B.S. in Computer Science with a software engineering concentration, before transferring to NYU. Gave campus tours for two of those years alongside coursework.",
+      "Two years at LSU pursuing a B.S. in Computer Science with a software engineering concentration, before transferring to NYU. Spent two of those years as a Student Ambassador — leading campus tours for prospective students, families, and VIP guests, and presenting live and unscripted, tour after tour.",
     quantifiableData: [],
-    frameworkSkills: ["Java", "Python", "SQL", "C"],
-    tricksOfTheTrade: ["Campus tour guide — prospective-student communication"],
-    softSkills: ["Public speaking", "Prospective-student relations"],
-    affiliationsGained: [
-      "Dean's List",
-      "National Society of Collegiate Scholars",
-      "President's Honor Roll (final semester)",
+    frameworkSkills: toSkills(
+      ["SQL", "C", "Git", "Data structures & algorithms"],
+      "LSU (Baton Rouge, LA)",
+      "Aug 2023 — May 2025"
+    ),
+    tricksOfTheTrade: [
+      "Represented LSU as a Student Ambassador, leading campus tours for prospective students, families, and VIP guests",
+      "Provided strategic insight into academic programs, student life, campus culture, and university resources",
+      "Adjusted a standard tour into a tailored presentation for each visiting group",
     ],
+    softSkills: [
+      "Public Speaking",
+      "Executive Pitching & Presentation",
+      "Communication",
+      "Interpersonal Skills",
+      "Customer Service",
+      "Time Management",
+      "Teamwork",
+      "Leadership",
+    ],
+    affiliationsGained: ["President's List", "Dean's List (2x)"],
   },
   {
     id: "ct-corbin-1",
-    period: "Summer 2024",
+    period: "Jul 2024 — Aug 2024",
     companyOrContext: "Corbin Advisors",
-    roleTitle: "Data Science & Analytics Intern",
+    roleTitle: "Data Science Intern",
     location: {
       cityState: "Farmington, CT",
       coordinates: [-72.832, 41.72],
     },
     narrativeSummary:
-      "First summer at Corbin Advisors, an investor relations firm. Spearheaded an AI automation initiative for perception study transcription — the project that anchors the rest of the Corbin work.",
+      "First stint at Corbin Advisors, an investor relations firm. Built SQL- and JavaScript-based workflows for financial research, including a real-time stock data scraper against the Yahoo Finance API — the project that anchors the rest of the Corbin work.",
     quantifiableData: [
-      "450+ hours saved annually via AI transcription automation",
-      "~$100K in annual cost avoided from the same pipeline",
+      "Real-time stock data scraper covering 200+ tickers",
+      "10,000+ rows of financial and market data transformed",
     ],
-    frameworkSkills: ["Python", "OpenAI API / LLM transcription tooling", "SQL"],
+    frameworkSkills: toSkills(
+      ["SQL", "JavaScript", "Web Scraping", "Data Science", "Data Management"],
+      "Corbin Advisors (Farmington, CT)",
+      "Jul 2024 — Aug 2024"
+    ),
     tricksOfTheTrade: [
-      "Automating manual perception-study transcription workflows",
-      "Process audit to find the highest-leverage automation target",
+      "Built SQL- and JavaScript-based workflows for financial research data collection and analysis",
+      "Developed a real-time stock data scraper using JavaScript and the Yahoo Finance API",
     ],
-    softSkills: ["Stakeholder buy-in for a new automation workflow"],
+    softSkills: ["Communication", "Presentation Skills", "Teamwork"],
     affiliationsGained: ["Corbin Advisors"],
   },
   {
     id: "ct-corbin-2",
-    period: "Winter 2024 — 2025 (Remote)",
+    period: "Dec 2024 — Jan 2025 (Remote)",
     companyOrContext: "Corbin Advisors",
-    roleTitle: "Data Science & Analytics Intern",
+    roleTitle: "Analytics & Automation Intern",
     location: {
       cityState: "Farmington, CT",
       coordinates: [-72.832, 41.72],
     },
     narrativeSummary:
-      "Remote winter stint continuing with Corbin. Engineered BI dashboards over the firm's financial records to speed up how investor insights got assembled and presented.",
+      "Remote winter stint continuing with Corbin. Modeled financial data into executive-ready visuals, wireframed internal tooling, and automated recurring reporting with VBA macros.",
     quantifiableData: [
-      "Dashboards built over 10K+ financial records",
-      "+25% improvement in reporting accuracy",
+      "Automated recurring reporting workflows via custom VBA macros",
     ],
-    frameworkSkills: ["SQL", "BI dashboarding tools", "Excel / Microsoft Suite"],
+    frameworkSkills: toSkills(
+      ["VBA (Visual Basic for Applications)", "Wireframing", "Excel Macros", "Data Visualization", "Process Automation"],
+      "Corbin Advisors (Remote)",
+      "Dec 2024 — Jan 2025"
+    ),
     tricksOfTheTrade: [
-      "Turning inconsistent raw records into board-presentable dashboards",
-      "Remote collaboration and async reporting cadence",
+      "Modeled complex datasets into clear, compelling visual representations for executive decision-making",
+      "Designed intuitive UI wireframes to streamline internal workflows",
+      "Automated repetitive processes with custom VBA macros",
     ],
     softSkills: ["Remote communication", "Working async with a distributed team"],
     affiliationsGained: ["Corbin Advisors"],
   },
   {
     id: "ct-corbin-3",
-    period: "Summer 2025",
+    period: "Jun 2025 — Aug 2025",
     companyOrContext: "Corbin Advisors",
-    roleTitle: "Data Science & Analytics Intern",
+    roleTitle: "Research & Analytics Intern",
     location: {
       cityState: "Farmington, CT",
       coordinates: [-72.832, 41.72],
     },
     narrativeSummary:
-      "Full summer back at Corbin. Wrote Snowflake SQL pipelines to automate investor reporting, closing out the Corbin arc on the data-engineering side of the work.",
-    quantifiableData: ["+40% improvement in data delivery efficiency via Snowflake pipelines"],
-    frameworkSkills: ["Snowflake", "SQL", "Data pipeline design"],
-    tricksOfTheTrade: [
-      "Automating recurring investor reporting via SQL pipelines",
-      "Migrating manual reporting workflows onto a warehouse-native process",
+      "Full summer back at Corbin. Benchmarked AI transcription platforms, automated Snowflake SQL workflows for perception study reporting, and supported investor relations with competitive intelligence and market research.",
+    quantifiableData: [
+      "AI transcription benchmarking across Dovetail, Otter.ai, and Vook AI",
+      "Automated Snowflake SQL workflows for perception study reporting",
     ],
-    softSkills: ["Ownership of a recurring investor-facing deliverable"],
+    frameworkSkills: toSkills(
+      [
+        "Snowflake",
+        "SQL",
+        "AI Evaluation & Integration",
+        "Competitive Intelligence",
+        "Market Research",
+        "Investor Relations Strategy",
+      ],
+      "Corbin Advisors (Farmington, CT)",
+      "Jun 2025 — Aug 2025"
+    ),
+    tricksOfTheTrade: [
+      "Spearheaded an AI transcription benchmarking initiative to improve accuracy, reduce costs, and accelerate turnaround",
+      "Developed automated SQL workflows in Snowflake for perception study data formatting and reporting",
+      "Conducted competitive intelligence and market research to strengthen investor relations strategies",
+    ],
+    softSkills: [
+      "Cross-functional collaboration with senior analysts across finance, consulting, and technology",
+    ],
     affiliationsGained: ["Corbin Advisors"],
   },
   {
     id: "nyc-stop",
-    period: "Aug 2025 — May 2027",
+    period: "Aug 2025 — Dec 2027",
     companyOrContext: "New York University",
     roleTitle: "B.S. Computer Science",
     location: { cityState: "New York, NY", coordinates: [-73.996, 40.729] },
     narrativeSummary:
-      "Transferred to NYU after two years at LSU. Currently pursuing a B.S. in Computer Science, expected May 2027, while serving as Secretary of the Business and Finance Group and co-running The Vanguard Initiative.",
+      "Transferred to NYU after two years at LSU. Currently pursuing a B.S. in Computer Science, expected December 2027, while serving as Secretary of the Business and Finance Group and co-running The Vanguard Initiative.",
     quantifiableData: ["GPA 3.55", "1000+ member finance organization supported as Secretary"],
-    frameworkSkills: [
-      "Java",
-      "Python",
-      "SQL",
-      "C",
-      "JavaScript",
-      "TypeScript",
-      "FastAPI",
-      "React",
-      "Next.js",
-      "Pandas",
-      "NumPy",
-      "Scikit-learn",
-      "PyMC",
-      "SQLAlchemy",
-    ],
+    frameworkSkills: toSkills(
+      [
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "Next.js",
+        "FastAPI",
+        "SQLAlchemy",
+        "Pandas",
+        "NumPy",
+        "Scikit-learn",
+        "PyMC",
+      ],
+      "NYU (New York, NY)",
+      "Aug 2025 — Dec 2027"
+    ),
     tricksOfTheTrade: [
       "Executive communications and meeting logistics at organization scale",
       "Mentorship program design around known student drop-off points",
@@ -163,10 +240,9 @@ export const TIMELINE_DATA: TimelineStop[] = [
       "Mentorship and program leadership",
     ],
     affiliationsGained: [
-      "President's List",
-      "Dean's List (2x)",
+      "Dean's List (1x)",
       "Secretary, Business and Finance Group (Oct 2025 — Present)",
-      "Co-Founder, The Vanguard Initiative (May 2024 — Present)",
+      "Co-Founder, The Vanguard Initiative (May 2024 — Present) — In Progress",
       "EDGE Participant, SEO Career (Oct 2025 — Present)",
       "National Society of Black Engineers (NSBE)",
       "Black in STEM",
@@ -181,17 +257,23 @@ export const TIMELINE_DATA: TimelineStop[] = [
     location: { cityState: "Beaverton, OR", coordinates: [-122.804, 45.487] },
     narrativeSummary:
       "Current role, on the SCPT — Allocations team. Building agentic tooling that lets supply chain operators query Nike's inventory and network data in plain language.",
-    quantifiableData: [],
-    frameworkSkills: [
-      "AWS Strands SDK",
-      "Bedrock AgentCore",
-      "Databricks",
-      "Pydantic",
-      "Cerberus",
-    ],
+    quantifiableData: ["Classified / Enterprise Automation Impact (Metrics Pending Release under NDA)"],
+    frameworkSkills: toSkills(
+      [
+        "AWS Strands SDK",
+        "AWS Bedrock AgentCore",
+        "Databricks",
+        "Pydantic",
+        "Cerberus",
+        "Cursor",
+      ],
+      "Nike (Beaverton)",
+      "2025/2026"
+    ),
     tricksOfTheTrade: [
       "Query routing: regex pattern matching for high-confidence queries, LLM agent reasoning for ambiguous ones",
       "Governed I/O and structured output contracts for production LLM tooling",
+      "Enterprise AI agent orchestration workflows",
     ],
     softSkills: ["Working across an interdisciplinary supply-chain engineering team"],
     affiliationsGained: ["NIKE, Inc."],
