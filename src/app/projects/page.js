@@ -1,5 +1,7 @@
-import ProjectRow from "@/components/ProjectRow";
-import Stagger from "@/components/Stagger";
+import BuildingStatus from "@/components/projects/BuildingStatus";
+import GitHubActivity from "@/components/projects/GitHubActivity";
+import HeroProject from "@/components/projects/HeroProject";
+import ProjectsExplorer from "@/components/projects/ProjectsExplorer";
 import projects from "@/data/projects.json";
 
 export const metadata = {
@@ -9,6 +11,8 @@ export const metadata = {
 };
 
 export default function ProjectsPage() {
+  const heroProject = projects.find((p) => p.slug === "bullbrief");
+
   return (
     <main className="shell section">
       <h1 className="t-display">Work</h1>
@@ -17,11 +21,21 @@ export default function ProjectsPage() {
         which is usually the right order and occasionally the wrong one.
       </p>
 
-      <Stagger className="mt-14 grid gap-6" step={90}>
-        {projects.map((project, i) => (
-          <ProjectRow key={project.slug} project={project} priority={i === 0} />
-        ))}
-      </Stagger>
+      <BuildingStatus />
+
+      <div className="mt-14">
+        <GitHubActivity />
+      </div>
+
+      {heroProject && (
+        <div className="mt-16">
+          <HeroProject project={heroProject} />
+        </div>
+      )}
+
+      <div className="mt-16">
+        <ProjectsExplorer projects={projects} />
+      </div>
     </main>
   );
 }
