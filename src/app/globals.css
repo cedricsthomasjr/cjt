@@ -946,115 +946,180 @@
     }
   }
 
-  /* --- journey ---------------------------------------------------------- */
+  /* --- usa map ----------------------------------------------------------- */
 
-  .journey-map {
+  .usa-layout {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 1024px) {
+    .usa-layout {
+      grid-template-columns: 1.7fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .usa-frame {
+    padding: 0.5rem;
+    overflow: hidden;
+  }
+
+  .usa-map {
     display: block;
     width: 100%;
     height: auto;
   }
 
-  /* The projection's own lines, barely there. Enough to say the dots were
-     placed by coordinates rather than by eye. */
-  .journey-grid line {
-    stroke: var(--color-gold);
-    stroke-width: 1;
-    opacity: 0.07;
-  }
-
-  .journey-arc {
+  /* The coastline, barely there. It grounds the dots as geography rather than
+     pattern; the dots are what you actually read. */
+  .usa-outline {
     fill: none;
     stroke: var(--color-gold);
-    stroke-width: 1.75;
-    stroke-linecap: round;
-    opacity: 0.75;
+    stroke-width: 1.1;
+    opacity: 0.22;
   }
 
-  .journey-node {
+  /* Both dot layers are one path each: a zero-length subpath per dot with a
+     round cap, which is 1100 dots for the price of a single element. */
+  .usa-dots,
+  .usa-dots-lit {
+    fill: none;
+    stroke-linecap: round;
+  }
+
+  .usa-dots {
+    stroke: var(--color-gold);
+    stroke-width: 3;
+    opacity: 0.26;
+  }
+
+  .usa-dots-lit {
+    stroke: var(--color-gold-lift);
+    stroke-width: 4.6;
+    opacity: 1;
+  }
+
+  .usa-lamp {
+    transition: transform 850ms cubic-bezier(0.3, 0.7, 0.2, 1);
+  }
+
+  .usa-arc {
+    fill: none;
+    stroke: var(--color-gold);
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-dashoffset: 0;
+    opacity: 0.72;
+  }
+
+  .usa-node {
     cursor: pointer;
   }
 
-  .journey-hit {
+  .usa-hit {
     fill: transparent;
   }
 
-  .journey-halo {
+  .usa-halo {
     fill: var(--color-gold);
     opacity: 0;
-    transition: opacity 0.35s ease, r 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition: opacity 0.35s ease;
   }
 
-  .journey-node:hover .journey-halo,
-  .journey-node.is-active .journey-halo {
-    opacity: 0.16;
+  /* .is-active only, not :hover — hover is raw DOM occlusion (whichever
+     circle physically paints on top at the cursor), while .is-active is
+     resolved by nearest-center distance in handlePointer and is what's
+     actually correct when Connecticut and New York's hit areas overlap.
+     Triggering on both let the wrong node's halo glow alongside the right
+     one in that overlap; is-active alone is authoritative everywhere and
+     already updates continuously as the pointer moves. */
+  .usa-node.is-active .usa-halo {
+    opacity: 0.15;
   }
 
-  .journey-dot {
+  .usa-dot {
     fill: var(--color-ink);
     stroke: var(--color-gold);
-    stroke-width: 2;
+    stroke-width: 2.2;
     transition: fill 0.3s ease, stroke 0.3s ease;
   }
 
-  .journey-node.is-active .journey-dot {
-    fill: var(--color-gold);
+  .usa-node.is-active .usa-dot {
+    fill: var(--color-gold-lift);
+    stroke: var(--color-gold-lift);
   }
 
-  .journey-label {
+  /* Keyboard focus has to be visible, and an outline on an SVG group is not
+     reliably drawn, so the node itself takes the ring. */
+  .usa-node:focus-visible {
+    outline: none;
+  }
+
+  .usa-node:focus-visible .usa-dot {
+    stroke: var(--color-bone);
+    stroke-width: 4;
+  }
+
+  .usa-pulse {
+    fill: none;
+    stroke: var(--color-gold);
+    opacity: 0;
+  }
+
+  .usa-label {
     fill: var(--color-muted);
     font-family: var(--font-hn);
     font-weight: 700;
-    font-size: 19px;
+    font-size: 20px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     transition: fill 0.3s ease;
+    pointer-events: none;
   }
 
-  .journey-node:hover .journey-label,
-  .journey-node.is-active .journey-label {
+  .usa-node.is-active .usa-label {
     fill: var(--color-bone);
   }
 
-  /* Arcs draw themselves in sequence, then the nodes land. Held back until the
-     figure is on screen so the route is never already finished when you get
-     there. Without scripting the reveal class never lands, so the fallbacks
-     below leave everything drawn. */
-  .journey-arc {
-    stroke-dasharray: 1400;
-    stroke-dashoffset: 0;
-  }
-
+  /* Arcs draw in sequence, then the nodes land. Held until the map is on
+     screen so the route is never already finished when you arrive. Without
+     scripting the .js gate never lands and everything stays drawn. */
   @media (prefers-reduced-motion: no-preference) {
-    .js .journey .journey-arc {
-      stroke-dashoffset: 1400;
+    .js .usa .usa-arc {
+      stroke-dashoffset: var(--len);
     }
 
-    .js .journey.is-in .journey-arc {
-      animation: journey-draw 1.1s cubic-bezier(0.3, 0.7, 0.2, 1) both;
+    .js .usa.is-in .usa-arc {
+      animation: usa-draw 1.15s cubic-bezier(0.3, 0.7, 0.2, 1) both;
     }
 
-    .js .journey .journey-node {
+    .js .usa .usa-node {
       opacity: 0;
     }
 
-    .js .journey.is-in .journey-node {
-      animation: journey-land 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    .js .usa.is-in .usa-node {
+      animation: usa-land 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+
+    .usa-node.is-active .usa-pulse {
+      animation: usa-pulse 2.8s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
     }
   }
 
-  @keyframes journey-draw {
+  @keyframes usa-draw {
     from {
-      stroke-dashoffset: 1400;
+      stroke-dashoffset: var(--len);
     }
     to {
       stroke-dashoffset: 0;
     }
   }
 
-  @keyframes journey-land {
+  @keyframes usa-land {
     from {
       opacity: 0;
-      transform: translateY(6px);
+      transform: translateY(7px);
     }
     to {
       opacity: 1;
@@ -1062,42 +1127,86 @@
     }
   }
 
-  /* On a phone the map is about a third of its authored width, which renders
-     the city labels at roughly 7px and the tap targets at 23px — both unusable.
-     The labels come off and the chips below carry the naming, which is what
-     they are there for; the targets grow to a real 44px so the nodes still
-     work under a thumb. */
-  @media (max-width: 640px) {
-    .journey-label {
-      display: none;
+  @keyframes usa-pulse {
+    0% {
+      r: 9px;
+      opacity: 0.55;
+      stroke-width: 2px;
     }
-
-    .journey-hit {
-      r: 66px;
-    }
-
-    .journey-dot {
-      r: 11px;
-      stroke-width: 4;
-    }
-
-    .journey-halo {
-      r: 26px;
-    }
-
-    .journey-arc {
-      stroke-width: 3;
+    100% {
+      r: 34px;
+      opacity: 0;
+      stroke-width: 0.5px;
     }
   }
 
-  .journey-chips {
+  /* On a phone the map is about a quarter of its authored width, which would
+     set the labels at roughly 6px. The labels come off and the chips carry the
+     naming. The node targets grow to about 38px, over the 24px minimum but
+     deliberately short of 44px: Farmington and New York sit 30 user units apart,
+     which is 8px at this size, so a target big enough for a thumb would have
+     the later node swallow the earlier one entirely. The chips are the real
+     control here, and they are the equivalent path that lets the map stay a
+     display. */
+  @media (max-width: 640px) {
+    .usa-label {
+      display: none;
+    }
+
+    .usa-hit {
+      r: 70px;
+    }
+
+    .usa-dot {
+      r: 12px;
+      stroke-width: 4;
+    }
+
+    .usa-halo {
+      r: 30px;
+    }
+
+    .usa-arc {
+      stroke-width: 3.4;
+    }
+
+    .usa-dots {
+      stroke-width: 4;
+    }
+
+    .usa-dots-lit {
+      stroke-width: 5;
+    }
+  }
+
+  .usa-panel {
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .usa-panel {
+      padding: 2rem;
+    }
+  }
+
+  .usa-entries {
+    margin-top: 1.25rem;
+  }
+
+  .usa-entry + .usa-entry {
+    margin-top: 1.25rem;
+    border-top: 1px solid var(--color-rule);
+    padding-top: 1.25rem;
+  }
+
+  .usa-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: 1rem;
   }
 
-  .journey-chip {
+  .usa-chip {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -1112,19 +1221,204 @@
     transition: border-color 0.25s ease, color 0.25s ease;
   }
 
-  .journey-chip:hover {
+  .usa-chip:hover {
     color: var(--color-bone);
     border-color: rgb(200 160 70 / 0.4);
   }
 
-  .journey-chip.is-active {
+  .usa-chip.is-active {
     border-color: var(--color-gold);
     color: var(--color-gold);
   }
 
-  .journey-chip-index {
+  .usa-chip-index {
     font-variant-numeric: tabular-nums;
     opacity: 0.55;
+  }
+
+  /* Connecticut is three separate stints at one address, and the count is the
+     honest way to say so on a map that can only give it one dot. */
+  .usa-chip-count {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.6875rem;
+    color: var(--color-gold);
+    opacity: 0.8;
+  }
+
+  /* --- impact calculator -------------------------------------------------- */
+
+  .impcalc-scrubber {
+    padding: 0 0.25rem;
+  }
+
+  /* A native range input, restyled. Keeping it native means arrow keys,
+     Home/End, and click-anywhere-on-track all work without a line of
+     JavaScript, which the map's custom SVG buttons had to build by hand. */
+  .impcalc-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 1.25rem;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .impcalc-range::-webkit-slider-runnable-track {
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      var(--color-gold) var(--fill, 0%),
+      var(--color-rule) var(--fill, 0%)
+    );
+  }
+
+  .impcalc-range::-moz-range-track {
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-rule);
+  }
+
+  .impcalc-range::-moz-range-progress {
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-gold);
+  }
+
+  .impcalc-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    margin-top: -0.4375rem;
+    border-radius: 999px;
+    background: var(--color-gold-lift);
+    border: 2px solid var(--color-ink);
+    box-shadow: 0 0 0 1px rgb(200 160 70 / 0.5);
+    transition: transform 0.2s ease;
+  }
+
+  .impcalc-range::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 999px;
+    background: var(--color-gold-lift);
+    border: 2px solid var(--color-ink);
+    box-shadow: 0 0 0 1px rgb(200 160 70 / 0.5);
+  }
+
+  .impcalc-range:hover::-webkit-slider-thumb,
+  .impcalc-range:focus-visible::-webkit-slider-thumb {
+    transform: scale(1.15);
+  }
+
+  .impcalc-range:focus-visible {
+    outline: none;
+  }
+
+  .impcalc-ticks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-top: 1rem;
+  }
+
+  .impcalc-tick {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4375rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-rule);
+    padding: 0.375rem 0.75rem;
+    font-family: var(--font-hn);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: var(--color-muted);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .impcalc-tick:hover {
+    color: var(--color-bone);
+    border-color: rgb(200 160 70 / 0.4);
+  }
+
+  .impcalc-tick.is-active {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+  }
+
+  .impcalc-tick-index {
+    font-variant-numeric: tabular-nums;
+    opacity: 0.55;
+  }
+
+  .impcalc-panel {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .impcalc-panel {
+      padding: 2rem;
+    }
+  }
+
+  .impcalc-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .impcalc-head-meta {
+    text-align: right;
+  }
+
+  /* Five columns at rest, because five is what the schema has — this is a
+     spec sheet, not a card grid, so it collapses by count rather than by a
+     fixed breakpoint scale. */
+  .impcalc-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .impcalc-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .impcalc-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  .impcalc-col {
+    min-width: 0;
+  }
+
+  .impcalc-list {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .impcalc-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-top: 0.625rem;
+  }
+
+  .impcalc-metric {
+    color: var(--color-gold);
+    font-family: var(--font-hn);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
   }
 
   /* --- timeline --------------------------------------------------------- */
