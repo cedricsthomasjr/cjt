@@ -44,99 +44,6 @@ export const record = [
   },
 ];
 
-export const currentRole = {
-  org: "NIKE, Inc.",
-  title: "Artificial Intelligence, Data & Machine Learning Engineering Intern",
-  team: "SCPT — Allocations",
-  place: "Beaverton, OR",
-  time: "Jun 2026 — Aug 2026",
-  summary:
-    "Building agentic tooling that lets supply chain operators ask Nike's inventory and network data questions in plain language.",
-};
-
-/* The bullets for this role live only in resumeSections below. They were
-   duplicated here once and immediately drifted apart, so there is now one copy
-   and the About page renders the headline from currentRole and the detail from
-   resumeSections. */
-
-/**
- * The five places, in the order he first arrived at them. Coordinates are real
- * latitude and longitude — the map projects them rather than placing dots by
- * eye, so the shape of the route is true even though no coastline is drawn.
- *
- * Sourced from LinkedIn, which carries the LSU years and the Pace Academy
- * coursework that the one-page resume leaves out. Where the two disagree the
- * resume wins: the Business and Finance Group start date is Oct 2025 here, not
- * LinkedIn's Sep 2025, and Corbin stays "Summer 2024 — Summer 2025" rather than
- * being split into its three separate stints.
- *
- * `figures` keys into the `record` export above so the Corbin numbers have one
- * source of truth.
- */
-export const journey = [
-  {
-    id: "atlanta",
-    city: "Atlanta",
-    region: "GA",
-    org: "Pace Academy",
-    lat: 33.749,
-    lon: -84.388,
-    label: { anchor: "middle", dx: 0, dy: -26 },
-    time: "Through 2023",
-    kicker: "Where it started",
-    text: "First computer science coursework, including AP Computer Science Principles. Atlanta is still home.",
-  },
-  {
-    id: "baton-rouge",
-    city: "Baton Rouge",
-    region: "LA",
-    org: "Louisiana State University",
-    lat: 30.451,
-    lon: -91.187,
-    label: { anchor: "middle", dx: 0, dy: 42 },
-    time: "Aug 2023 — May 2025",
-    kicker: "Two years in",
-    text: "B.S. Computer Science with a software engineering concentration. Dean's List, the National Society of Collegiate Scholars, and the President's Honor Roll in my final semester. Gave campus tours for two of those years.",
-  },
-  {
-    id: "farmington",
-    city: "Farmington",
-    region: "CT",
-    org: "Corbin Advisors",
-    lat: 41.72,
-    lon: -72.832,
-    label: { anchor: "end", dx: -16, dy: -22 },
-    time: "Summer 2024 — Summer 2025",
-    kicker: "Three stints",
-    text: "An investor relations firm, across a first summer, a winter remote, and a full summer back. Transcription automation, BI dashboards, and Snowflake pipelines.",
-    figures: true,
-  },
-  {
-    id: "new-york",
-    city: "New York",
-    region: "NY",
-    org: "New York University",
-    lat: 40.729,
-    lon: -73.996,
-    label: { anchor: "end", dx: -16, dy: 44 },
-    time: "Aug 2025 — May 2027",
-    kicker: "The transfer",
-    text: "Transferred after two years at LSU. B.S. Computer Science, expected May 2027, GPA 3.55, President's List and Dean's List twice. Secretary of the Business and Finance Group.",
-  },
-  {
-    id: "beaverton",
-    city: "Beaverton",
-    region: "OR",
-    org: "NIKE, Inc.",
-    lat: 45.487,
-    lon: -122.804,
-    label: { anchor: "start", dx: 18, dy: -22 },
-    time: "Jun 2026 — Aug 2026",
-    kicker: "This summer",
-    text: "Artificial Intelligence, Data & Machine Learning Engineering on SCPT — Allocations. Agentic tooling that lets supply chain operators query inventory and network data in plain language.",
-  },
-];
-
 export const affiliations = [
   "NIKE, Inc.",
   "Corbin Advisors",
@@ -144,31 +51,6 @@ export const affiliations = [
   "SEO Career",
   "Business and Finance Group",
   "The Vanguard Initiative",
-];
-
-/**
- * The leadership entries, flattened for the About page. The resume keeps the
- * full bulleted version; this is the short form.
- */
-export const community = [
-  {
-    title: "Secretary",
-    org: "Business and Finance Group, NYU",
-    time: "Oct 2025 — Present",
-    text: "Executive communications and internal operations for a 1000+ member finance organization, across the Tandon and CAS chapters.",
-  },
-  {
-    title: "Co-Founder",
-    org: "The Vanguard Initiative",
-    time: "May 2024 — Present",
-    text: "A mentorship initiative for underrepresented students, built around the points where students actually fall off.",
-  },
-  {
-    title: "EDGE Participant",
-    org: "SEO Career",
-    time: "Oct 2025 — Present",
-    text: "Technical and professional coaching toward internship recruiting, with industry-specific training and assessments.",
-  },
 ];
 
 export const resumeSections = [

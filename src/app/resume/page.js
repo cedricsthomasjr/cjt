@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import Journey from "@/components/Journey";
+import Figure from "@/components/Figure";
+import ImpactCalculator from "@/components/ImpactCalculator";
 import Reveal from "@/components/Reveal";
-import { contactLinks, resumeSections } from "@/data/resume";
+import { contactLinks, record, resumeSections } from "@/data/resume";
 import projects from "@/data/projects.json";
 
 export const metadata = {
@@ -34,15 +35,41 @@ export default function ResumePage() {
         </a>
       </div>
 
+      {/* The cumulative impact numbers, in one place. The narrative behind
+          each one — where, when, and how — lives on the About page; this is
+          the figures a reader can scan and defend on their own. */}
       <Reveal>
         <section className="mt-16">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-            <h2 className="t-label-gold">The route</h2>
-            <p className="t-label">Atlanta · Baton Rouge · Farmington · New York · Beaverton</p>
+          <h2 className="t-label-gold">Impact</h2>
+          <hr className="hairline-gold mt-3" />
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {record.map((row, i) => (
+              <div key={row.key} className="card p-6">
+                <p className="t-label">{row.key}</p>
+                <p className="t-figure mt-2 text-gold">
+                  <Figure
+                    prefix={row.prefix}
+                    num={row.num}
+                    suffix={row.suffix}
+                    delay={i * 90}
+                  />
+                </p>
+                <p className="t-sub-sm mt-2">{row.note}</p>
+              </div>
+            ))}
           </div>
+        </section>
+      </Reveal>
+
+      {/* Same seven stops as the About page's map, but flat: no grouping, no
+          narrative, no story. Corbin's three stints get one row each here,
+          because a reader checking a metric wants the stint, not the place. */}
+      <Reveal>
+        <section className="mt-16">
+          <h2 className="t-label-gold">Impact calculator</h2>
           <hr className="hairline-gold mt-3" />
           <div className="mt-6">
-            <Journey />
+            <ImpactCalculator />
           </div>
         </section>
       </Reveal>
