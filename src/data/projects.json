@@ -18,18 +18,21 @@
       "Next.js",
       "TypeScript",
       "OpenAI API",
+      "Flask",
+      "Pydantic",
+      "pandas",
       "FMP",
-      "yFinance",
-      "Flask"
+      "yFinance"
     ],
     "content": [
       "Equity research starts the same way every time: pull the filings, skim the earnings call, check the fundamentals, and write it up. BullBrief does the pulling and the first draft.",
-      "A Next.js frontend takes a ticker and returns a structured digest — business model, financial health, recent developments. Behind it, a Flask API fans out to Yahoo Finance, FMP, and SEC-adjacent data, normalizes what comes back, and runs it through prompts tuned for financial language rather than general summarization.",
+      "A Next.js frontend takes a ticker and returns a structured digest — business model, financial health, recent developments. Behind it, a Flask API fans out to Yahoo Finance, FMP, and SEC-adjacent data, normalizes what comes back with pandas, and runs it through prompts tuned for financial language rather than general summarization.",
       "The hard part was not the AI. It was making a page that stays fast and legible while it waits on four data sources that fail independently."
     ],
     "features": [
       "Ticker search with autocomplete and validation",
       "AI-generated brief covering financials, valuation, risk, SWOT, and peers",
+      "LLM output validated against Pydantic schemas before it reaches the page",
       "Live quotes across major tickers, cached for five minutes via FMP",
       "Daily market movers and a peer Compare mode for side-by-side breakdowns",
       "Rate-limit and partial-failure handling across four independent upstream sources"
