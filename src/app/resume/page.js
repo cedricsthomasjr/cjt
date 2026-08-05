@@ -24,7 +24,7 @@ const remainingSections = resumeSections.filter((section) => section.title !== "
 function ResumeSection({ section }) {
   return (
     <Reveal>
-      <section className="mt-16">
+      <section className="mt-12 sm:mt-16 lg:mt-20">
         <h2 className="t-h2">{section.title}</h2>
         <hr className="hairline-gold mt-3" />
 
@@ -32,7 +32,7 @@ function ResumeSection({ section }) {
           {section.items.map((item) => (
             <article
               key={`${section.title}-${item.title}`}
-              className="grid gap-3 border-b border-rule py-6 lg:grid-cols-[18rem_1fr] lg:gap-10"
+              className="grid gap-3 border-b border-rule py-6 last:border-b-0 sm:py-7 lg:grid-cols-[18rem_1fr] lg:gap-10 lg:py-8"
             >
               <div>
                 <h3 className="t-h3">{item.title}</h3>
@@ -94,10 +94,10 @@ export default function ResumePage() {
           This is the one Impact surface on the page now — the old static
           metric cards were a redundant second copy of the same numbers. */}
       <Reveal>
-        <section className="mt-16">
+        <section className="mt-12 sm:mt-16 lg:mt-20">
           <h2 className="t-label-gold">Impact</h2>
           <hr className="hairline-gold mt-3" />
-          <div className="mt-6">
+          <div className="mt-6 sm:mt-7 lg:mt-8">
             <ImpactCalculator />
           </div>
         </section>

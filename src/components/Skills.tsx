@@ -20,7 +20,7 @@ interface SkillsSection {
 export default function Skills({ section }: { section: SkillsSection }) {
   return (
     <Reveal>
-      <section className="mt-16">
+      <section className="mt-12 sm:mt-16 lg:mt-20">
         <h2 className="t-h2">{section.title}</h2>
         <hr className="hairline-gold mt-3" />
 
@@ -28,7 +28,7 @@ export default function Skills({ section }: { section: SkillsSection }) {
           {section.items.map((item) => (
             <article
               key={item.title}
-              className="grid gap-3 border-b border-rule py-6 lg:grid-cols-[18rem_1fr] lg:gap-10"
+              className="grid gap-3 border-b border-rule py-6 last:border-b-0 sm:py-7 lg:grid-cols-[18rem_1fr] lg:gap-10 lg:py-8"
             >
               <div>
                 <h3 className="t-h3">{item.title}</h3>
