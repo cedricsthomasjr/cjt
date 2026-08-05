@@ -8,7 +8,11 @@ import type { Project } from "./ProjectsExplorer";
 const MONO_STACK =
   'ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace';
 
-const TABS = ["System Overview", "Tech Stack & Tools", "Impact Metrics"] as const;
+const TABS = [
+  { key: "overview", label: "System Overview" },
+  { key: "stack", label: "Tech Stack & Tools" },
+  { key: "impact", label: "Impact Metrics" },
+] as const;
 
 /**
  * Developer-flavored alternative to the grid: one row per project, styled as
@@ -50,16 +54,21 @@ function LedgerRow({
   const [activeTab, setActiveTab] = useState(0);
   const hasCaseStudy = !project.linkOut && project.content.length > 0;
   const metrics = project.impactMetrics ?? [];
+  const trayId = `ledger-tray-${project.slug}`;
 
   return (
     <div>
-      {/* Row header — the monospace stack is scoped to just this button via
-          inline style, same as before. The tray below it uses the site's
+      {/* Row header is a real <button>, so Enter/Space activation, focus, and
+          tab order all come from the browser for free — no role="button" +
+          manual keydown handler needed, that pattern is only for non-button
+          elements. The monospace stack is scoped to just this button via
+          inline style, same as before; the tray below it uses the site's
           normal type (prose, not code), so it isn't inherited down. */}
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
+        aria-controls={trayId}
         className="readout-row w-full text-left transition-colors hover:border-gold/40"
         style={{ fontFamily: MONO_STACK }}
       >
@@ -96,22 +105,34 @@ function LedgerRow({
       </button>
 
       {isOpen && (
-        <div className="border-b border-rule py-5 pl-1">
-          <div className="flex flex-wrap gap-2">
-            {TABS.map((label, i) => (
+        <div id={trayId} className="border-b border-rule py-5 pl-1">
+          <div
+            role="tablist"
+            aria-label={`Details for ${project.title}`}
+            className="flex flex-wrap gap-2"
+          >
+            {TABS.map((tab, i) => (
               <button
-                key={label}
+                key={tab.key}
                 type="button"
+                id={`ledger-tab-${project.slug}-${tab.key}`}
+                role="tab"
                 onClick={() => setActiveTab(i)}
-                aria-pressed={activeTab === i}
+                aria-selected={activeTab === i}
+                aria-controls={`ledger-panel-${project.slug}-${tab.key}`}
                 className={`usa-chip ${activeTab === i ? "is-active" : ""}`}
               >
-                {label}
+                {tab.label}
               </button>
             ))}
           </div>
 
-          <div className="mt-4 max-w-2xl">
+          <div
+            role="tabpanel"
+            id={`ledger-panel-${project.slug}-${TABS[activeTab].key}`}
+            aria-labelledby={`ledger-tab-${project.slug}-${TABS[activeTab].key}`}
+            className="mt-4 max-w-2xl"
+          >
             {activeTab === 0 && (
               <p className="t-sub-sm border-l-2 border-gold/40 py-1 pl-4">
                 {project.overview ?? project.summary}
