@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { memo, useCallback, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
 import type { Project } from "./ProjectsExplorer";
@@ -24,6 +24,17 @@ const TABS = [
 export default function ProjectLedger({ projects }: { projects: Project[] }) {
   const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
 
+  // Stable across renders (empty deps — it only calls the setter, which React
+  // guarantees is itself stable), so every row gets the exact same function
+  // reference every time. Combined with LedgerRow being memoized below, that's
+  // what actually lets React skip re-rendering the rows that didn't change —
+  // a new closure per row per render (the previous shape: an inline arrow
+  // inside .map()) would defeat memoization even with React.memo in place,
+  // since a "new function" prop always compares unequal.
+  const handleToggle = useCallback((slug: string) => {
+    setExpandedSlug((current) => (current === slug ? null : slug));
+  }, []);
+
   return (
     <div className="mt-8">
       {projects.map((project) => (
@@ -31,25 +42,29 @@ export default function ProjectLedger({ projects }: { projects: Project[] }) {
           key={project.slug}
           project={project}
           isOpen={expandedSlug === project.slug}
-          onToggle={() =>
-            setExpandedSlug((current) =>
-              current === project.slug ? null : project.slug
-            )
-          }
+          onToggle={handleToggle}
         />
       ))}
     </div>
   );
 }
 
-function LedgerRow({
+/**
+ * Memoized so that toggling one row doesn't re-render its siblings: React
+ * skips a memoized component's re-render when none of its props changed by
+ * reference/value, and for any row NOT involved in a given toggle, `project`
+ * is the same object reference, `onToggle` is the same stable function (see
+ * handleToggle above), and `isOpen` evaluates to the same boolean it always
+ * has — so there's nothing for this row to re-render for.
+ */
+const LedgerRow = memo(function LedgerRow({
   project,
   isOpen,
   onToggle,
 }: {
   project: Project;
   isOpen: boolean;
-  onToggle: () => void;
+  onToggle: (slug: string) => void;
 }) {
   const [activeTab, setActiveTab] = useState(0);
   const hasCaseStudy = !project.linkOut && project.content.length > 0;
@@ -83,7 +98,7 @@ function LedgerRow({
           normal type (prose, not code), so it isn't inherited down. */}
       <button
         type="button"
-        onClick={onToggle}
+        onClick={() => onToggle(project.slug)}
         aria-expanded={isOpen}
         aria-controls={trayId}
         className="readout-row w-full text-left transition-colors hover:border-gold/40"
@@ -261,4 +276,4 @@ function LedgerRow({
       </div>
     </div>
   );
-}
+});
