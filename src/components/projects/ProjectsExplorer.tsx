@@ -88,10 +88,7 @@ export default function ProjectsExplorer({ projects }: { projects: Project[] }) 
           ))}
         </div>
       ) : (
-        <ProjectLedger
-          projects={filtered}
-          onOpen={(project) => setSelectedProject(project)}
-        />
+        <ProjectLedger projects={filtered} />
       )}
 
       <ProjectDrawer
