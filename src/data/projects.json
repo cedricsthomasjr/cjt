@@ -5,8 +5,15 @@
     "year": "2025",
     "role": "Solo build",
     "status": "Live",
+    "category": "AI/ML & Agents",
     "image": "/projects/bullbrief.webp",
     "summary": "An equity research tool that reads market data, filings, and earnings, then writes the brief an analyst would have spent an afternoon on.",
+    "overview": "A Next.js frontend and a Python service split the work: one takes a ticker and renders a structured digest, the other fans out to market and filings data, normalizes it, and runs it through prompts tuned for financial language.",
+    "impactMetrics": [
+      { "label": "Data sources fused", "value": "4" },
+      { "label": "Report sections", "value": "6" },
+      { "label": "Avg. brief time", "value": "<30s" }
+    ],
     "tags": [
       "Next.js",
       "OpenAI API",
@@ -41,6 +48,7 @@
     "year": "2025",
     "role": "Personal build",
     "status": "Archived",
+    "category": "Data Engineering",
     "image": "/projects/athlytics.webp",
     "summary": "NBA player analytics — advanced stats and awards history served from a cached Basketball-Reference pipeline.",
     "tags": [
@@ -75,6 +83,7 @@
     "year": "2024 — 2025",
     "role": "Solo build",
     "status": "Live",
+    "category": "Full-Stack",
     "image": null,
     "linkOut": true,
     "external": "https://whatcjsees.vercel.app",
