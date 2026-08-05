@@ -54,27 +54,33 @@
     "status": "Archived",
     "category": "Data Engineering",
     "image": "/projects/athlytics.webp",
-    "summary": "NBA player analytics — advanced stats and awards history served from a cached Basketball-Reference pipeline.",
+    "summary": "NBA player analytics — career stats from the NBA's own API, awards history from a targeted headless-browser scrape, both served through a two-tier cache.",
     "tags": [
       "Python",
-      "JavaScript",
-      "Data pipeline",
-      "Caching"
+      "Flask",
+      "nba_api",
+      "Selenium",
+      "React",
+      "Recharts",
+      "Framer Motion",
+      "Fuse.js"
     ],
     "content": [
       "A basketball research tool built to answer the arguments that come up constantly and get settled badly: who actually had the better peak, how a season stacks up historically, what the award voting really looked like.",
-      "The interesting engineering is the pipeline rather than the interface. Basketball-Reference is slow and unfriendly to repeated queries, so a Python backend scrapes, normalizes, and caches per-player records to disk, keyed by the site's own player IDs. The frontend then reads from cache and stays quick.",
-      "Archived at the point where the data layer worked and the interface had not caught up. Left up because the caching approach is the part worth showing."
+      "The interesting engineering is the pipeline rather than the interface. Most of what the app needs — game logs, shot charts, advanced stats, bios — comes straight from the NBA's own stats API. Awards and voting history don't: that page is JavaScript-rendered, so a headless Chrome instance loads it and BeautifulSoup parses what comes back. Both paths land in the same two-tier cache — a Flask-Caching layer in front, and a disk-first JSON cache underneath that checks for a saved record before the scraper ever runs again.",
+      "Archived at the point where the data layer worked and the interface had not caught up. Left up because the caching approach — and knowing when to scrape versus when to call an API — is the part worth showing."
     ],
     "features": [
-      "Per-player award and advanced-stat records, cached to disk",
-      "Normalization layer over inconsistent upstream tables",
-      "Player, team, and season search",
-      "Cache keyed by Basketball-Reference player IDs"
+      "Game logs, shot charts, and advanced stats pulled from the NBA's own stats API",
+      "Awards and voting history scraped from Basketball-Reference via headless Chrome, since that page is JS-rendered",
+      "Two-tier cache: a Flask-Caching layer plus a disk-first JSON cache keyed by player ID",
+      "A small utility reconstructs Basketball-Reference's own ID format from a player's name, bridging the NBA API's numeric IDs with the one route that needs BR's slug scheme",
+      "Client-side fuzzy search (Fuse.js) layered over a server-side search endpoint",
+      "Recharts line charts for career trends, a Chart.js scatter plot for shot location"
     ],
     "lessons": [
-      "Caching is the whole design when the upstream source is slow",
-      "Normalize at ingest, not at read time",
+      "Reach for scraping only where a real API doesn't cover it, not by default",
+      "Two caching layers earn their keep when the upstream is both slow and inconsistent",
       "Knowing when to archive a side project instead of finishing it"
     ],
     "github": "https://github.com/cedricsthomasjr/athlytics",
