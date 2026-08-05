@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    groups:
+      # Patch/minor bumps land as one grouped PR instead of one per package,
+      # so routine updates don't flood the PR list. A major version bump
+      # (like the eventual Next 15 -> 16 jump) still opens on its own —
+      # that's a deliberate upgrade, not something to group in quietly.
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
