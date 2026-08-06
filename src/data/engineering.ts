@@ -9,20 +9,22 @@
 export const currentFocus = {
   status: "Active Sprint",
   focus: "Enterprise AI Agent Orchestration & Pipeline Automation",
-  tags: ["AWS Bedrock", "Databricks", "Pydantic", "TypeScript"],
+  tags: ["AWS Bedrock", "Databricks", "Pydantic", "AWS Strands SDK"],
 };
 
 /**
- * Shape mirrors what the live GitHub Events fetch produces: 12 weeks of
- * commit counts (oldest → newest) plus the summary stats row. Rendered first,
- * on every load, then silently replaced if the live fetch succeeds.
+ * Hand-authored summary stats for the /projects dashboard. These are claims
+ * about the shape of the work, not measurements, so they live here.
+ *
+ * Deliberately absent: any stand-in for the daily contribution counts. Those
+ * come from /api/github-activity (GitHub's own contribution calendar) or the
+ * strip renders empty. A plausible-looking placeholder array is precisely how
+ * the widget ended up disagreeing with the real profile graph.
  */
 export const githubFallback = {
-  weeks: [2, 5, 0, 8, 12, 4, 1, 9, 14, 6, 3, 11],
   stats: {
     reposShipped: "8",
     primaryStack: "Python / TypeScript / SQL",
     engineeringFocus: "Data Engineering & AI/ML",
-    latestCommitAt: "2026-08-04T18:00:00Z",
   },
 };

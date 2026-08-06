@@ -1,7 +1,8 @@
 export const CATEGORIES = [
   "All",
-  "AI/ML & Agents",
-  "Data Engineering",
+  "Flagship Consumer Build",
+  "Infrastructure & Systems",
+  "Leisure Build",
   "Automation & Workflows",
   "Full-Stack",
 ] as const;

@@ -1,0 +1,39 @@
+{
+  "cjt": {
+    "commits": 66,
+    "stars": 0,
+    "languages": [
+      "TypeScript"
+    ]
+  },
+  "bullbrief": {
+    "commits": 79,
+    "stars": 0,
+    "languages": [
+      "JavaScript",
+      "TypeScript",
+      "Python"
+    ]
+  },
+  "apeirion": {
+    "commits": 2,
+    "stars": 0,
+    "languages": [
+      "Python"
+    ]
+  },
+  "air-ticket-system": {
+    "commits": 7,
+    "stars": 0,
+    "languages": [
+      "HTML"
+    ]
+  },
+  "CrossyAnt": {
+    "commits": 3,
+    "stars": 0,
+    "languages": [
+      "Java"
+    ]
+  }
+}
