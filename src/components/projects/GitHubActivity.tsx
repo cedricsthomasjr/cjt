@@ -1,27 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
+import { createPortal } from "react-dom";
 import { githubFallback } from "@/data/engineering";
 
-const GITHUB_USERNAME = "cedricsthomasjr";
-const WEEK_COUNT = 12;
-const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
+const DAY_COUNT = 30;
+const VIEWPORT_MARGIN = 12;
+const TIP_GAP = 8;
 
-type GithubStats = typeof githubFallback.stats;
-
-type GithubEvent = {
-  type: string;
-  created_at: string;
-  payload?: { commits?: unknown[] };
+/** One cell: a calendar date plus the contribution count and quartile level
+ *  GitHub's own graph assigns it. Both come from /api/github-activity, which
+ *  reads the same contribution calendar the profile page renders — so this
+ *  strip and the profile graph can't disagree. */
+type DayActivity = {
+  date: string;
+  count: number;
+  level: number;
 };
 
-/** Deterministic — same on server and client, so it's safe as the initial
- *  render before the relative-time effect below takes over. */
-function formatAbsolute(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
+/** "2026-08-05" → "Aug 5", parsed as a *local* date. Splitting the parts by
+ *  hand matters: `new Date("2026-08-05")` is parsed as UTC midnight, which
+ *  renders as Aug 4 for anyone west of Greenwich. */
+function formatDayLabel(dateKey: string) {
+  const [year, month, day] = dateKey.split("-").map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
-    year: "numeric",
   });
 }
 
@@ -40,75 +50,202 @@ function formatRelative(iso: string) {
   return `${months} month${months === 1 ? "" : "s"} ago`;
 }
 
-/** Buckets PushEvents from the public events feed into the last 12 weeks,
- *  oldest first, current week last — same shape as githubFallback.weeks. */
-function bucketPushEvents(events: GithubEvent[]) {
-  const weeks = Array<number>(WEEK_COUNT).fill(0);
-  const now = Date.now();
+/** Five visual states, gold intensity climbing from a bare outline to a lit
+ *  glow — built on the site's own --color-gold tokens rather than a Tailwind
+ *  amber scale, so it reads as the same material as every other gold accent
+ *  on the page. The level driving these is GitHub's own quartile, not a
+ *  locally invented scale. */
+const TIER_STYLE: Record<number, CSSProperties> = {
+  0: {
+    border: "1px solid var(--color-rule)",
+    background: "transparent",
+  },
+  1: {
+    border: "1px solid rgb(200 160 70 / 0.35)",
+    background: "rgb(200 160 70 / 0.16)",
+  },
+  2: {
+    border: "1px solid rgb(200 160 70 / 0.55)",
+    background: "rgb(200 160 70 / 0.38)",
+  },
+  3: {
+    border: "1px solid var(--color-gold)",
+    background: "rgb(200 160 70 / 0.65)",
+    boxShadow: "0 2px 10px rgb(200 160 70 / 0.25)",
+  },
+  4: {
+    border: "1px solid var(--color-gold-lift)",
+    background: "linear-gradient(160deg, var(--color-gold), var(--color-gold-lift))",
+    boxShadow: "0 0 14px rgb(232 206 138 / 0.55)",
+  },
+};
 
-  for (const event of events) {
-    if (event.type !== "PushEvent") continue;
-    const created = new Date(event.created_at).getTime();
-    const age = now - created;
-    if (age < 0 || age >= WEEK_COUNT * MS_PER_WEEK) continue;
+const CELL_CLASS =
+  "h-3.5 w-3.5 shrink-0 rounded-sm sm:h-4 sm:w-4";
 
-    const weeksAgo = Math.floor(age / MS_PER_WEEK);
-    const index = WEEK_COUNT - 1 - weeksAgo;
-    if (index < 0 || index >= WEEK_COUNT) continue;
+/**
+ * One cell in the shipping-cadence strip. Hover (mouse) or focus opens a
+ * portaled, viewport-clamped tooltip — same positioning approach as
+ * SkillPill, so a cell near a screen edge slides in rather than clipping.
+ * Tap toggles it open on touch, where hover never fires.
+ */
+function DayCell({ day }: { day: DayActivity }) {
+  const [open, setOpen] = useState(false);
+  const [placed, setPlaced] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [style, setStyle] = useState<CSSProperties>({});
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  const tipRef = useRef<HTMLDivElement>(null);
+  const lastPointerType = useRef<string>("");
+  const tipId = useId();
 
-    weeks[index] += event.payload?.commits?.length ?? 1;
-  }
+  useEffect(() => setMounted(true), []);
 
-  return weeks;
+  useEffect(() => {
+    if (!open) {
+      setPlaced(false);
+      return;
+    }
+
+    const place = () => {
+      const anchor = anchorRef.current;
+      const tip = tipRef.current;
+      if (!anchor || !tip) return;
+
+      const anchorBox = anchor.getBoundingClientRect();
+      const tipWidth = tip.offsetWidth;
+      const tipHeight = tip.offsetHeight;
+
+      let left = anchorBox.left + anchorBox.width / 2 - tipWidth / 2;
+      left = Math.max(
+        VIEWPORT_MARGIN,
+        Math.min(left, window.innerWidth - tipWidth - VIEWPORT_MARGIN)
+      );
+
+      const fitsAbove = anchorBox.top - TIP_GAP - tipHeight >= VIEWPORT_MARGIN;
+      const top = fitsAbove
+        ? anchorBox.top - TIP_GAP - tipHeight
+        : anchorBox.bottom + TIP_GAP;
+
+      setStyle({ position: "fixed", left, top });
+      setPlaced(true);
+    };
+
+    place();
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", place, true);
+    return () => {
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place, true);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    const onOutside = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (anchorRef.current?.contains(target) || tipRef.current?.contains(target)) {
+        return;
+      }
+      setOpen(false);
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onOutside);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onOutside);
+    };
+  }, [open]);
+
+  // Same vocabulary GitHub uses, because it's the same number.
+  const description =
+    day.count === 0
+      ? "No contributions"
+      : `${day.count} contribution${day.count === 1 ? "" : "s"}`;
+
+  const dayLabel = formatDayLabel(day.date);
+
+  return (
+    <>
+      <button
+        type="button"
+        ref={anchorRef}
+        aria-label={`${dayLabel}: ${description}`}
+        aria-describedby={open ? tipId : undefined}
+        // Enter/leave are gated on a real mouse. Touch browsers synthesize a
+        // mouseenter on tap, so ungated these would open the tooltip and let
+        // the click below immediately toggle it shut — a tap that does nothing.
+        onPointerEnter={(event) => {
+          if (event.pointerType === "mouse") setOpen(true);
+        }}
+        onPointerLeave={(event) => {
+          if (event.pointerType === "mouse") setOpen(false);
+        }}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+        onPointerDown={(event) => {
+          lastPointerType.current = event.pointerType;
+        }}
+        onClick={(event) => {
+          event.stopPropagation();
+          if (lastPointerType.current === "mouse") return;
+          setOpen((value) => !value);
+        }}
+        className={`${CELL_CLASS} cursor-pointer appearance-none bg-none transition-transform duration-150 hover:z-10 hover:scale-125 focus-visible:z-10 focus-visible:scale-125 focus-visible:outline-none`}
+        style={TIER_STYLE[day.level] ?? TIER_STYLE[0]}
+      />
+      {open &&
+        mounted &&
+        createPortal(
+          <div
+            ref={tipRef}
+            id={tipId}
+            role="tooltip"
+            aria-hidden="true"
+            className="skillpill-tip"
+            style={{ ...style, visibility: placed ? "visible" : "hidden" }}
+          >
+            <span className="skillpill-tip-label">{dayLabel}</span>
+            <span className="skillpill-tip-when">{description}</span>
+          </div>,
+          document.body
+        )}
+    </>
+  );
 }
-
-function latestPushAt(events: GithubEvent[]) {
-  const pushes = events.filter((e) => e.type === "PushEvent");
-  if (pushes.length === 0) return null;
-  return pushes.reduce((latest, e) =>
-    new Date(e.created_at) > new Date(latest.created_at) ? e : latest
-  ).created_at;
-}
-
-/** Gold intensity tier for a heatmap cell, 0 (no activity) through 4
- *  (busiest week in the visible range). Mirrors the dot-lattice idiom used
- *  by body::before / .pointer-light / UsaMap rather than a GitHub-green
- *  calendar. */
-function tierFor(count: number, max: number) {
-  if (count <= 0 || max <= 0) return 0;
-  return Math.min(4, Math.ceil((count / max) * 4));
-}
-
-const TIER_OPACITY = [0, 0.28, 0.5, 0.72, 1];
 
 export default function GitHubActivity() {
-  const [weeks, setWeeks] = useState<number[]>(githubFallback.weeks);
-  const [stats, setStats] = useState<GithubStats>(githubFallback.stats);
-  const [latestLabel, setLatestLabel] = useState(() =>
-    formatAbsolute(githubFallback.stats.latestCommitAt)
-  );
+  // Starts empty and fills in after mount. Nothing here is derived from the
+  // clock during SSR, so there's no server/client date drift to hydrate
+  // around — and no placeholder numbers standing in for real ones.
+  const [days, setDays] = useState<DayActivity[]>([]);
+  const [total, setTotal] = useState<number | null>(null);
+  const [latestPushAt, setLatestPushAt] = useState<string | null>(null);
+  const [latestLabel, setLatestLabel] = useState("—");
 
-  // Live fetch. Falls through silently on any failure — the fallback data
-  // rendered above is already a complete, honest-looking page.
   useEffect(() => {
     let cancelled = false;
 
-    fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events`, {
-      cache: "no-store",
-    })
+    fetch("/api/github-activity")
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
-      .then((events: GithubEvent[]) => {
-        if (cancelled || !Array.isArray(events)) return;
-
-        setWeeks(bucketPushEvents(events));
-
-        const latest = latestPushAt(events);
-        if (latest) {
-          setStats((prev) => ({ ...prev, latestCommitAt: latest }));
-        }
+      .then((data) => {
+        if (cancelled || !Array.isArray(data.days)) return;
+        setDays(data.days);
+        setTotal(
+          typeof data.totalContributions === "number"
+            ? data.totalContributions
+            : null
+        );
+        setLatestPushAt(data.latestPushAt ?? null);
       })
       .catch(() => {
-        /* offline, rate-limited, or blocked — keep the fallback in place */
+        /* No token, rate-limited, or offline. The strip stays empty rather
+           than inventing a cadence — see the note in data/engineering.ts. */
       });
 
     return () => {
@@ -119,48 +256,40 @@ export default function GitHubActivity() {
   // Relative time only ever runs on the client, after mount, so the server-
   // rendered markup and the first client render always agree.
   useEffect(() => {
-    setLatestLabel(formatRelative(stats.latestCommitAt));
+    if (!latestPushAt) return;
+    setLatestLabel(formatRelative(latestPushAt));
     const id = setInterval(() => {
-      setLatestLabel(formatRelative(stats.latestCommitAt));
+      setLatestLabel(formatRelative(latestPushAt));
     }, 60_000);
     return () => clearInterval(id);
-  }, [stats.latestCommitAt]);
+  }, [latestPushAt]);
 
-  const max = Math.max(...weeks, 1);
+  const { stats } = githubFallback;
 
   return (
     <div className="mt-10">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <p className="t-label">Shipping cadence</p>
-        <p className="t-label">Last 12 weeks</p>
+        <p className="t-label">
+          {total === null
+            ? "Last 30 days"
+            : `${total} contribution${total === 1 ? "" : "s"} · last 30 days`}
+        </p>
       </div>
 
-      <div
-        className="mt-4 flex items-end gap-2 sm:gap-3"
-        role="img"
-        aria-label={`Commit activity over the last 12 weeks, most recent week busiest at ${max} commits`}
-      >
-        {weeks.map((count, i) => {
-          const tier = tierFor(count, max);
-          return (
-            <span
-              key={i}
-              title={`${count} commit${count === 1 ? "" : "s"}`}
-              className="h-3.5 w-3.5 rounded-[3px] sm:h-4 sm:w-4"
-              style={
-                tier === 0
-                  ? {
-                      border: "1px solid var(--color-rule)",
-                      background: "transparent",
-                    }
-                  : {
-                      border: "1px solid transparent",
-                      background: `rgb(200 160 70 / ${TIER_OPACITY[tier]})`,
-                    }
-              }
-            />
-          );
-        })}
+      <div className="no-scrollbar mt-4 flex items-center gap-1.5 overflow-x-auto py-2">
+        {days.length === 0
+          ? // Pre-load / unavailable: 30 inert outlines. Same footprint as the
+            // loaded strip, so nothing shifts when the real data lands.
+            Array.from({ length: DAY_COUNT }, (_, i) => (
+              <span
+                key={i}
+                aria-hidden="true"
+                className={CELL_CLASS}
+                style={TIER_STYLE[0]}
+              />
+            ))
+          : days.map((day) => <DayCell key={day.date} day={day} />)}
       </div>
 
       <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4">
@@ -183,7 +312,7 @@ export default function GitHubActivity() {
           </p>
         </div>
         <div className="border-t border-rule pt-3">
-          <p className="t-label">Latest Commit</p>
+          <p className="t-label">Latest Push</p>
           <p className="t-figure mt-1.5 text-[1.5rem] text-gold">
             {latestLabel}
           </p>

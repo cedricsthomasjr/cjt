@@ -682,6 +682,18 @@
     color: var(--color-gold-lift);
   }
 
+  /* Hides the scrollbar on the shipping-cadence strip (and anything else
+     that needs a scrollable overflow without the chrome) while staying
+     scrollable by drag, wheel, or trackpad. */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Project screenshots come from apps with loud, unrelated palettes (magenta,
      electric blue). Holding them desaturated at rest lets the grid read as one
      system, and returns their real colour on hover. */

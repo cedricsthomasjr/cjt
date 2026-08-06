@@ -22,8 +22,8 @@ export default function ContactPage() {
         <div>
           <h1 className="t-display">Contact</h1>
           <p className="t-sub-lg mt-4 max-w-md">
-            Open to conversations about machine learning, data platforms,
-            analytics, and anything where the hard part is the data.
+            Open to conversations around high-scale data pipelines, agentic AI
+            systems, or full-stack engineering roles.
           </p>
 
           <div className="card mt-10 p-6 sm:p-8">

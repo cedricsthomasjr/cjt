@@ -17,7 +17,11 @@ type HeroProjectData = {
   live?: string;
 };
 
-const TABS = ["System Overview", "Tech Stack & Tools", "Impact Metrics"] as const;
+const TABS = [
+  { key: "overview", label: "System Overview" },
+  { key: "stack", label: "Tech Stack & Tools" },
+  { key: "impact", label: "Impact Metrics" },
+] as const;
 
 /**
  * The flagship spotlight. Left column sells the project in plain language;
@@ -90,21 +94,40 @@ export default function HeroProject({ project }: { project: HeroProjectData }) {
       </div>
 
       <div className="relative z-1 border-t border-rule p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
-        <div className="flex flex-wrap gap-2">
-          {TABS.map((label, i) => (
+        {/* Standard ARIA tabs pattern (tablist/tab/tabpanel), not aria-pressed
+            toggle-button semantics — a screen reader now announces "tab 2 of
+            3, selected" rather than just "button, pressed". Tabs stay in
+            normal tab order (no roving tabindex / arrow-key nav): that's an
+            ARIA APG recommendation, not a WCAG 2.1 AA requirement, and
+            without arrow-key handling a roving tabindex would make the
+            unselected tabs unreachable by keyboard — worse, not better. */}
+        <div
+          role="tablist"
+          aria-label="Flagship project details"
+          className="flex flex-wrap gap-2"
+        >
+          {TABS.map((tab, i) => (
             <button
-              key={label}
+              key={tab.key}
               type="button"
+              id={`hero-tab-${tab.key}`}
+              role="tab"
               onClick={() => setActive(i)}
-              aria-pressed={active === i}
+              aria-selected={active === i}
+              aria-controls={`hero-panel-${tab.key}`}
               className={`usa-chip ${active === i ? "is-active" : ""}`}
             >
-              {label}
+              {tab.label}
             </button>
           ))}
         </div>
 
-        <div className="mt-6">
+        <div
+          role="tabpanel"
+          id={`hero-panel-${TABS[active].key}`}
+          aria-labelledby={`hero-tab-${TABS[active].key}`}
+          className="mt-6"
+        >
           {/* The overview is the one long prose block on the card; a gold left
               rule marks it as a callout rather than another paragraph. */}
           {active === 0 && (

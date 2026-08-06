@@ -52,10 +52,13 @@ export default function AboutPage() {
           <div>
             <h1 className="t-display">About</h1>
             <p className="t-sub-lg mt-5 max-w-xl">
-              I am CJ — a Computer Science student at NYU working across machine
-              learning, data engineering, and business intelligence. Currently on
-              the AI, Data &amp; Machine Learning Engineering team at NIKE, in
-              Beaverton. The route that got me there is below.
+              I am CJ — a Computer Science student at NYU who specializes in
+              building extremely efficient, high-throughput systems that are
+              just as visually compelling as they are architecturally sound. I
+              just completed an Artificial Intelligence, Data &amp; Machine
+              Learning Engineering internship at NIKE in Beaverton, OR, and
+              I&apos;m back in New York for the NYU semester. The route that
+              got me there is below.
             </p>
           </div>
 

@@ -3,6 +3,7 @@ import GitHubActivity from "@/components/projects/GitHubActivity";
 import HeroProject from "@/components/projects/HeroProject";
 import ProjectsExplorer from "@/components/projects/ProjectsExplorer";
 import projects from "@/data/projects.json";
+import { getRepoStats, withLiveMetrics } from "@/lib/projectStats";
 
 export const metadata = {
   title: "Projects",
@@ -10,8 +11,19 @@ export const metadata = {
     "Projects by CJ Thomas — AI-powered equity research, NBA analytics over a cached pipeline, and a photography portfolio.",
 };
 
-export default function ProjectsPage() {
-  const heroProject = projects.find((p) => p.slug === "bullbrief");
+// Matches src/lib/projectStats.REVALIDATE_SECONDS: the live GitHub-stats
+// fetches this page kicks off are cached under this same window, so setting
+// the page's own revalidate here keeps Vercel regenerating it on the same
+// ~30-minute cadence rather than serving a page that's fresher or staler
+// than the data inside it.
+export const revalidate = 1800;
+
+export default async function ProjectsPage() {
+  const repoStats = await getRepoStats();
+  const liveProjects = projects.map((project) =>
+    withLiveMetrics(project, repoStats)
+  );
+  const heroProject = liveProjects.find((p) => p.slug === "bullbrief");
 
   return (
     <main className="shell section">
@@ -34,7 +46,7 @@ export default function ProjectsPage() {
       )}
 
       <div className="mt-16">
-        <ProjectsExplorer projects={projects} />
+        <ProjectsExplorer projects={liveProjects} />
       </div>
     </main>
   );

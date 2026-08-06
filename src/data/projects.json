@@ -2,16 +2,16 @@
   {
     "title": "BullBrief",
     "slug": "bullbrief",
-    "year": "2025",
+    "year": "2024 — 2025",
     "role": "Solo build",
     "status": "Live",
-    "category": "AI/ML & Agents",
+    "category": "Flagship Consumer Build",
     "image": "/projects/bullbrief.webp",
     "summary": "An equity research tool that reads market data, filings, and earnings, then writes the brief an analyst would have spent an afternoon on.",
-    "overview": "A Next.js frontend and a Flask API split the work: one takes a ticker and renders a structured digest, the other fans out to Yahoo Finance, FMP, and filings data, normalizes it, and runs it through prompts tuned for financial language.",
+    "overview": "BullBrief started at LSU as a scrappy scraper for answering one question faster than reading a 10-K: how's this stock actually doing. It was rebuilt from the ground up at NYU into a real two-service platform — a Next.js/TypeScript frontend on Vercel and a Flask API on Render, running behind bullbrief.pro — that fans out to Yahoo Finance, Financial Modeling Prep, SEC filings, Schwab market data, and OpenAI, then normalizes and writes up what comes back.",
     "impactMetrics": [
-      { "label": "Data sources fused", "value": "4" },
-      { "label": "Report sections", "value": "6" },
+      { "label": "Data sources fused", "value": "5" },
+      { "label": "Flask blueprints", "value": "20+" },
       { "label": "Avg. brief time", "value": "<30s" }
     ],
     "tags": [
@@ -22,12 +22,13 @@
       "Pydantic",
       "pandas",
       "FMP",
-      "yFinance"
+      "yFinance",
+      "Schwab API"
     ],
     "content": [
-      "Equity research starts the same way every time: pull the filings, skim the earnings call, check the fundamentals, and write it up. BullBrief does the pulling and the first draft.",
-      "A Next.js frontend takes a ticker and returns a structured digest — business model, financial health, recent developments. Behind it, a Flask API fans out to Yahoo Finance, FMP, and SEC-adjacent data, normalizes what comes back with pandas, and runs it through prompts tuned for financial language rather than general summarization.",
-      "The hard part was not the AI. It was making a page that stays fast and legible while it waits on four data sources that fail independently."
+      "Equity research starts the same way every time: pull the filings, skim the earnings call, check the fundamentals, and write it up. BullBrief does the pulling and the first draft — and it's the project I've kept rebuilding the longest, from an LSU scraper into the platform running at bullbrief.pro today.",
+      "The frontend and backend split into their own repos once the original monorepo outgrew it: bullbrief-frontend deploys to Vercel, bullbrief-backend deploys to Render behind a Render healthcheck route and an explicit CORS allowlist scoped to bullbrief.pro and local dev. The API itself is 20+ Flask blueprints; the core of it is routes/analyst.py, a ~38KB market-analyst engine that grades sector peers, blends valuation signals, and produces the analyst-style read the frontend renders.",
+      "The hard part wasn't the AI — it was orchestrating high-concurrency financial data streaming and multi-source ingestion across five upstream sources that fail independently, and keeping the LLM output honest by validating it against Pydantic schemas before it ever reaches the page."
     ],
     "features": [
       "Ticker search with autocomplete and validation",
@@ -35,15 +36,170 @@
       "LLM output validated against Pydantic schemas before it reaches the page",
       "Live quotes across major tickers, cached for five minutes via FMP",
       "Daily market movers and a peer Compare mode for side-by-side breakdowns",
-      "Rate-limit and partial-failure handling across four independent upstream sources"
+      "Rate-limit and partial-failure handling across five independent upstream sources"
     ],
     "lessons": [
       "Designing financial interfaces around speed and legibility",
       "Prompting for a domain instead of prompting for a summary",
-      "Degrading gracefully when one of four upstream sources is down"
+      "Degrading gracefully when one of five upstream sources is down"
     ],
     "github": "https://github.com/cedricsthomasjr/bullbrief-frontend",
     "live": "https://bullbrief.pro",
+    "gallery": []
+  },
+  {
+    "title": "Apeirion",
+    "slug": "apeirion",
+    "year": "2026",
+    "role": "Solo build — active",
+    "status": "In Development",
+    "category": "Infrastructure & Systems",
+    "image": null,
+    "summary": "A clinical-data ingestion platform built around strict PII/PHI separation — encrypted identifiers, opaque patient references, and a human-in-the-loop review queue before anything is trusted.",
+    "overview": "Apeirion parses source PDFs of executive health reports into a strictly validated structured payload, then persists it into a PostgreSQL schema where identifiers are encrypted at the application layer with Fernet and clinical data references patients only by opaque UUID — the same PII/PHI separation pattern health-tech platforms run in production, built here to actually practice it end to end.",
+    "impactMetrics": [
+      { "label": "PII/PHI domain tables", "value": "7" },
+      { "label": "Test files", "value": "8" },
+      { "label": "Field encryption", "value": "Fernet" }
+    ],
+    "tags": [
+      "Python",
+      "FastAPI",
+      "SQLAlchemy 2.0",
+      "Alembic",
+      "PostgreSQL",
+      "Pydantic",
+      "Docker"
+    ],
+    "content": [
+      "Started this summer as a from-scratch exercise in the architecture pattern that matters most in health-tech: never let identifying information and clinical data share a table, and never trust a document until a human has looked at what got extracted from it.",
+      "A FastAPI service validates every extracted document against a Pydantic schema with `extra=\"forbid\"` and clinical sanity checks before ingestion, then writes it through SQLAlchemy 2.0 models with idempotent, blind-index deduplication so the same report can't be ingested twice under a different filename. Anything the extractor is unsure about lands in a human-in-the-loop review queue instead of the datastore, and every write passes through audit middleware that logs who touched what.",
+      "Two commits, four days apart, and then paused mid-sprint — it's an active build, not a finished product, and it's here because the schema design and the encryption boundary are worth showing even before there's a UI in front of them."
+    ],
+    "features": [
+      "Fernet field-level encryption on all PII, with blind-index columns for lookup without decryption",
+      "Strict PII/PHI table separation — patients only ever referenced by opaque UUID elsewhere",
+      "Idempotent ingestion with blind-index dedup so re-uploads can't duplicate a record",
+      "Human-in-the-loop review queue for anything the extractor flags as uncertain",
+      "Audit middleware logging every write against the datastore",
+      "Alembic migrations, docker-compose, and a written PII/PHI security model in docs/SECURITY.md"
+    ],
+    "lessons": [
+      "Designing a schema around a hard privacy boundary instead of bolting encryption on after",
+      "Making ingestion idempotent so a retried or duplicated upload can't corrupt state",
+      "Writing an audit trail as a first-class part of the data model, not a logging afterthought"
+    ],
+    "github": "https://github.com/cedricsthomasjr/apeirion",
+    "live": "",
+    "gallery": []
+  },
+  {
+    "title": "This Site",
+    "slug": "cjt",
+    "year": "2025 — Present",
+    "role": "Solo build — continuous",
+    "status": "Live",
+    "category": "Full-Stack",
+    "image": null,
+    "summary": "The portfolio you're on right now — rebuilt more times than any other repo I own, most recently around a Helvetica Neue Bold / Palatino Italic type system and a live GitHub-stats pipeline.",
+    "overview": "Maintained continuously since LSU, this site has gone through several full rebuilds rather than incremental patches — most recently a ground-up pass onto a two-register type system (Helvetica Neue Bold for structure, Palatino Italic for voice) and, as of this build, a live data pipeline that pulls real commit and language stats from GitHub's GraphQL API on a 30-minute revalidation window instead of hand-typed numbers.",
+    "impactMetrics": [
+      { "label": "Source files", "value": "89" },
+      { "label": "Committed build artifacts", "value": "0" },
+      { "label": "Dependency automation", "value": "Dependabot" }
+    ],
+    "tags": ["Next.js", "TypeScript", "Tailwind CSS", "Vercel", "GitHub GraphQL API"],
+    "content": [
+      "This project is the site itself, so it's a little recursive to list — but the engineering underneath it is exactly the kind of thing the rest of this page is trying to show: a design system built by hand instead of assembled from defaults, and a data layer that stays honest by fetching real numbers instead of hard-coding plausible ones.",
+      "The project ledger you're reading right now sources its commit counts, star counts, and primary languages from GitHub's GraphQL API at request time, cached with Next.js's ISR revalidation so the numbers refresh roughly every 30 minutes without a redeploy. A build-time script writes the same shape to a committed JSON file as a fallback for whenever the live token or the GitHub API isn't available — the same fail-soft pattern the shipping-cadence strip above the ledger already used.",
+      "89 tracked files, zero build artifacts checked in, and a Dependabot pipeline keeping dependencies current — the boring hygiene the rest of my repos don't all have, deliberately kept boring here."
+    ],
+    "features": [
+      "Live GitHub-stats pipeline powering this exact project ledger's metric badges",
+      "Proper ARIA tabs pattern on the hero and ledger tab panels",
+      "Animated ledger tray that measures and transitions to its real content height",
+      "Interactive USA map component and an impact calculator on the résumé page",
+      "Dependabot-managed dependency updates"
+    ],
+    "lessons": [
+      "Building a live data pipeline instead of a plausible-looking static array",
+      "Fail-soft design: a missing token degrades gracefully rather than breaking the page",
+      "Keeping a repo's hygiene as intentional as its design"
+    ],
+    "github": "https://github.com/cedricsthomasjr/cjt",
+    "live": "https://cjst.dev",
+    "gallery": []
+  },
+  {
+    "title": "CrossyAnt",
+    "slug": "crossyant",
+    "year": "2025",
+    "role": "Solo build — coursework",
+    "status": "Archived",
+    "category": "Leisure Build",
+    "image": null,
+    "summary": "A Frogger/Crossy Road-inspired game with a hand-rolled 2D engine — custom collision detection, sprite rendering, and task scheduling, no game engine underneath any of it.",
+    "overview": "My first real engineering project: a currency-and-powerup game built entirely on top of Java's Swing, with every piece of the engine — collision detection, sprite rendering, and the task scheduler driving spawns and timers — written by hand instead of pulled from a game framework.",
+    "impactMetrics": [
+      { "label": "Java source files", "value": "51" },
+      { "label": "Engine", "value": "Hand-rolled" }
+    ],
+    "tags": ["Java", "Swing", "Object-Oriented Design", "Custom Game Engine"],
+    "content": [
+      "Built at LSU as a first serious engineering project, modeled on Frogger and Crossy Road: dodge traffic, collect coins, spend them on power-ups and debuffs, survive.",
+      "There's no game engine underneath it — Swing provides the window and the paint surface, and everything from there is custom: a collision handler tracking sprite bounds, a sprite-component system for rendering and animation state, and a decoupled task scheduler running spawn timers, buffs, and the clock independent of the render loop.",
+      "It's archived because it's finished, not because it's disowned — the collision and scheduling code is the part worth showing, and it hasn't needed touching since it shipped."
+    ],
+    "features": [
+      "Custom 2D collision detection between the player, enemies, and hazards",
+      "Sprite rendering and animation pipeline built on Swing's paint surface",
+      "Decoupled task scheduler driving enemy spawns, timers, and power-up buffs",
+      "In-game currency, shop, power-ups, and debuffs",
+      "High-score persistence"
+    ],
+    "lessons": [
+      "Structuring a real-time render loop without a framework underneath it",
+      "Decoupling game timing from rendering so one can't stall the other",
+      "Object-oriented design under the constraint of an actual deadline"
+    ],
+    "github": "https://github.com/cedricsthomasjr/CrossyAnt",
+    "live": "",
+    "gallery": []
+  },
+  {
+    "title": "Flight Operations System",
+    "slug": "air-ticket-system",
+    "year": "2026",
+    "role": "Team project — coursework",
+    "status": "Archived",
+    "category": "Full-Stack",
+    "image": null,
+    "summary": "A transactional flight-booking system built for NYU's Database Systems final — a real relational schema, staff and customer roles, and parameterized queries under concurrent writes.",
+    "overview": "Built for NYU's Database Systems final project: a Flask app backed by a genuinely relational MySQL schema — nine tables covering flights, airports, airplanes, customers, staff, and bookings — with staff and customer flows kept separate and every query written by hand rather than through an ORM, so the SQL itself was the thing being graded.",
+    "impactMetrics": [
+      { "label": "Relational tables", "value": "9" },
+      { "label": "Query style", "value": "Parameterized SQL" }
+    ],
+    "tags": ["Python", "Flask", "MySQL", "SQL"],
+    "content": [
+      "A course final built around the part database classes actually test: can you design a normalized relational schema and then write correct, parameterized queries against it under real use cases — search flights, book a ticket, rate a flight, report on staff performance.",
+      "The schema (schema.sql) and seed data (seed.sql) are both declarative and checked into the repo, alongside a CSV import script for loading flight data and a written set of use cases and queries documenting what each endpoint has to support. Staff and customer roles get separate authenticated flows rather than one shared view with conditionals sprinkled through it.",
+      "Finished and graded, not maintained since — left up because the schema design and the query set are the actual deliverable, more than the templated Flask views around them."
+    ],
+    "features": [
+      "Nine-table relational schema (schema.sql) with declarative seed fixtures (seed.sql)",
+      "Parameterized queries throughout — no raw string interpolation into SQL",
+      "Separate staff and customer authenticated flows",
+      "Flight search, booking, and ratings",
+      "CSV import script for loading flight data"
+    ],
+    "lessons": [
+      "Normalizing a relational schema for a domain with real many-to-many relationships",
+      "Writing parameterized queries by hand instead of leaning on an ORM",
+      "Translating written use cases directly into the queries that satisfy them"
+    ],
+    "github": "https://github.com/cedricsthomasjr/air-ticket-system",
+    "live": "",
     "gallery": []
   },
   {
@@ -52,7 +208,7 @@
     "year": "2025",
     "role": "Personal build",
     "status": "Archived",
-    "category": "Data Engineering",
+    "category": "Leisure Build",
     "image": "/projects/athlytics.webp",
     "summary": "NBA player analytics — career stats from the NBA's own API, awards history from a targeted headless-browser scrape, both served through a two-tier cache.",
     "tags": [
@@ -67,7 +223,7 @@
     ],
     "content": [
       "A basketball research tool built to answer the arguments that come up constantly and get settled badly: who actually had the better peak, how a season stacks up historically, what the award voting really looked like.",
-      "The interesting engineering is the pipeline rather than the interface. Most of what the app needs — game logs, shot charts, advanced stats, bios — comes straight from the NBA's own stats API. Awards and voting history don't: that page is JavaScript-rendered, so a headless Chrome instance loads it and BeautifulSoup parses what comes back. Both paths land in the same two-tier cache — a Flask-Caching layer in front, and a disk-first JSON cache underneath that checks for a saved record before the scraper ever runs again.",
+      "Athlytics was engineered to transform raw, unstructured fitness telemetry into sub-second visual performance analytics. Most of what the app needs — game logs, shot charts, advanced stats, bios — comes straight from the NBA's own stats API. Awards and voting history don't: that page is JavaScript-rendered, so a headless Chrome instance loads it and BeautifulSoup parses what comes back. Both paths land in the same two-tier cache — a Flask-Caching layer in front, and a disk-first JSON cache underneath that checks for a saved record before the scraper ever runs again.",
       "Archived at the point where the data layer worked and the interface had not caught up. Left up because the caching approach — and knowing when to scrape versus when to call an API — is the part worth showing."
     ],
     "features": [

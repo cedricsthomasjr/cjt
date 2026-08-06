@@ -143,11 +143,11 @@ export const TIMELINE_DATA: TimelineStop[] = [
   },
   {
     id: "ct-corbin-2",
-    period: "Dec 2024 — Jan 2025 (Remote)",
+    period: "Dec 2024 — Jan 2025",
     companyOrContext: "Corbin Advisors",
     roleTitle: "Analytics & Automation Intern",
     location: {
-      cityState: "Farmington, CT",
+      cityState: "Farmington, CT (Remote)",
       coordinates: [-72.832, 41.72],
     },
     narrativeSummary:
@@ -157,7 +157,7 @@ export const TIMELINE_DATA: TimelineStop[] = [
     ],
     frameworkSkills: toSkills(
       ["VBA (Visual Basic for Applications)", "Wireframing", "Excel Macros", "Data Visualization", "Process Automation"],
-      "Corbin Advisors (Remote)",
+      "Corbin Advisors (Farmington, CT · Remote)",
       "Dec 2024 — Jan 2025"
     ),
     tricksOfTheTrade: [

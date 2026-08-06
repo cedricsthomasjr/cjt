@@ -10,6 +10,10 @@ export const contactLinks = {
   email: "cst9351@nyu.edu",
   phone: "(216) 406-4458",
   phoneHref: "tel:+12164064458",
+  // Back in New York, NY for the NYU semester as of Aug 2026 — the Nike
+  // Beaverton, OR internship (Jun–Aug 2026) wrapped. Atlanta, GA stays listed
+  // as home base alongside NYC. Update this note (and the About page intro)
+  // once there's a new "currently" to describe.
   location: "New York, NY / Atlanta, GA",
   github: "https://github.com/cedricsthomasjr/",
   linkedin: "https://www.linkedin.com/in/cedric-thomas-jr/",
@@ -92,7 +96,7 @@ export const resumeSections = [
       {
         title: "Analytics & Automation Intern",
         org: "Corbin Advisors",
-        place: "Farmington, CT · Remote",
+        place: "Farmington, CT (Remote)",
         time: "Dec 2024 — Jan 2025",
         bullets: [
           "Data Visualization: Modeled and transformed complex datasets into clear, compelling visual representations to support executive decision-making.",
@@ -192,9 +196,16 @@ export const resumeSections = [
   {
     title: "Skills",
     // Each skill carries learnedWhere/learnedWhen so the Skills section can
-    // show provenance on hover — sourced from the same stops as
-    // src/data/timelineData.ts's frameworkSkills, not re-derived, so the two
-    // never drift apart.
+    // show provenance on hover. Most entries are sourced from the same stops
+    // as src/data/timelineData.ts's frameworkSkills, not re-derived, so the
+    // two stay in sync automatically. Exceptions: "Agile" and "Enterprise AI
+    // Agent Orchestration" (both under Nike, Concepts row) are hand-added —
+    // they're methodologies rather than frameworkSkills' "tech stack, tools,
+    // frameworks" per its own type comment, so they were never in
+    // timelineData.ts to begin with. Their learnedWhere/learnedWhen ("Nike
+    // (Beaverton)" / "2025/2026") are still kept aligned by hand with every
+    // other Nike-tagged skill below, covering the Jun 2026 — Aug 2026
+    // internship.
     items: [
       // Ordered foundational → advanced within each row, so the hover cards
       // trace the same Pace → LSU → Corbin → NYU → Nike route the timeline does.
@@ -220,8 +231,8 @@ export const resumeSections = [
           skill("Web Scraping", "Corbin Advisors (Farmington, CT)", "Jul 2024 — Aug 2024"),
           skill("Data Management", "Corbin Advisors (Farmington, CT)", "Jul 2024 — Aug 2024"),
           skill("Data Science", "Corbin Advisors (Farmington, CT)", "Jul 2024 — Aug 2024"),
-          skill("Data Visualization", "Corbin Advisors (Remote)", "Dec 2024 — Jan 2025"),
-          skill("Process Automation", "Corbin Advisors (Remote)", "Dec 2024 — Jan 2025"),
+          skill("Data Visualization", "Corbin Advisors (Farmington, CT · Remote)", "Dec 2024 — Jan 2025"),
+          skill("Process Automation", "Corbin Advisors (Farmington, CT · Remote)", "Dec 2024 — Jan 2025"),
           skill(
             "Business Intelligence",
             "Corbin Advisors (Farmington, CT)",
@@ -232,7 +243,7 @@ export const resumeSections = [
           skill("Market Research", "Corbin Advisors (Farmington, CT)", "Jun 2025 — Aug 2025"),
           skill("Investor Relations Strategy", "Corbin Advisors (Farmington, CT)", "Jun 2025 — Aug 2025"),
           skill("Full-Stack Development", "NYU (New York, NY)", "Aug 2025 — Dec 2027"),
-          skill("Agile", "NIKE, Inc. (Beaverton, OR)", "Jun 2026 — Aug 2026"),
+          skill("Agile", "Nike (Beaverton)", "2025/2026"),
           skill(
             "Enterprise AI Agent Orchestration",
             "Nike (Beaverton)",
@@ -245,9 +256,9 @@ export const resumeSections = [
         skills: [
           skill("Git", "LSU (Baton Rouge, LA)", "Aug 2023 — May 2025"),
           skill("REST APIs", "Corbin Advisors (Farmington, CT)", "Jul 2024 — Aug 2024"),
-          skill("VBA (Visual Basic for Applications)", "Corbin Advisors (Remote)", "Dec 2024 — Jan 2025"),
-          skill("Wireframing", "Corbin Advisors (Remote)", "Dec 2024 — Jan 2025"),
-          skill("Excel Macros", "Corbin Advisors (Remote)", "Dec 2024 — Jan 2025"),
+          skill("VBA (Visual Basic for Applications)", "Corbin Advisors (Farmington, CT · Remote)", "Dec 2024 — Jan 2025"),
+          skill("Wireframing", "Corbin Advisors (Farmington, CT · Remote)", "Dec 2024 — Jan 2025"),
+          skill("Excel Macros", "Corbin Advisors (Farmington, CT · Remote)", "Dec 2024 — Jan 2025"),
           skill(
             "Microsoft Suite (Word, Excel, PowerPoint)",
             "Corbin Advisors (Farmington, CT)",
