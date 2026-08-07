@@ -174,7 +174,7 @@ export default function C2CPage() {
 
       <Reveal>
         <section className="shell section pt-0">
-          <h2 className="t-label-gold">What's built in</h2>
+          <h2 className="t-label-gold">What&apos;s built in</h2>
           <hr className="hairline-gold mt-3" />
 
           <Stagger
@@ -197,7 +197,7 @@ export default function C2CPage() {
         <h2 className="t-h2">Growth Subscription vs. One-Time Build</h2>
         <p className="t-sub-lg mt-3 max-w-xl">
           Same standard of work either way. The only real question is whether
-          you'd rather pay monthly or pay once.
+          you&apos;d rather pay monthly or pay once.
         </p>
 
         <Stagger className="mt-8 grid gap-4 lg:grid-cols-2" step={80}>
@@ -247,9 +247,9 @@ export default function C2CPage() {
                 Book your free 2-minute audit.
               </h2>
               <p className="t-sub-lg mt-4 max-w-md">
-                Tell me a bit about the business and I'll follow up with a
-                short read on where the current site is costing you and what
-                fixing it looks like.
+                Tell me a bit about the business and I&apos;ll follow up with
+                a short read on where the current site is costing you and
+                what fixing it looks like.
               </p>
 
               <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3">
