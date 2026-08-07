@@ -8,6 +8,7 @@ import { contactLinks } from "@/data/resume";
 
 const links = [
   { href: "/projects", label: "Projects" },
+  { href: "/c2c", label: "C2C" },
   { href: "/about", label: "About" },
   { href: "/resume", label: "Resume" },
   { href: "/contact", label: "Contact" },
