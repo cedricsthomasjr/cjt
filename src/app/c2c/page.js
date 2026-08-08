@@ -13,6 +13,13 @@ import { contactLinks } from "@/data/resume";
 const LAUNCH_DATE = new Date("2026-09-01T00:00:00Z");
 const isLive = () => Date.now() >= LAUNCH_DATE.getTime();
 
+// How many build slots are open this month. A real number, not a decorative
+// one — update it as the intake list actually fills. Recomputed on every
+// revalidation, same as isLive(), so the month name never goes stale.
+const CLIENT_CAPACITY = { taken: 2, total: 3 };
+const currentMonthLabel = () =>
+  new Date().toLocaleString("en-US", { month: "long" });
+
 // Static by default, but re-checked on this cadence so the gate lifts itself
 // at launch without needing a redeploy. Matches the pattern on /projects.
 export const revalidate = 3600;
@@ -88,7 +95,7 @@ const PRICING = [
     title: "Growth Subscription",
     price: "$199",
     period: "/mo",
-    text: "The site is built, hosted, and maintained for one recurring number — nothing due before launch.",
+    text: "Zero upfront cost. Fully managed hosting, ongoing speed optimization, and unlimited content updates included.",
     features: [
       "Custom build included, no separate project fee",
       "Hosting, monitoring, and uptime handled",
@@ -101,7 +108,7 @@ const PRICING = [
     title: "One-Time Build",
     price: "$1,500",
     period: "flat",
-    text: "One project, one invoice — the site is yours outright the day it launches.",
+    text: "One-time custom build. Full code transfer; you handle hosting, updates, and ongoing site maintenance.",
     features: [
       "Custom-built site, owned outright at launch",
       "Flat price, nothing recurring",
@@ -110,6 +117,17 @@ const PRICING = [
     ],
   },
 ];
+
+/**
+ * The one objection the pricing grid can't resolve on its own: why pay
+ * monthly at all when the flat build is cheaper by month eight. Answered
+ * once, directly, instead of leaving it for the visitor to do the math.
+ */
+const PRICING_FAQ = {
+  question: "Why $199/mo vs $1,500 one-time?",
+  answer:
+    "The subscription isn't just the build spread out — it includes hosting, monitoring, and my time every month to keep the site fast and current. The one-time build hands you the finished code outright at launch; hosting, updates, and maintenance become yours to handle or contract separately from there.",
+};
 
 /**
  * C2C is a service offer, not a portfolio piece — the register shifts from
@@ -130,7 +148,21 @@ export default function C2CPage() {
     <main>
       <section className="shell flex min-h-[calc(100svh-4rem)] items-center py-16 sm:py-24">
         <div className="max-w-3xl">
-          <p className="t-label-gold">CJ to Client</p>
+          <span className="pill pill-gold">
+            <svg
+              width="7"
+              height="7"
+              viewBox="0 0 7 7"
+              aria-hidden="true"
+              className="mr-1.5"
+            >
+              <circle cx="3.5" cy="3.5" r="3.5" fill="var(--color-gold)" />
+            </svg>
+            Currently accepting {CLIENT_CAPACITY.taken} of{" "}
+            {CLIENT_CAPACITY.total} local clients for {currentMonthLabel()}
+          </span>
+
+          <p className="t-label-gold mt-5">CJ to Client</p>
 
           <h1 className="t-display mt-5">
             CJ to Client (C2C): Custom Web Development &amp; Zero-Headache
@@ -146,9 +178,29 @@ export default function C2CPage() {
 
           <div className="mt-9 flex flex-wrap gap-3">
             <Link href="#audit" className="btn-solid">
-              Request a Free 2-Minute Audit
+              Get Your 2-Min Custom Video Audit
             </Link>
           </div>
+
+          <p className="t-sub-sm mt-3 max-w-md">
+            We&apos;ll send a 2-minute Loom breakdown of the top 3 conversion
+            leaks on your current site within 24 hours.
+          </p>
+
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+            <a
+              href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fcjst.dev"
+              target="_blank"
+              rel="noreferrer"
+              className="link-rule text-[0.8125rem]"
+            >
+              Test our speed: run this site on Google PageSpeed Insights
+            </a>
+          </div>
+
+          <p className="t-sub-sm mt-4 text-gold">
+            Sub-second load times guaranteed or 100% money back.
+          </p>
         </div>
       </section>
 
@@ -230,11 +282,16 @@ export default function C2CPage() {
               </ul>
 
               <Link href="#audit" className="btn mt-8 w-full">
-                Talk through this option
+                Get Your 2-Min Custom Video Audit
               </Link>
             </article>
           ))}
         </Stagger>
+
+        <div className="mt-10 max-w-2xl border-t border-rule pt-8">
+          <h3 className="t-h3">{PRICING_FAQ.question}</h3>
+          <p className="t-sub-sm mt-3">{PRICING_FAQ.answer}</p>
+        </div>
       </section>
 
       <Connector />
@@ -244,12 +301,12 @@ export default function C2CPage() {
           <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
             <div>
               <h2 className="t-display" style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)" }}>
-                Book your free 2-minute audit.
+                Get your 2-min custom video audit.
               </h2>
               <p className="t-sub-lg mt-4 max-w-md">
-                Tell me a bit about the business and I&apos;ll follow up with
-                a short read on where the current site is costing you and
-                what fixing it looks like.
+                Tell me a bit about the business and I&apos;ll send back a
+                2-minute Loom breakdown of the top 3 conversion leaks on the
+                current site — within 24 hours.
               </p>
 
               <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3">
