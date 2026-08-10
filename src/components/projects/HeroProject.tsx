@@ -42,7 +42,7 @@ export default function HeroProject({ project }: { project: HeroProjectData }) {
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 100% 0%, rgb(200 160 70 / 0.10), transparent 70%)",
+            "radial-gradient(ellipse 60% 50% at 100% 0%, rgb(200 64 54 / 0.10), transparent 70%)",
         }}
       />
 

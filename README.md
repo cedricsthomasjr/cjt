@@ -20,16 +20,16 @@ self-hosted in `public/fonts` at ~46 KB total. The webfonts sit *ahead* of Helve
 Arial in the stack because Windows silently substitutes Arial for Helvetica; browsers
 only download a webfont they actually use, so Mac visitors pay nothing for them.
 
-Tokens live in `@theme` in `src/app/globals.css`. Gold is deliberately scarce — under
-about 5% of pixels — because it reads cheap at any higher dose.
+Tokens live in `@theme` in `src/app/globals.css`. The accent is deliberately scarce —
+under about 5% of pixels — because it reads cheap at any higher dose.
 
 | Token | Value | Use |
 | --- | --- | --- |
 | `--color-ink` | `#08080A` | page |
 | `--color-raised` | `#101014` | panels |
 | `--color-rule` | `#1E1E24` | hairlines |
-| `--color-gold` | `#C8A046` | accent, figures |
-| `--color-gold-lift` | `#E8CE8A` | hover |
+| `--color-gold` | `#C84036` | accent, figures |
+| `--color-gold-lift` | `#E8908A` | hover |
 | `--color-bone` | `#ECE9E2` | text |
 | `--color-muted` | `#8A8781` | subtext |
 

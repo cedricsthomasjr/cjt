@@ -61,17 +61,17 @@ const TIER_STYLE: Record<number, CSSProperties> = {
     background: "transparent",
   },
   1: {
-    border: "1px solid rgb(200 160 70 / 0.35)",
-    background: "rgb(200 160 70 / 0.16)",
+    border: "1px solid rgb(200 64 54 / 0.35)",
+    background: "rgb(200 64 54 / 0.16)",
   },
   2: {
-    border: "1px solid rgb(200 160 70 / 0.55)",
-    background: "rgb(200 160 70 / 0.38)",
+    border: "1px solid rgb(200 64 54 / 0.55)",
+    background: "rgb(200 64 54 / 0.38)",
   },
   3: {
     border: "1px solid var(--color-gold)",
-    background: "rgb(200 160 70 / 0.65)",
-    boxShadow: "0 2px 10px rgb(200 160 70 / 0.25)",
+    background: "rgb(200 64 54 / 0.65)",
+    boxShadow: "0 2px 10px rgb(200 64 54 / 0.25)",
   },
   4: {
     border: "1px solid var(--color-gold-lift)",

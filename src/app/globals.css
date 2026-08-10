@@ -42,8 +42,8 @@
   --color-ink: #08080a;
   --color-raised: #101014;
   --color-rule: #1e1e24;
-  --color-gold: #c8a046;
-  --color-gold-lift: #e8ce8a;
+  --color-gold: #c84036;
+  --color-gold-lift: #e8908a;
   --color-bone: #ece9e2;
   --color-muted: #8a8781;
 
@@ -52,8 +52,8 @@
     Georgia, serif;
 
   --radius-card: 10px;
-  --glow-gold: 0 14px 40px -10px rgb(200 160 70 / 0.14);
-  --glow-gold-strong: 0 18px 50px -10px rgb(200 160 70 / 0.26);
+  --glow-gold: 0 14px 40px -10px rgb(200 64 54 / 0.14);
+  --glow-gold-strong: 0 18px 50px -10px rgb(200 64 54 / 0.26);
 }
 
 @layer base {
@@ -105,7 +105,7 @@
     pointer-events: none;
     background-image: radial-gradient(
       circle,
-      rgb(200 160 70 / 0.07) 1px,
+      rgb(200 64 54 / 0.07) 1px,
       transparent 1px
     );
     background-size: 22px 22px;
@@ -523,7 +523,7 @@
     pointer-events: none;
     background: radial-gradient(
       16rem circle at var(--cx, 50%) var(--cy, 50%),
-      rgb(200 160 70 / 0.09),
+      rgb(200 64 54 / 0.09),
       transparent 62%
     );
     opacity: 0;
@@ -537,7 +537,7 @@
   .card-hover:hover,
   .card-hover:focus-within {
     transform: translateY(-4px);
-    border-color: rgb(200 160 70 / 0.42);
+    border-color: rgb(200 64 54 / 0.42);
     box-shadow: var(--glow-gold-strong);
   }
 
@@ -624,12 +624,12 @@
   }
 
   .group:hover .pill {
-    border-color: rgb(200 160 70 / 0.35);
+    border-color: rgb(200 64 54 / 0.35);
     color: var(--color-bone);
   }
 
   .pill-gold {
-    border-color: rgb(200 160 70 / 0.5);
+    border-color: rgb(200 64 54 / 0.5);
     color: var(--color-gold);
   }
 
@@ -644,7 +644,7 @@
 
   .skillpill:hover,
   .skillpill:focus-visible {
-    border-color: rgb(200 160 70 / 0.5);
+    border-color: rgb(200 64 54 / 0.5);
     color: var(--color-bone);
     outline: none;
   }
@@ -656,7 +656,7 @@
     z-index: 60;
     max-width: min(78vw, 15.5rem);
     border-radius: 8px;
-    border: 1px solid rgb(200 160 70 / 0.35);
+    border: 1px solid rgb(200 64 54 / 0.35);
     background: linear-gradient(158deg, #0c0c10 0%, #141419 100%);
     box-shadow: var(--glow-gold-strong);
     padding: 0.625rem 0.75rem;
@@ -717,7 +717,7 @@
   }
 
   .tile:hover {
-    border-color: rgb(200 160 70 / 0.45);
+    border-color: rgb(200 64 54 / 0.45);
     transform: translateY(-4px);
   }
 
@@ -785,7 +785,7 @@
     transition: opacity 0.6s ease;
     background-image: radial-gradient(
       circle,
-      rgb(200 160 70 / 0.5) 1px,
+      rgb(200 64 54 / 0.5) 1px,
       transparent 1.3px
     );
     background-size: 22px 22px;
@@ -934,7 +934,7 @@
     background: linear-gradient(
       to bottom,
       transparent,
-      rgb(200 160 70 / 0.24),
+      rgb(200 64 54 / 0.24),
       transparent
     );
     animation: plate-scan 2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
@@ -966,7 +966,7 @@
     pointer-events: none;
     background: radial-gradient(
       ellipse at 50% 45%,
-      rgb(200 160 70 / 0.18),
+      rgb(200 64 54 / 0.18),
       transparent 68%
     );
     filter: blur(30px);
@@ -1284,7 +1284,7 @@
 
   .usa-chip:hover {
     color: var(--color-bone);
-    border-color: rgb(200 160 70 / 0.4);
+    border-color: rgb(200 64 54 / 0.4);
   }
 
   .usa-chip.is-active {
@@ -1355,7 +1355,7 @@
     border-radius: 999px;
     background: var(--color-gold-lift);
     border: 2px solid var(--color-ink);
-    box-shadow: 0 0 0 1px rgb(200 160 70 / 0.5);
+    box-shadow: 0 0 0 1px rgb(200 64 54 / 0.5);
     transition: transform 0.2s ease;
   }
 
@@ -1365,7 +1365,7 @@
     border-radius: 999px;
     background: var(--color-gold-lift);
     border: 2px solid var(--color-ink);
-    box-shadow: 0 0 0 1px rgb(200 160 70 / 0.5);
+    box-shadow: 0 0 0 1px rgb(200 64 54 / 0.5);
   }
 
   .impcalc-range:hover::-webkit-slider-thumb,
@@ -1401,7 +1401,7 @@
 
   .impcalc-tick:hover {
     color: var(--color-bone);
-    border-color: rgb(200 160 70 / 0.4);
+    border-color: rgb(200 64 54 / 0.4);
   }
 
   .impcalc-tick.is-active {
@@ -1505,7 +1505,7 @@
     background: linear-gradient(
       to bottom,
       var(--color-gold),
-      rgb(200 160 70 / 0.1)
+      rgb(200 64 54 / 0.1)
     );
   }
 
