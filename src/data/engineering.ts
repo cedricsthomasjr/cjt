@@ -8,7 +8,7 @@
 
 export const currentFocus = {
   status: "Active Sprint",
-  focus: "Enterprise AI Agent Orchestration & Pipeline Automation",
+  focus: "BullBrief 2.0.0",
   tags: ["AWS Bedrock", "Databricks", "Pydantic", "AWS Strands SDK"],
 };
 

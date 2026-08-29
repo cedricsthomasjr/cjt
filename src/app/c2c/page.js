@@ -6,11 +6,11 @@ import C2CIntakeForm from "@/components/c2c/C2CIntakeForm";
 import { contactLinks } from "@/data/resume";
 
 /**
- * The offer is finished but the infra behind it (intake routing, payment
- * collection, the actual onboarding workflow) isn't, so the page stays
- * behind a gate until it is. September 1, 2026, UTC.
+ * The offer went live ahead of the original September 1 target — cj2client.com
+ * is up and taking clients, so the gate stays in the code (in case a future
+ * offer needs the same pattern) but is pinned open.
  */
-const LAUNCH_DATE = new Date("2026-09-01T00:00:00Z");
+const LAUNCH_DATE = new Date("2026-08-01T00:00:00Z");
 const isLive = () => Date.now() >= LAUNCH_DATE.getTime();
 
 // How many build slots are open this month. A real number, not a decorative
@@ -180,6 +180,14 @@ export default function C2CPage() {
             <Link href="#audit" className="btn-solid">
               Get Your 2-Min Custom Video Audit
             </Link>
+            <a
+              href="https://cj2client.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn"
+            >
+              Visit the live C2C site
+            </a>
           </div>
 
           <p className="t-sub-sm mt-3 max-w-md">
