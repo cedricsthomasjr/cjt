@@ -53,8 +53,8 @@ notes" per section below.
 
 New `src/data/engineering.ts`:
 - `currentFocus`: `{ status: "Active Sprint", focus: "Enterprise AI Agent
-  Orchestration & Pipeline Automation", tags: ["AWS Bedrock", "Databricks",
-  "Pydantic", "TypeScript"] }` — copy confirmed accurate, used verbatim.
+  Orchestration & Pipeline Automation", tags: ["FMP", "Massive",
+  "OpenAI API"] }` — copy confirmed accurate, used verbatim.
 - `githubFallback`: a hand-authored snapshot matching the shape the live fetch
   produces — `{ weeks: number[12], stats: { reposShipped, primaryStack,
   engineeringFocus, latestCommitAt } }` — used when the live fetch fails, and
