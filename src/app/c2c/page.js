@@ -6,11 +6,11 @@ import C2CIntakeForm from "@/components/c2c/C2CIntakeForm";
 import { contactLinks } from "@/data/resume";
 
 /**
- * The offer went live ahead of the original September 1 target — cj2client.com
- * is up and taking clients, so the gate stays in the code (in case a future
- * offer needs the same pattern) but is pinned open.
+ * Launch pushed back to December 1 — infra and workflows still aren't ready.
+ * Until then /c2c renders the "coming soon" teaser below. The gate re-checks
+ * hourly via ISR revalidation and flips itself with no redeploy required.
  */
-const LAUNCH_DATE = new Date("2026-08-01T00:00:00Z");
+const LAUNCH_DATE = new Date("2026-12-01T00:00:00Z");
 const isLive = () => Date.now() >= LAUNCH_DATE.getTime();
 
 // How many build slots are open this month. A real number, not a decorative
@@ -28,7 +28,7 @@ export async function generateMetadata() {
   if (!isLive()) {
     return {
       title: "C2C",
-      description: "Something for local businesses. Coming September 1.",
+      description: "Something for local businesses. Coming December 1.",
       // Nothing to index yet — the reveal is the point.
       robots: { index: false, follow: false },
     };
@@ -360,7 +360,7 @@ function C2CComingSoon() {
           <hr className="hairline-gold mt-6 max-w-xs" />
 
           <p className="t-sub-lg mt-6 max-w-md">
-            Not ready to show yet. This page stays quiet until September 1.
+            Not ready to show yet. This page stays quiet until December 1.
           </p>
         </div>
       </section>
